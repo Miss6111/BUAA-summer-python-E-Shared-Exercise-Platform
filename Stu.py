@@ -1,11 +1,14 @@
 import sqlalchemy
+import openpyxl
 from sqlalchemy import MetaData
-from sqlalchemy import Table, Column
+from sqlalchemy import Table,Column
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-import sqlalchemy.orm.session  # 数据库操作核心
+from PyQt5 import QtCore, QtGui, QtWidgets
+import sqlalchemy.orm.session#数据库操作核心
 from sqlalchemy import Column
-from sqlalchemy.ext.declarative import declarative_base  # 父类
+from sqlalchemy.ext.declarative import declarative_base #父类
+from sqlalchemy import or_,and_,all_,any_
 
 Base = declarative_base()
 DB_connect = 'mysql+mysqldb://root:1012416935@localhost/Test'
