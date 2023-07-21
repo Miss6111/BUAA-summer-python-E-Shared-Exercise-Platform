@@ -1,18 +1,34 @@
 import sqlalchemy
 import openpyxl
 from sqlalchemy import MetaData
-from sqlalchemy import Table,Column
+from sqlalchemy import Table, Column
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from PyQt5 import QtCore, QtGui, QtWidgets
-import sqlalchemy.orm.session#数据库操作核心
+import sqlalchemy.orm.session  # 数据库操作核心
 from sqlalchemy import Column
-from sqlalchemy.ext.declarative import declarative_base #父类
-from sqlalchemy import or_,and_,all_,any_
+from sqlalchemy.ext.declarative import declarative_base  # 父类
+from sqlalchemy import or_, and_, all_, any_
 
 Base = declarative_base()
 DB_connect = 'mysql+mysqldb://root:1012416935@localhost/Test'
 engine = create_engine(DB_connect, echo=False)
+
+
+# 评论表
+class Comments(Base):
+    __tablename__ = 'comments';
+    id = sqlalchemy.Column(sqlalchemy.BIGINT, primary_key=True)
+    sender = sqlalchemy.Column(sqlalchemy.Integer)  # 评论的userid
+    qid = sqlalchemy.Column(sqlalchemy.Integer)  # 对哪个问题评论
+    content = sqlalchemy.Column(sqlalchemy.String(200))  # 评论内容
+
+
+# 收藏问题_stu
+class Star_stu(Base):
+    __tablename__ = 'star_stu'
+    uid = sqlalchemy.Column(sqlalchemy.BIGINT, sqlalchemy.ForeignKey("stus.uid"), primary_key=True)
+    qid = sqlalchemy.Column(sqlalchemy.BIGINT, sqlalchemy.ForeignKey("questions.qid"), primary_key=True)
 
 
 # 多对多表
@@ -80,16 +96,19 @@ class Stus(Base):
     password = sqlalchemy.Column(sqlalchemy.String(50))
     # 用户组信息
     groups = sqlalchemy.orm.relationship("Groups", secondary="stu_group", backref="Stus", cascade='all')
-    # 问题组信息
+    # 问题组信息，即那些问题组对当前用户开放
     qgroups = sqlalchemy.orm.relationship("QGroups", secondary="stu_qgroup", backref="Stus", cascade='all')
+    # 收藏的问题
+    starquestions = sqlalchemy.orm.relationship("Questions", secondary="Star_stu", backref="Stus", cascade='all')
     # 格言
     quote = sqlalchemy.Column(sqlalchemy.String(100))
     # 简介
     Bi = sqlalchemy.Column(sqlalchemy.String(100))
     issuper = sqlalchemy.Column(sqlalchemy.Boolean)
+    hasnew = sqlalchemy.Column(sqlalchemy.Boolean)
 
 
-Stus_now = ""
+Stus_now = ""  # 存当前正在操作的学生的名字，是一个字符串，-->重命名记得改
 
 
 class Groups(Base):
@@ -148,6 +167,7 @@ def change_name(new):  # 改名字，按下确定瞬间
     else:
         s = create_session()
         s.query(Stus).filter(Stus.name == Stus_now).first().name = name
+        Stus_now = new
         s.commit()
         s.close()
         return True
@@ -280,7 +300,8 @@ def user_addinto_group(g_name):  # 用户主动申请加入
 
 # 任务三 上传 单个问题 或 一个文件的问题
 def show_all_chapter():
-    pass
+    s = create_session()
+    return s.query(Chapters.name).all()  # 看一下是否切实满足返回名字集合
 
 
 def load_one_question(title, answer, chapter, type, answer1, answer2, answer3, answer4, public):
@@ -377,6 +398,39 @@ def share_question_with_groups(qgname, gname):  # 与特定的用户组分享特
             i.qgroups.append(qgroup)  # 依次建立联系
     s.commit()
     s.close()
+
+
+# 只关心当前评论显示在在哪个答案的下方
+def send_comments(qid, content):
+    s = create_session()
+    stu = s.query(Stus).filter(Stus.name == Stus_now).first()
+    new = Comments(qid=qid, content=content, sender=stu.uid)  # 保证不能被改变
+    s.add(new)
+    s.commit()
+    s.close()
+
+
+# 点击加号显示所有的评论-->下画框
+def show_some_comments():
+    s = create_session()
+    re = []
+    comments = s.query(Comments).limit(3).all()
+    for i in comments:
+        sender = s.query(Stus).filter(Stus.uid == i.sender).first().name
+        re.append([i.content, name])
+    s.close()
+    return re  # 返回的是[内容，发送人]
+
+
+def show_more_comments():  # 全部评论
+    s = create_session()
+    re = []
+    comments = s.query(Comments).all()
+    for i in comments:
+        sender = s.query(Stus).filter(Stus.uid == i.sender).first().name
+        re.append([i.content, name])
+    s.close()
+    return re  # 返回的是[内容，发送人]
 
 
 if __name__ == '__main__':
