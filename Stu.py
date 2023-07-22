@@ -433,5 +433,25 @@ def show_more_comments():  # 全部评论
     return re  # 返回的是[内容，发送人]
 
 
+def search_for_sen():
+    pass
+
+
+def generate_talent_tabel():
+    # 日期和错题记录
+    pass
+
+
+def search_star_questions(page):  #
+    # 分页显示，每页十条
+    s = create_session()
+    temps = s.query(Star_stu).filter(Star_stu.uid == Stus_now_id).limit(10).offset((page - 1) * 10).all()
+    questions=[]
+    for i in temps:
+        questions.append(s.query(Questions).filter(Questions.qid == i.qid).first())
+    s.close()
+    # 返回值是存有问题的数组
+    return questions
+
 if __name__ == '__main__':
     pass
