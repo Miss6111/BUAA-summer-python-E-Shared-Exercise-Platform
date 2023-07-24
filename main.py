@@ -61,6 +61,7 @@ if __name__ == '__main__':
             tp = '管理员'
             orgUi.stackedWidget.setCurrentIndex(0)
             orgUi.wgn.hide()  # widget group name
+            orgUi.waddp.hide()  # widget add people to group
             orgUi.nhello2.setText(user)
             orgUi.ntp2.setText(tp)
         else:
@@ -100,7 +101,9 @@ if __name__ == '__main__':
 
 
     def add_people_to_group():
+        orgUi.waddp.show()
         print('add people to group')
+
 
 
     orgUi.pushButton.clicked.connect(change_widget_1)
@@ -110,12 +113,13 @@ if __name__ == '__main__':
     orgUi.pushButton_5.clicked.connect(change_widget_5)
     orgUi.pushButton_6.clicked.connect(change_widget_6)
     orgUi.pushButton_7.clicked.connect(change_widget_7)
-    # my window
+    # my window admin
     orgUi.atg.clicked.connect(change_widget_2)
     orgUi.apb.clicked.connect(add_people_to_group)
     orgUi.cgb.clicked.connect(create_group)
     orgUi.wgn_cancel.clicked.connect(create_group_cancel)
     orgUi.wgn_ok.clicked.connect(create_group_ok)
-
+    orgUi.waddpc.clicked.connect(orgUi.waddp.hide)
+    
     win.show()
     sys.exit(app.exec_())

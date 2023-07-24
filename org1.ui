@@ -333,6 +333,9 @@ background-color: rgb(255, 203, 151);</string>
           <height>31</height>
          </rect>
         </property>
+        <property name="styleSheet">
+         <string notr="true">background-color:rgb(254, 225, 64);</string>
+        </property>
         <property name="text">
          <string>请输入组名</string>
         </property>
@@ -387,6 +390,89 @@ background-color: rgb(255, 203, 151);</string>
           <width>30</width>
           <height>30</height>
          </size>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="waddp" native="true">
+       <property name="geometry">
+        <rect>
+         <x>380</x>
+         <y>260</y>
+         <width>301</width>
+         <height>181</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(254, 225, 64);</string>
+       </property>
+       <widget class="QPushButton" name="waddpc">
+        <property name="geometry">
+         <rect>
+          <x>230</x>
+          <y>10</y>
+          <width>41</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(254, 225, 64)</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset resource="resources.qrc">
+          <normaloff>:/images/icon/Cancel.png</normaloff>:/images/icon/Cancel.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>30</width>
+          <height>30</height>
+         </size>
+        </property>
+       </widget>
+       <widget class="QLabel" name="waddpsearch">
+        <property name="geometry">
+         <rect>
+          <x>100</x>
+          <y>20</y>
+          <width>101</width>
+          <height>61</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color:rgb(255, 170, 0);
+border-radius:15px</string>
+        </property>
+        <property name="text">
+         <string>搜索用户</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="waddpcheck">
+        <property name="geometry">
+         <rect>
+          <x>100</x>
+          <y>100</y>
+          <width>101</width>
+          <height>61</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color:rgb(255, 170, 0);
+border-radius:15px</string>
+        </property>
+        <property name="text">
+         <string>勾选用户</string>
         </property>
        </widget>
       </widget>
