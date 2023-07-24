@@ -4,7 +4,7 @@ from sqlalchemy import create_engine
 import login_widget
 import about
 import os
-import Stu
+# todo import Stu
 from PyQt5.QtWidgets import *
 
 
@@ -25,10 +25,11 @@ class LoginWindow(QWidget):
         username = self.loginUi.lineEdit.text()
         password = self.loginUi.lineEdit_2.text()
         # backend
-        flag = Stu.login(username,password)
+        # todo:flag = Stu.login(username, password)
+        flag = True
         if flag:
             self.close()
-            os.system("python ./about_window.py")
+            os.system("python ./main.py")
         else:
             reply = QMessageBox.about(self, '登录', '账号或密码错误')
         print("login clicked")
@@ -41,7 +42,7 @@ class LoginWindow(QWidget):
         flag = False
         if confirm_pass == password:
             # backend
-            Stu.create_new_user(username, password, 0)
+            # todo Stu.create_new_user(username, password, 0)
             flag = True
         if flag:
             print('success')

@@ -1,5 +1,5 @@
 import sqlalchemy
-import openpyxl
+# todo import openpyxl
 from sqlalchemy import MetaData
 from sqlalchemy import Table, Column
 from sqlalchemy import create_engine

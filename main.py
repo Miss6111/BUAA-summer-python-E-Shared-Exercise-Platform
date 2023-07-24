@@ -8,6 +8,13 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget
 import about
 
 
+# define index_my_add 0
+# define index_welcom 1
+# define index_upload 2
+# define index_search 3
+# define index_my_norm 4
+
+
 class AboutWindow(QWidget):
     def __init__(self):
         super(QWidget, self).__init__()
@@ -20,55 +27,34 @@ class AboutWindow(QWidget):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     win = QMainWindow()
-    about_win = AboutWindow()
     orgUi = org1.Ui_MainWindow()
     orgUi.setupUi(win)
-    orgUi.search.hide()
-    about_win.hide()
+    orgUi.stackedWidget.setCurrentIndex(1)
+
 
 
     def change_widget_1():  # 上传问题
-        orgUi.search.hide()
-        orgUi.textEdit.show()
-        orgUi.pushButton_7.show()
-        orgUi.pushButton_8.show()
+        orgUi.stackedWidget.setCurrentIndex(2)
 
 
     def change_widget_2():  # 搜索
-        orgUi.search.show()
-        orgUi.lineEdit.setText('')
-        orgUi.textEdit.hide()
-        orgUi.pushButton_7.hide()
-        orgUi.pushButton_8.hide()
+        orgUi.stackedWidget.setCurrentIndex(3)
 
 
     def change_widget_3():  # 查看问题
-        orgUi.search.hide()
-        orgUi.textEdit.hide()
-        orgUi.pushButton_7.hide()
-        orgUi.pushButton_8.hide()
+        orgUi.stackedWidget.setCurrentIndex(5)
 
 
     def change_widget_4():  # 错误日志
-        orgUi.search.hide()
-        orgUi.textEdit.hide()
-        orgUi.pushButton_7.hide()
-        orgUi.pushButton_8.hide()
+        orgUi.stackedWidget.setCurrentIndex(6)
 
 
     def change_widget_5():  # 我的
-        orgUi.search.hide()
-        orgUi.textEdit.hide()
-        orgUi.pushButton_7.hide()
-        orgUi.pushButton_8.hide()
+        orgUi.stackedWidget.setCurrentIndex(4)
 
 
     def change_widget_6():  # 关于
-        orgUi.search.hide()
-        orgUi.textEdit.hide()
-        orgUi.pushButton_7.hide()
-        orgUi.pushButton_8.hide()
-        about_win.show()
+        orgUi.stackedWidget.setCurrentIndex(1)
 
 
     def change_widget_7():  # 上传
