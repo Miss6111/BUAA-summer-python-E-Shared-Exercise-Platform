@@ -14,15 +14,17 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(1041, 679)
+        Form.resize(741, 336)
+        Form.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        Form.setAttribute(QtCore.Qt.WA_TranslucentBackground)
         self.widget = QtWidgets.QWidget(Form)
-        self.widget.setGeometry(QtCore.QRect(80, 40, 861, 601))
+        self.widget.setGeometry(QtCore.QRect(50, 30, 631, 271))
         self.widget.setStyleSheet("background-color:rgb(255, 212, 159);\n"
 "border-radius:30px\n"
 "")
         self.widget.setObjectName("widget")
         self.label = QtWidgets.QLabel(self.widget)
-        self.label.setGeometry(QtCore.QRect(370, 40, 291, 111))
+        self.label.setGeometry(QtCore.QRect(250, -10, 291, 111))
         font = QtGui.QFont()
         font.setPointSize(17)
         font.setBold(True)
@@ -32,13 +34,22 @@ class Ui_Form(object):
         self.label.setFont(font)
         self.label.setObjectName("label")
         self.textBrowser = QtWidgets.QTextBrowser(self.widget)
-        self.textBrowser.setGeometry(QtCore.QRect(300, 140, 421, 311))
+        self.textBrowser.setGeometry(QtCore.QRect(180, 70, 421, 311))
         font = QtGui.QFont()
         font.setPointSize(9)
         self.textBrowser.setFont(font)
         self.textBrowser.setObjectName("textBrowser")
+        self.pushButton_4 = QtWidgets.QPushButton(self.widget)
+        self.pushButton_4.setGeometry(QtCore.QRect(570, 10, 31, 28))
+        self.pushButton_4.setStyleSheet(" background-color:rgb(255, 255, 255)")
+        self.pushButton_4.setText("")
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/icons/icon/close.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.pushButton_4.setIcon(icon)
+        self.pushButton_4.setObjectName("pushButton_4")
 
         self.retranslateUi(Form)
+        self.pushButton_4.clicked.connect(Form.close) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
@@ -55,3 +66,4 @@ class Ui_Form(object):
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:16pt;\">   方沐阳</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:16pt;\">   陆莹锦</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:16pt;\">   王芊文</span></p></body></html>"))
+import resources_rc

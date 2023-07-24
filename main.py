@@ -4,56 +4,74 @@
 # 按 双击 Shift 在所有地方搜索类、文件、工具窗口、操作和设置。
 import org1
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow
+from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget
+import about
+
+
+class AboutWindow(QWidget):
+    def __init__(self):
+        super(QWidget, self).__init__()
+        self.aboutUi = about.Ui_Form()
+        self.aboutUi.setupUi(self)
+        self.show()
 
 
 # 按间距中的绿色按钮以运行脚本。
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     win = QMainWindow()
+    about_win = AboutWindow()
     orgUi = org1.Ui_MainWindow()
     orgUi.setupUi(win)
     orgUi.search.hide()
+    about_win.hide()
 
-    def change_widget_1():      #上传问题
+
+    def change_widget_1():  # 上传问题
         orgUi.search.hide()
         orgUi.textEdit.show()
         orgUi.pushButton_7.show()
         orgUi.pushButton_8.show()
 
-    def change_widget_2():      #搜索
+
+    def change_widget_2():  # 搜索
         orgUi.search.show()
         orgUi.lineEdit.setText('')
         orgUi.textEdit.hide()
         orgUi.pushButton_7.hide()
         orgUi.pushButton_8.hide()
 
-    def change_widget_3():      #查看问题
-        orgUi.search.hide()
-        orgUi.textEdit.hide()
-        orgUi.pushButton_7.hide()
-        orgUi.pushButton_8.hide()
 
-    def change_widget_4():      #错误日志
-        orgUi.search.hide()
-        orgUi.textEdit.hide()
-        orgUi.pushButton_7.hide()
-        orgUi.pushButton_8.hide()
-
-    def change_widget_5():      #我的
-        orgUi.search.hide()
-        orgUi.textEdit.hide()
-        orgUi.pushButton_7.hide()
-        orgUi.pushButton_8.hide()
-
-    def change_widget_6():      #关于
+    def change_widget_3():  # 查看问题
         orgUi.search.hide()
         orgUi.textEdit.hide()
         orgUi.pushButton_7.hide()
         orgUi.pushButton_8.hide()
 
 
-    def change_widget_7():      #上传
+    def change_widget_4():  # 错误日志
+        orgUi.search.hide()
+        orgUi.textEdit.hide()
+        orgUi.pushButton_7.hide()
+        orgUi.pushButton_8.hide()
+
+
+    def change_widget_5():  # 我的
+        orgUi.search.hide()
+        orgUi.textEdit.hide()
+        orgUi.pushButton_7.hide()
+        orgUi.pushButton_8.hide()
+
+
+    def change_widget_6():  # 关于
+        orgUi.search.hide()
+        orgUi.textEdit.hide()
+        orgUi.pushButton_7.hide()
+        orgUi.pushButton_8.hide()
+        about_win.show()
+
+
+    def change_widget_7():  # 上传
         orgUi.textEdit.setText('')
 
 
