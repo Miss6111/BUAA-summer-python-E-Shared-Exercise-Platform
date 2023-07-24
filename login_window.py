@@ -27,8 +27,11 @@ class LoginWindow(QWidget):
         # backend
         # todo:flag = Stu.login(username, password)
         flag = True
+        # 保存用户名到临时文件里
         if flag:
             self.close()
+            with open('temp', 'wt') as file:
+                file.write(username)
             os.system("python ./main.py")
         else:
             reply = QMessageBox.about(self, '登录', '账号或密码错误')

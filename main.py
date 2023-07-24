@@ -1,5 +1,7 @@
 # 这是一个示例 Python 脚本。
+import os.path
 
+import Stu
 # 按 Shift+F10 执行或将其替换为您的代码。
 # 按 双击 Shift 在所有地方搜索类、文件、工具窗口、操作和设置。
 import org1
@@ -32,7 +34,6 @@ if __name__ == '__main__':
     orgUi.stackedWidget.setCurrentIndex(1)
 
 
-
     def change_widget_1():  # 上传问题
         orgUi.stackedWidget.setCurrentIndex(2)
 
@@ -50,7 +51,23 @@ if __name__ == '__main__':
 
 
     def change_widget_5():  # 我的
-        orgUi.stackedWidget.setCurrentIndex(4)
+        # todo 确定是用户还是管理员
+        user = 'fmy'
+        if os.path.exists('temp'):
+            with open('temp', "rt") as file:
+                user = file.readline()
+        flag = True  # admin
+        if flag:
+            tp = '管理员'
+            orgUi.stackedWidget.setCurrentIndex(0)
+            orgUi.wgn.hide()  # widget group name
+            orgUi.nhello2.setText(user)
+            orgUi.ntp2.setText(tp)
+        else:
+            tp = '普通用户'
+            orgUi.stackedWidget.setCurrentIndex(4)
+            orgUi.nhello1.setText(user)
+            orgUi.ntp1.setText(tp)
 
 
     def change_widget_6():  # 关于
@@ -61,6 +78,31 @@ if __name__ == '__main__':
         orgUi.textEdit.setText('')
 
 
+    def create_group():
+        orgUi.wgn.show()
+        print('create group')
+
+
+    def create_group_cancel():
+        orgUi.groupname.setText('')
+        orgUi.wgn.hide()
+        print('create group cancel')
+
+
+    def create_group_ok():
+        gname = orgUi.groupname.text()
+        # backend
+        Stu.creat_new_group(gname)
+
+        orgUi.groupname.setText('')
+        orgUi.wgn.hide()
+        print('create group ok')
+
+
+    def add_people_to_group():
+        print('add people to group')
+
+
     orgUi.pushButton.clicked.connect(change_widget_1)
     orgUi.pushButton_2.clicked.connect(change_widget_2)
     orgUi.pushButton_3.clicked.connect(change_widget_3)
@@ -68,5 +110,12 @@ if __name__ == '__main__':
     orgUi.pushButton_5.clicked.connect(change_widget_5)
     orgUi.pushButton_6.clicked.connect(change_widget_6)
     orgUi.pushButton_7.clicked.connect(change_widget_7)
+    # my window
+    orgUi.atg.clicked.connect(change_widget_2)
+    orgUi.apb.clicked.connect(add_people_to_group)
+    orgUi.cgb.clicked.connect(create_group)
+    orgUi.wgn_cancel.clicked.connect(create_group_cancel)
+    orgUi.wgn_ok.clicked.connect(create_group_ok)
+
     win.show()
     sys.exit(app.exec_())
