@@ -24,8 +24,8 @@ class LoginWindow(QWidget):
         # 登录
         username = self.loginUi.lineEdit.text()
         password = self.loginUi.lineEdit_2.text()
-        # todo:find in database jump if success
-        flag = True
+        # backend
+        flag = Stu.login(username,password)
         if flag:
             self.close()
             os.system("python ./about_window.py")
@@ -40,7 +40,8 @@ class LoginWindow(QWidget):
         confirm_pass = self.loginUi.lineEdit_5.text()
         flag = False
         if confirm_pass == password:
-            # todo:Stu.create_new_user(username, password, 0)
+            # backend
+            Stu.create_new_user(username, password, 0)
             flag = True
         if flag:
             print('success')
