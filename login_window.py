@@ -4,7 +4,7 @@ from sqlalchemy import create_engine
 import login_widget
 import about
 import os
-# todo import Stu
+import Stu
 from PyQt5.QtWidgets import *
 
 
@@ -26,7 +26,8 @@ class LoginWindow(QWidget):
         password = self.loginUi.lineEdit_2.text()
         # backend
         # todo:flag = Stu.login(username, password)
-        flag = True
+        # flag = True
+        flag = Stu.login(username, password)
         # 保存用户名到临时文件里
         if flag:
             self.close()
@@ -46,6 +47,7 @@ class LoginWindow(QWidget):
         if confirm_pass == password:
             # backend
             # todo Stu.create_new_user(username, password, 0)
+            Stu.create_new_user(username, password, 0)
             flag = True
         if flag:
             print('success')
