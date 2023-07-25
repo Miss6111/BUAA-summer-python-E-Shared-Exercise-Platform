@@ -58,7 +58,7 @@ if __name__ == '__main__':
         if os.path.exists('temp'):
             with open('temp', "rt") as file:
                 user = file.readline()
-        flag = True  # admin
+        flag = Stu.check_super()  # admin
         if flag:
             tp = '管理员'
             orgUi.stackedWidget.setCurrentIndex(0)
