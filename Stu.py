@@ -62,7 +62,7 @@ class Ggroup_group(Base):  # 存问题组--学生组
 class Chapters(Base):  # 有哪些章节
     __tablename__ = 'chapters'
     name = sqlalchemy.Column(sqlalchemy.String(20), primary_key=True)
-    ques = sqlalchemy.orm.relationship("Ques", secondary="chap_ques", backref="Chapters", cascade='all')
+    ques = sqlalchemy.orm.relationship("Questions", secondary="chap_ques", backref="Chapters", cascade='all')
 
 
 class Questions(Base):  # 有哪些问题
@@ -71,7 +71,7 @@ class Questions(Base):  # 有哪些问题
     title = sqlalchemy.Column(sqlalchemy.String(1000))
     chapter = sqlalchemy.Column(sqlalchemy.String(10))
     # 所属问题组，多对多
-    qgroups = sqlalchemy.orm.relationship("QGroups", secondary="ques_qgroup", backref="Ques", cascade='all')
+    qgroups = sqlalchemy.orm.relationship("QGroups", secondary="ques_qgroup", backref="Questions", cascade='all')
     # 题型,0选择，1填空
     type = sqlalchemy.Column(sqlalchemy.Integer)
     # ”1010“为选AC
@@ -96,7 +96,7 @@ class Stus(Base):
     # 问题组信息，即那些问题组对当前用户开放
     qgroups = sqlalchemy.orm.relationship("QGroups", secondary="stu_qgroup", backref="Stus", cascade='all')
     # 收藏的问题
-    starquestions = sqlalchemy.orm.relationship("Questions", secondary="Star_stu", backref="Stus", cascade='all')
+    starquestions = sqlalchemy.orm.relationship("Questions", secondary="star_stu", backref="Stus", cascade='all')
     # 格言
     quote = sqlalchemy.Column(sqlalchemy.String(100))
     # 简介
@@ -141,16 +141,20 @@ def check_name(C, name):
     :param name:
     :return:
     """
+    print('create session')
     session = create_session()
-    if len(session.query(C).filter(C.name == name).all()) == 0:
+    if len(session.query(Stus).filter(Stus.name == name).all()) == 0:
+        print(1)
         session.close()
         return True
+    print(2)
     session.close()
     return False
 
 
 # 任务一，个人信息管理
 def create_new_user(name, password, super):  # 按下注册确定按键的瞬间,创建新用户
+
     """
 
     :param name:
@@ -158,15 +162,19 @@ def create_new_user(name, password, super):  # 按下注册确定按键的瞬间
     :param super:
     :return:
     """
+    print('in create new user')
     s = create_session()
-    if not check_name(Stus, name):
-        return False
-    else:
-        new = Stus(name=name, password=password, issuper=super, Bi="你还没有写任何简介", quote="", groups=[], qgroups=[])
-        s.add(new)
-        s.commit()
-        s.close()
-        return True
+    print('create session success')
+    # if not check_name(Stus, name):
+    #      return False
+    # else:
+    print(2)
+    new = Stus(name=name, password=password, issuper=super, Bi="你还没有写任何简介", quote="", groups=[], qgroups=[])
+    print(3)
+    s.add(new)
+    s.commit()
+    s.close()
+    return True
 
 
 def change_password(password):  # 改密码
@@ -603,6 +611,15 @@ def drop_and_create():
     print('drop and create')
 
 if __name__ == '__main__':
-    # Base.metadata.create_all(engine)#一键在数据库生成所有的类
-    # Base.metadata.drop_all(engine)#一键清除
+    s = create_session()
+    print('create session success')
+    # if not check_name(Stus, name):
+    #      return False
+    # else:
+    print(2)
+    new = Stus(name='1', password='1', issuper=False, Bi="你还没有写任何简介", quote="", groups=[], qgroups=[], hasnew=False)
+    print(3)
+    s.add(new)
+    s.commit()
+    s.close()
     pass

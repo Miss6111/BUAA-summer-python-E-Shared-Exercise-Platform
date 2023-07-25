@@ -478,43 +478,6 @@ border-radius:15px</string>
         </property>
        </widget>
       </widget>
-      <widget class="QListWidget" name="listWidget">
-       <property name="geometry">
-        <rect>
-         <x>120</x>
-         <y>30</y>
-         <width>201</width>
-         <height>401</height>
-        </rect>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>16777215</width>
-         <height>401</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 170, 0);
-border-radius:30px
-</string>
-       </property>
-       <item>
-        <property name="text">
-         <string>hello</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>hello2</string>
-        </property>
-       </item>
-      </widget>
      </widget>
     </widget>
     <widget class="QWidget" name="welcom">

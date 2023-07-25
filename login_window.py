@@ -25,7 +25,6 @@ class LoginWindow(QWidget):
         username = self.loginUi.lineEdit.text()
         password = self.loginUi.lineEdit_2.text()
         # backend
-        # todo:flag = Stu.login(username, password)
         # flag = True
         flag = Stu.login(username, password)
         # 保存用户名到临时文件里
@@ -47,6 +46,7 @@ class LoginWindow(QWidget):
         if confirm_pass == password:
             # backend
             # todo Stu.create_new_user(username, password, 0)
+            print(1)
             Stu.create_new_user(username, password, 0)
             flag = True
         if flag:
@@ -75,7 +75,7 @@ class LoginWindow(QWidget):
 
 
 if __name__ == '__main__':
-    Stu.drop_and_create()
+    # Stu.drop_and_create() 清空表
     app = QApplication(sys.argv)
     window = LoginWindow()
     sys.exit(app.exec_())
