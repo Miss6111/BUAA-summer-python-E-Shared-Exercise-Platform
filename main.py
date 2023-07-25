@@ -6,7 +6,7 @@ import Stu
 # 按 双击 Shift 在所有地方搜索类、文件、工具窗口、操作和设置。
 import org1
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget
+from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QMessageBox
 import about
 import list_window
 from PyQt5 import QtCore, QtGui, QtWidgets
@@ -19,12 +19,63 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 # define index_my_norm 4
 
 
-class AboutWindow(QWidget):
-    def __init__(self):
-        super(QWidget, self).__init__()
-        self.aboutUi = about.Ui_Form()
-        self.aboutUi.setupUi(self)
-        self.show()
+class admin_action():
+    def create_group(self):  # 调出创建组页面
+        orgUi.wgn.show()
+        print('create group')
+
+    def create_group_cancel(self):  # 创建组 cancel
+        orgUi.groupname.setText('')
+        orgUi.wgn.hide()
+        print('create group cancel')
+
+    def create_group_ok(self):  # 创建组 ok
+        gname = orgUi.groupname.text()
+        # backend
+        Stu.creat_new_group(gname)
+
+        orgUi.groupname.setText('')
+        orgUi.wgn.hide()
+        print('create group ok')
+
+    def add_people_to_group(self): # 加入用户到组界面调出
+        orgUi.waddp.show()
+        print('add people to group')
+
+    def chose_group(self):
+        itemlist = ['好好学习组','天天向上组']
+        itemlist = Stu.search_groups(0)
+        group_list.initializeList(itemlist)
+        group_list.show()
+
+    def confirm_glist(self):
+        selected_items = group_list.list_widget.selectedItems()
+        selected_names = [item.text() for item in selected_items]
+        text = ''
+        for i in selected_names:
+            text = text + i + ' '
+        orgUi.waddpgn.setText(text)
+        group_list.close()
+
+
+    def chose_people(self): # 调出选择用户界面
+        text = orgUi.personname.text()
+        # gname = orgUi.groupname_2.text()
+        # orgUi.waddp.close()
+        # self.wad = QtWidgets.QWidget(self.my_ad)
+        # list_win.setWindowTitle('添加用户到组：' + gname)
+        itemlist = ['小王', '小张']
+        itemlist = Stu.search_students(1, text) # backend
+        user_list.initializeList(itemlist)
+        user_list.show()
+
+    def confirm_userlist(self): #  确定用户
+        selected_items = user_list.list_widget.selectedItems()
+        selected_names = [item.text() for item in selected_items]
+        QMessageBox.information(user_list, "选中的项", f"选中的项: {selected_names}")
+        gname = orgUi.waddpgn.text()
+        Stu.add_into_group(selected_names,gname) # todo backend
+        user_list.close()
 
 
 # 按间距中的绿色按钮以运行脚本。
@@ -32,8 +83,10 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     win = QMainWindow()
 
-    list_win = list_window.CheckableListWidget()
-    list_win.hide()
+    user_list = list_window.CheckableListWidget() # admin界面userlist
+    user_list.hide()
+    group_list = list_window.CheckableListWidget() # admin界面grouplist
+    group_list.hide()
 
     orgUi = org1.Ui_MainWindow()
     orgUi.setupUi(win)
@@ -62,7 +115,7 @@ if __name__ == '__main__':
         if os.path.exists('temp'):
             with open('temp', "rt") as file:
                 user = file.readline()
-        # flag = Stu.check_super()  # admin
+        # flag = Stu.check_super()  # admin todo backend
         flag = True
         if flag:
             tp = '管理员'
@@ -86,42 +139,6 @@ if __name__ == '__main__':
         orgUi.textEdit.setText('')
 
 
-    def create_group():
-        orgUi.wgn.show()
-        print('create group')
-
-
-    def create_group_cancel():
-        orgUi.groupname.setText('')
-        orgUi.wgn.hide()
-        print('create group cancel')
-
-
-    def create_group_ok():
-        gname = orgUi.groupname.text()
-        # backend
-        Stu.creat_new_group(gname)
-
-        orgUi.groupname.setText('')
-        orgUi.wgn.hide()
-        print('create group ok')
-
-
-    def add_people_to_group():
-        orgUi.waddp.show()
-        print('add people to group')
-
-
-    def chose_people():
-        text = orgUi.personname.text()
-        orgUi.waddp.close()
-        # self.wad = QtWidgets.QWidget(self.my_ad)
-        list_win.setWindowTitle('用户')
-        itemlist = Stu.search_students(1, text)
-        list_win.initializeList(itemlist)
-        list_win.show()
-
-
     orgUi.pushButton.clicked.connect(change_widget_1)
     orgUi.pushButton_2.clicked.connect(change_widget_2)
     orgUi.pushButton_3.clicked.connect(change_widget_3)
@@ -131,12 +148,16 @@ if __name__ == '__main__':
     orgUi.pushButton_7.clicked.connect(change_widget_7)
     # my window admin
     orgUi.atg.clicked.connect(change_widget_2)
-    orgUi.apb.clicked.connect(add_people_to_group)
-    orgUi.cgb.clicked.connect(create_group)
-    orgUi.wgn_cancel.clicked.connect(create_group_cancel)
-    orgUi.wgn_ok.clicked.connect(create_group_ok)
+    orgUi.apb.clicked.connect(admin_action.add_people_to_group)
+    orgUi.cgb.clicked.connect(admin_action.create_group)
+    orgUi.wgn_cancel.clicked.connect(admin_action.create_group_cancel)
+    orgUi.wgn_ok.clicked.connect(admin_action.create_group_ok)
     orgUi.waddpc.clicked.connect(orgUi.waddp.hide)
-    orgUi.waddpsearch.clicked.connect(chose_people)
+    orgUi.waddpsearch.clicked.connect(admin_action.chose_people)
+    user_list.confirm_button.clicked.connect(admin_action.confirm_userlist)
+    orgUi.waddpcg.clicked.connect(admin_action.chose_group)
+    group_list.confirm_button.clicked.connect(admin_action.confirm_glist)
+
 
     win.show()
     sys.exit(app.exec_())

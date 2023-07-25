@@ -12,7 +12,7 @@ class CheckableListWidget(QWidget):
         self.list_widget.itemClicked.connect(self.handleItemClicked)
 
         self.confirm_button = QPushButton("确定", self)
-        self.confirm_button.clicked.connect(self.handleConfirmClicked)
+        # self.confirm_button.clicked.connect(self.handleConfirmClicked)
 
         self.cancel_button = QPushButton("取消", self)
         self.cancel_button.clicked.connect(self.close)

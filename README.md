@@ -22,3 +22,15 @@ pyrcc5 -o resources_rc.py resources.qrc
 索引 5(problems)
 
 索引6(log)
+
+fmy_fortest_main:推送
+
+待测试：
+
+issuper
+
+获得组名
+
+加入人到小组
+
+创建组
