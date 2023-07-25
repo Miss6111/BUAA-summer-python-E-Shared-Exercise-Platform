@@ -113,7 +113,12 @@ if __name__ == '__main__':
 
 
     def chose_people():
+        text = orgUi.personname.text()
+        orgUi.waddp.close()
         # self.wad = QtWidgets.QWidget(self.my_ad)
+        list_win.setWindowTitle('用户')
+        itemlist = Stu.search_students(1, text)
+        list_win.initializeList(itemlist)
         list_win.show()
 
 

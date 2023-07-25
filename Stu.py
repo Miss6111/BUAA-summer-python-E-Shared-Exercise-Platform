@@ -141,40 +141,34 @@ def check_name(C, name):
     :param name:
     :return:
     """
-    print('create session')
     session = create_session()
-    if len(session.query(Stus).filter(Stus.name == name).all()) == 0:
-        print(1)
+    if len(session.query(C).filter(C.name == name).all()) == 0:
         session.close()
         return True
-    print(2)
     session.close()
     return False
 
 
 # 任务一，个人信息管理
-def create_new_user(name, password, super):  # 按下注册确定按键的瞬间,创建新用户
-
+def create_new_user(name, password, manager):  # 按下注册确定按键的瞬间,创建新用户
     """
 
     :param name:
     :param password:
-    :param super:
+    :param manager:
     :return:
     """
     print('in create new user')
     s = create_session()
-    print('create session success')
-    # if not check_name(Stus, name):
-    #      return False
-    # else:
-    print(2)
-    new = Stus(name=name, password=password, issuper=super, Bi="你还没有写任何简介", quote="", groups=[], qgroups=[])
-    print(3)
-    s.add(new)
-    s.commit()
-    s.close()
-    return True
+    if not check_name(Stus, name):
+        return False
+    else:
+        new = Stus(name=name, password=password, issuper=manager, Bi="你还没有写任何简介", quote="", groups=[],
+                   qgroups=[])
+        s.add(new)
+        s.commit()
+        s.close()
+        return True
 
 
 def change_password(password):  # 改密码
@@ -252,7 +246,7 @@ def login(name, password):  # 登入瞬间
 def check_super():
     """
 
-    :return: 
+    :return:
     """
     s = create_session()
     return s.query(Stus).filter(Stus.name == Stu_now).first().issuper
@@ -261,8 +255,8 @@ def check_super():
 def create_new_group(g_name):  # 创建一个空的新的小组(小组名)
     """
 
-    :param g_name: 
-    :return: 
+    :param g_name:
+    :return:
     """
     s = create_session()
     if not check_name(Groups, g_name):  # 名字存在
@@ -283,8 +277,8 @@ def create_new_group(g_name):  # 创建一个空的新的小组(小组名)
 def add_into_group(users, g_name):  # 此处users为名字字符串数组
     """
 
-    :param users: 
-    :param g_name: 
+    :param users:
+    :param g_name:
     """
     s = create_session()
     group = s.query(Groups).filter(Groups.name == g_name).first()  # 找到当前学生gruop
@@ -300,6 +294,24 @@ def add_into_group(users, g_name):  # 此处users为名字字符串数组
             stu.qgroups.append(j)  # 学生加入权限
     s.commit()
     s.close()
+
+
+def search_students(page, name):
+    """
+
+    :param page:
+    :param name:
+    :return:
+    """
+    s = create_session()
+    students = s.query(Stus).filter_(Stus.name.like('%name%')).limit(10).offset((page - 1) * 10).all()
+    unames = []
+    for i in students:
+        unames.append(i.name)
+    # 返回值是这一页的所有学生名字
+    s.commit()
+    s.close()
+    return unames
 
 
 def not_in_group(gname, page):  # 选择学生加入时，能显示出来的都是不在这个组里的,page表分页显示的第几页
@@ -592,8 +604,8 @@ def generate_talent_tabel():
 def search_star_questions(page):  #
     """
 
-    :param page: 
-    :return: 
+    :param page:
+    :return:
     """
     # 分页显示，每页十条
     s = create_session()
@@ -611,15 +623,6 @@ def drop_and_create():
     print('drop and create')
 
 if __name__ == '__main__':
-    s = create_session()
-    print('create session success')
-    # if not check_name(Stus, name):
-    #      return False
-    # else:
-    print(2)
-    new = Stus(name='1', password='1', issuper=False, Bi="你还没有写任何简介", quote="", groups=[], qgroups=[], hasnew=False)
-    print(3)
-    s.add(new)
-    s.commit()
-    s.close()
+    # Base.metadata.create_all(engine)#一键在数据库生成所有的类
+    # Base.metadata.drop_all(engine)#一键清除
     pass
