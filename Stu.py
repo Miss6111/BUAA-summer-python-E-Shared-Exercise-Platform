@@ -412,28 +412,28 @@ def load_one_question(title, answer, chapter, my_type, answer1, answer2, answer3
     # 分组，给问题加标签
 
 
-def load_files(path):  # 需要规定文件格式？？再想
-    """
-
-    :param path:
-    """
-    f = openpyxl.load_workbook(path)
-    names = f.get_sheet_names()  # 所有sheet
-    for sheet_name in names:  # 每一页
-        sheet = f.get_sheet_by_name(sheet_name)
-        rows = sheet.max_row
-        for i in range(rows):  # 每一行是一个问题
-            title = sheet.cell(i + 1, 1).value
-            answer = sheet.cell(i + 1, 2).value
-            chapter = sheet.cell(i + 1, 3).value
-            mytype = sheet.cell(i + 1, 4).value
-            answer1 = sheet.cell(i + 1, 5).value
-            answer2 = sheet.cell(i + 1, 6).value
-            answer3 = sheet.cell(i + 1, 7).value
-            answer4 = sheet.cell(i + 1, 8).value
-            # 默认是公开的
-            load_one_question(title, answer, chapter, mytype, answer1, answer2, answer3, answer4, public=True)
-            s = create_session()
+# def load_files(path):  # 需要规定文件格式？？再想
+#     """
+#
+#     :param path:
+#     """
+#     f = openpyxl.load_workbook(path)
+#     names = f.get_sheet_names()  # 所有sheet
+#     for sheet_name in names:  # 每一页
+#         sheet = f.get_sheet_by_name(sheet_name)
+#         rows = sheet.max_row
+#         for i in range(rows):  # 每一行是一个问题
+#             title = sheet.cell(i + 1, 1).value
+#             answer = sheet.cell(i + 1, 2).value
+#             chapter = sheet.cell(i + 1, 3).value
+#             mytype = sheet.cell(i + 1, 4).value
+#             answer1 = sheet.cell(i + 1, 5).value
+#             answer2 = sheet.cell(i + 1, 6).value
+#             answer3 = sheet.cell(i + 1, 7).value
+#             answer4 = sheet.cell(i + 1, 8).value
+#             # 默认是公开的
+#             load_one_question(title, answer, chapter, mytype, answer1, answer2, answer3, answer4, public=True)
+#             s = create_session()
 
 
 def select_questions(chapters_name, mytype):  # 选择哪些chapters,填空,选择,权限
@@ -597,6 +597,10 @@ def search_star_questions(page):  #
     # 返回值是存有问题的数组
     return questions
 
+def drop_and_create():
+    Base.metadata.drop_all(engine)
+    Base.metadata.create_all(engine)
+    print('drop and create')
 
 if __name__ == '__main__':
     # Base.metadata.create_all(engine)#一键在数据库生成所有的类

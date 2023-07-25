@@ -75,6 +75,7 @@ class LoginWindow(QWidget):
 
 
 if __name__ == '__main__':
+    Stu.drop_and_create()
     app = QApplication(sys.argv)
     window = LoginWindow()
     sys.exit(app.exec_())
