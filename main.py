@@ -31,6 +31,10 @@ class AboutWindow(QWidget):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     win = QMainWindow()
+
+    list_win = list_window.CheckableListWidget()
+    list_win.hide()
+
     orgUi = org1.Ui_MainWindow()
     orgUi.setupUi(win)
     orgUi.stackedWidget.setCurrentIndex(1)
@@ -58,7 +62,8 @@ if __name__ == '__main__':
         if os.path.exists('temp'):
             with open('temp', "rt") as file:
                 user = file.readline()
-        flag = Stu.check_super()  # admin
+        # flag = Stu.check_super()  # admin
+        flag = True
         if flag:
             tp = '管理员'
             orgUi.stackedWidget.setCurrentIndex(0)
@@ -108,9 +113,8 @@ if __name__ == '__main__':
 
 
     def chose_people():
-        list_people = list_window.CheckableListWidget()
         # self.wad = QtWidgets.QWidget(self.my_ad)
-        orgUi.list_people = QtWidgets.QWidget(orgUi.my_ad)
+        list_win.show()
 
 
     orgUi.pushButton.clicked.connect(change_widget_1)
