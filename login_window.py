@@ -47,8 +47,7 @@ class LoginWindow(QWidget):
             # backend
             # todo Stu.create_new_user(username, password, 0)
             print(1)
-            Stu.create_new_user(username, password, 0)
-            flag = True
+            flag = Stu.create_new_user(username, password, 0)
         if flag:
             print('success')
             reply = QMessageBox.about(self, '注册', '注册成功,跳转到登录界面')

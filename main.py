@@ -8,7 +8,8 @@ import org1
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget
 import about
-
+import list_window
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 # define index_my_add 0
@@ -106,6 +107,11 @@ if __name__ == '__main__':
         print('add people to group')
 
 
+    def chose_people():
+        list_people = list_window.CheckableListWidget()
+        # self.wad = QtWidgets.QWidget(self.my_ad)
+        orgUi.list_people = QtWidgets.QWidget(orgUi.my_ad)
+
 
     orgUi.pushButton.clicked.connect(change_widget_1)
     orgUi.pushButton_2.clicked.connect(change_widget_2)
@@ -121,6 +127,7 @@ if __name__ == '__main__':
     orgUi.wgn_cancel.clicked.connect(create_group_cancel)
     orgUi.wgn_ok.clicked.connect(create_group_ok)
     orgUi.waddpc.clicked.connect(orgUi.waddp.hide)
-    
+    orgUi.waddpsearch.clicked.connect(chose_people)
+
     win.show()
     sys.exit(app.exec_())

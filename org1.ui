@@ -431,7 +431,7 @@ background-color: rgb(255, 203, 151);</string>
          </size>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_10">
+       <widget class="QPushButton" name="waddpsearch">
         <property name="geometry">
          <rect>
           <x>230</x>
