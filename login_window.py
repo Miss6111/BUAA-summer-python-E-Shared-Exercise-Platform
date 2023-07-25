@@ -42,21 +42,49 @@ class LoginWindow(QWidget):
         username = self.loginUi.lineEdit_3.text()
         password = self.loginUi.lineEdit_4.text()
         confirm_pass = self.loginUi.lineEdit_5.text()
-        flag = False
-        if confirm_pass == password:
-            # backend
-            # todo Stu.create_new_user(username, password, 0)
-            print(1)
-            flag = Stu.create_new_user(username, password, 0)
-        if flag:
+        flag = 0
+        # 0 成功
+        # 1 两次密码不相等
+        # 2 密码长度不符合要求（6-10）
+        # 3 用户名长度不符合要求(>3)
+        # 4 用户名已存在
+        if confirm_pass != password:
+            flag = 1
+        if len(password) < 6 or len(password) > 10:
+            flag = 2
+        if len(username) < 3:
+            flag = 3
+        if flag == 0:
+            flag2 = Stu.create_new_user(username, password, 0)
+            print(flag2)
+            if not flag2:
+                    flag = 4
+                    print(flag)
+        if flag == 0:
             print('success')
             reply = QMessageBox.about(self, '注册', '注册成功,跳转到登录界面')
             self.change_widget2()
-        else:
+        elif flag == 1:
             print('fail')
             reply = QMessageBox.about(self, '注册', '两次输入的密码不同，请重新注册')
             self.loginUi.lineEdit_4.setText('')
             self.loginUi.lineEdit_5.setText('')
+        elif flag == 2:
+            print('fail')
+            reply = QMessageBox.about(self, '注册', '密码长度不符合要求，请重新注册')
+            self.loginUi.lineEdit_4.setText('')
+            self.loginUi.lineEdit_5.setText('')
+        elif flag == 3:
+            reply = QMessageBox.about(self, '注册', '用户名长度不符合要求，请重新注册')
+            self.loginUi.lineEdit_3.setText('')
+            self.loginUi.lineEdit_4.setText('')
+            self.loginUi.lineEdit_5.setText('')
+        elif flag == 4:
+            print('error 4')
+            reply = QMessageBox.about(self, '注册', '该用户名已存在,请重新注册')
+            # self.loginUi.lineEdit_3.setText('')
+            # self.loginUi.lineEdit_4.setText('')
+            # self.loginUi.lineEdit_5.setText('')
         print("sign up clicked")
 
     def change_widget_3(self):

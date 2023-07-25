@@ -161,6 +161,7 @@ def create_new_user(name, password, manager):  # 按下注册确定按键的瞬�
     print('in create new user')
     s = create_session()
     if not check_name(Stus, name):
+        s.close()
         return False
     else:
         new = Stus(name=name, password=password, issuper=manager, Bi="你还没有写任何简介", quote="", groups=[],
