@@ -486,7 +486,8 @@ def select_questions(chapters_name, mytype,user_name):  # 选择哪些chapters,�
     #
     # s.close()
     # # 返回值是所有符合要求的问题
-    return questions
+    # return questions
+    pass
 
 
 
