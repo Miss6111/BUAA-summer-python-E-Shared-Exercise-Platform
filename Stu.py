@@ -1,11 +1,13 @@
 import sqlalchemy
-# import openpyxl
+import openpyxl
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 import sqlalchemy.orm.session  # 数据库操作核心
 from sqlalchemy.ext.declarative import declarative_base  # 父类
 from sqlalchemy import or_, and_, all_, any_
+from datetime import datetime
+from sqlalchemy import DateTime
 
 Base = declarative_base()
 DB_connect = 'mysql+mysqldb://root:222333dyh@localhost/Test'
@@ -14,7 +16,7 @@ engine = create_engine(DB_connect, echo=False)
 
 # 评论表
 class Comments(Base):
-    __tablename__ = 'comments';
+    __tablename__ = 'comments'
     id = sqlalchemy.Column(sqlalchemy.BIGINT, primary_key=True)
     sender = sqlalchemy.Column(sqlalchemy.Integer)  # 评论的userid
     qid = sqlalchemy.Column(sqlalchemy.Integer)  # 对哪个问题评论
@@ -116,13 +118,24 @@ class Groups(Base):#用户小组
 
 class QGroups(Base):#问题小组，由每个用户主动创建
     __tablename__ = 'qgroups'
-    gid = sqlalchemy.Column(sqlalchemy.BIGINT, primary_key=True)#问题小组id
-    uid = sqlalchemy.Column(sqlalchemy.Integer)  # 问题小组创造者
-    name = sqlalchemy.Column(sqlalchemy.String(20))#问题小组名字
+    gid = sqlalchemy.Column(sqlalchemy.BIGINT, primary_key=True)
+    uid = sqlalchemy.Column(sqlalchemy.Integer)  # 创造者
+    name = sqlalchemy.Column(sqlalchemy.String(20), primary_key=True)
+
+
+# 每个用户的错题记录
+class Records(Base):
+    __tablename__ = 'records'
+    uid = sqlalchemy.Column(sqlalchemy.BIGINT, primary_key=True)
+    qid = sqlalchemy.Column(sqlalchemy.BIGINT, primary_key=True)
+    right = sqlalchemy.Column(sqlalchemy.Boolean, primary_key=True)
+    time = sqlalchemy.Column(DateTime, default=datetime.now)
+    rate = sqlalchemy.Column(sqlalchemy.BIGINT, primary_key=True)
 
 
 def create_session():  # session用来操作数据库
     """
+
     :return:
     """
     session_ = sessionmaker(bind=engine)  # 一个session是一个对数据库链接的包装
@@ -156,9 +169,9 @@ def create_new_user(name, password, manager):  # 按下注册确定按键的瞬�
     """
     s = create_session()
     if not check_name(Stus, name):
+        s.close()
         return False
     else:
-        print('shkjshak')
         new = Stus(name=name, password=password, issuper=manager, Bi="你还没有写任何简介", quote="", groups=[],
                    qgroups=[])
         s.add(new)
@@ -435,28 +448,28 @@ def load_one_question(title, answer, chapter, my_type, answer1, answer2, answer3
     # 分组，给问题加标签
 
 
-# def load_files(path):  # 需要规定文件格式？？再想
-#     """
-#
-#     :param path:
-#     """
-#     f = openpyxl.load_workbook(path)
-#     names = f.get_sheet_names()  # 所有sheet
-#     for sheet_name in names:  # 每一页
-#         sheet = f.get_sheet_by_name(sheet_name)
-#         rows = sheet.max_row
-#         for i in range(rows):  # 每一行是一个问题
-#             title = sheet.cell(i + 1, 1).value
-#             answer = sheet.cell(i + 1, 2).value
-#             chapter = sheet.cell(i + 1, 3).value
-#             mytype = sheet.cell(i + 1, 4).value
-#             answer1 = sheet.cell(i + 1, 5).value
-#             answer2 = sheet.cell(i + 1, 6).value
-#             answer3 = sheet.cell(i + 1, 7).value
-#             answer4 = sheet.cell(i + 1, 8).value
-#             # 默认是公开的
-#             load_one_question(title, answer, chapter, mytype, answer1, answer2, answer3, answer4, public=True)
-#             s = create_session()
+def load_files(path,name):  # 需要规定文件格式？？再想
+    """
+
+    :param path:
+    """
+    f = openpyxl.load_workbook(path)
+    names = f.get_sheet_names()  # 所有sheet
+    for sheet_name in names:  # 每一页
+        sheet = f.get_sheet_by_name(sheet_name)
+        rows = sheet.max_row
+        for i in range(rows):  # 每一行是一个问题
+            title = sheet.cell(i + 1, 1).value
+            answer = sheet.cell(i + 1, 2).value
+            chapter = sheet.cell(i + 1, 3).value
+            mytype = sheet.cell(i + 1, 4).value
+            answer1 = sheet.cell(i + 1, 5).value
+            answer2 = sheet.cell(i + 1, 6).value
+            answer3 = sheet.cell(i + 1, 7).value
+            answer4 = sheet.cell(i + 1, 8).value
+            # 默认是公开的
+            load_one_question(title, answer, chapter, mytype, answer1, answer2, answer3, answer4, public=True)
+            s = create_session()
 
 
 def select_questions(chapters_name, mytype,user_name):  # 选择哪些chapters,填空,选择,权限
@@ -489,6 +502,21 @@ def select_questions(chapters_name, mytype,user_name):  # 选择哪些chapters,�
     # return questions
     pass
 
+
+# 根据关键词搜索问题
+def scope_questions(ques_name, chapters_name, mytype,user_name):  # 关键词，章节，题型
+    s = create_session()
+    # 搜索范围包括questions中的public或上传者为本人的，和qgroup中的
+    uid = s.query(Stus).filter(Stus.name == user_name).first().uid
+    qgroups = s.query(Stus).filter(Stus.name == user_name).first().qgroups
+    q = s.query(Questions).filter(or_(Questions.uid == uid, Questions.public == True,
+                                      Questions.qgroups.in_(qgroups))) \
+        .filter(Questions.chapter.in_(chapters_name)).filter(Questions.type == mytype).filter(
+        Questions.title.find(ques_name)).all()
+    # 目前仅支持关键词为title子串
+    s.commit()
+    s.close()
+    return q  # 返回值为满足要求的Questions条目
 
 
 # 问题共享功能
@@ -626,22 +654,58 @@ def search_star_questions(page,name):  #
     # 返回值是存有问题的数组
     return questions
 
+
 def drop_and_create():
     Base.metadata.drop_all(engine)
     Base.metadata.create_all(engine)
     print('drop and create')
 
+
+def do_question(qid, right,user_name):  # 题目id;是否正确
+    s = create_session()
+    uid = s.query(Stus).filter(Stus.name == user_name).first().uid
+    new = Records(uid=uid, qid=qid, right=right)
+    s.add(new)
+    # 更新正确率并返回
+    records = s.query(Records).filter(Records.uid == uid, Records.qid == qid).all()
+    total, true = 0, 0
+    for j in records:
+        total += 1
+        if j.right == 1:
+            true += 1
+    s.query(Records).filter(Records.uid == uid, Records.qid == qid).all().rate = true / total
+    s.commit()
+    s.close()
+    return true / total
+    # 返回值为正确率
+
+
+# 形成个性化题组
+def personalized_recommendation(qnum, chapters_name, mytype,user_name):
+    s = create_session()
+    uid = s.query(Stus).filter(Stus.name == user_name).first().uid
+    # qids = s.query(Records).filter(Records.uid == uid).all().qid
+    # for i in qids:
+    #     records = s.query(Records).filter(Records.uid == uid, Records.qid == i).all()
+    #     total, true = 0, 0
+    #     for j in records:
+    #         total += 1
+    #         if j.right == 1:
+    #             true += 1
+    #     s.query(Records).filter(Records.uid == uid, Records.qid == i).all().rate = true / total
+    s.commit()
+    s.close()
+    tops = s.query(Records).filter(Records.uid == uid) \
+        .filter(Questions.chapter.in_(chapters_name)) \
+        .filter(Questions.type == mytype).order_by(Records.rate.desc()).limit(qnum).all()
+    qnames = []
+    for i in tops:
+        qnames.append(i)
+    return qnames
+    # 返回值是题目名称
+
+
 if __name__ == '__main__':
-    #Base.metadata.create_all(engine)#一键在数据库生成所有的类
-    # # Base.metadata.drop_all(engine)#一键清除
-    create_new_group('123','Amy')
-     # for i in range(100):
-     #     user1 = Stus(name = "stu"+str(i),password = '6',issuper = False)
-     #     s.add(user1)
-
+    # Base.metadata.create_all(engine)#一键在数据库生成所有的类
     # Base.metadata.drop_all(engine)#一键清除
-    #new = Groups(name='hhhhh')
-    #create_new_user('221','23123',True)
-   # print(search_students(1,'stu'))
-
-
+    pass
