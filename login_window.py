@@ -6,7 +6,7 @@ import about
 import os
 import Stu
 from PyQt5.QtWidgets import *
-
+name = ''
 
 class LoginWindow(QWidget):
     def __init__(self):
@@ -32,7 +32,7 @@ class LoginWindow(QWidget):
             self.close()
             with open('temp', 'wt') as file:
                 file.write(username)
-            os.system("python ./main.py")
+            os.system("python ./23231.py")
         else:
             reply = QMessageBox.about(self, '登录', '账号或密码错误')
         print("login clicked")

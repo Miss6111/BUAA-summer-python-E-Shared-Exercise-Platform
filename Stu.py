@@ -9,7 +9,7 @@ from datetime import datetime
 from sqlalchemy import DateTime
 
 Base = declarative_base()
-DB_connect = 'mysql+mysqldb://root:1012416935@localhost/Test'
+DB_connect = 'mysql+mysqldb://root:222333dyh@localhost/Test'
 engine = create_engine(DB_connect, echo=True)
 
 
@@ -88,6 +88,8 @@ class Questions(Base):  # 有哪些问题
     # 填空题答案
     gap = sqlalchemy.Column(sqlalchemy.String(20))
     public = sqlalchemy.Column(sqlalchemy.Boolean)  # 是否是所有人可见
+    total = sqlalchemy.Column(sqlalchemy.Integer)
+    right = sqlalchemy.Column(sqlalchemy.Integer)
 
 
 class Stus(Base):
@@ -395,11 +397,14 @@ def user_add_into_group(gnames, name):  # 用户主动申请加入
     :param gnames:
     :return:
     """
+    print(gnames)
+    print(name)
     s = create_session()
     # 如果已经在组里，加入失败
     uid = s.query(Stus).filter(Stus.name == name).first().uid
-    print(uid)
-    groups = s.query(Groups).filter(Groups.name.in_(gnames)).all()
+    print('add')
+    groups = s.query(Groups).filter(Groups.name == gnames).all()
+    print('t')
     gids = []
     for i in groups:
         gids.append(i.gid)
@@ -427,6 +432,7 @@ def user_add_into_group(gnames, name):  # 用户主动申请加入
             stu.qgroups.append(j)  # 学生加入权限
     s.commit()
     s.close()
+    print('success')
     return repeat
 
 
@@ -444,7 +450,7 @@ def show_all_chapter():  # 返回所有的章节名字
     return name
 
 
-def load_one_question(title, answer, chapter, my_type, answer1, answer2, answer3, answer4, public, creater):
+def load_one_question(title, answer, chapter, my_type, answer1, answer2, answer3, answer4, gap, public, creater):
     """
 
 
@@ -461,8 +467,9 @@ def load_one_question(title, answer, chapter, my_type, answer1, answer2, answer3
     """
     s = create_session()
     c = s.query(Chapters).filter(Chapters.name == chapter).first()
-    q = Questions(title=title, answer=answer, type=my_type, answer1=answer1, answer2=answer2, answer3=answer3,
-                  answer4=answer4, public=public, uid=s.query(Stus).filter(Stus.name == creater).first().uid)
+    q = Questions(title=title, answer=answer, type=my_type, answerA=answer1, answerB=answer2, answerC=answer3,
+                  answerD=answer4, gap=gap, public=public, uid=s.query(Stus).filter(Stus.name == creater).first().uid,
+                  total=0, right=0,chapter=chapter)
     s.add(q)
     s.commit()
     c.ques.append(q)
@@ -698,10 +705,13 @@ def do_question(qid, user_name, answer, gap):  # 题目id;是否正确
     s = create_session()
     uid = s.query(Stus).filter(Stus.name == user_name).first().uid
     # 判单正确与否
-    mytype = s.query(Questions).filter(Questions.uid == uid).type
-    myanswer = s.query(Questions).filter(Questions.uid == uid).answer
-    mygap = s.query(Questions).filter(Questions.uid == uid).gap
+    mytype = s.query(Questions).filter(Questions.uid == uid).first().type
+    myanswer = s.query(Questions).filter(Questions.uid == uid).first().answer
+    mygap = s.query(Questions).filter(Questions.uid == uid).first().gap
+    ques = s.query(Questions).filter(Questions.uid == uid).first()
+    ques.totol = ques.total + 1
     right = mytype == 0 and answer == myanswer or mytype == 1 and gap == mygap
+    ques.right = ques.right + 1
     if mytype == 0:
         return answer == myanswer
     new = Records(uid=uid, qid=qid, right=right)
@@ -716,9 +726,9 @@ def do_question(qid, user_name, answer, gap):  # 题目id;是否正确
     s.query(Records).filter(Records.uid == uid, Records.qid == qid).all().rate = true / total
     s.commit()
     s.close()
-    lis = [right, myanswer, mygap, true / total]
+    lis = [right, myanswer, mygap, true / total, ques.right / ques.total]
     return lis
-    # 返回值为 是否正确（1为正确，0为错误） 选择题标准答案 填空题标准答案 本题本人正确率
+    # 返回值为 是否正确（1为正确，0为错误） 选择题标准答案 填空题标准答案 本题本人正确率 本题整体正确率
 
 
 # 形成个性化题组
@@ -748,5 +758,7 @@ def personalized_recommendation(qnum, chapters_name, mytype, user_name):
 
 if __name__ == '__main__':
     # Base.metadata.create_all(engine)#一键在数据库生成所有的类
-    # Base.metadata.delete_all(engine)#一键清除
-    user_add_into_group(['123', 'hhhhh'], 'stu9')  # 用户主动申请加入
+    # Base.metadata.delete_all(engine)#一键清除S
+    load_one_question('title212', 'answ', 'Chapter 1', 1, 'answer1', 'answer2', 'answer3', 'answer4', 'tab', True, 'RRRR')
+    # load_one_question(title='hhh',answer=)
+    # user_add_into_group(['123', 'hhhhh'], 'stu9')  # 用户主动申请加入

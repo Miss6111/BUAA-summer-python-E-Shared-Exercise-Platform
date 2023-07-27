@@ -97,6 +97,7 @@ class admin_action():
 
 # 按间距中的绿色按钮以运行脚本。
 if __name__ == '__main__':
+
     app = QApplication(sys.argv)
     win = QMainWindow()
 
@@ -108,7 +109,7 @@ if __name__ == '__main__':
     orgUi = org1.Ui_MainWindow()
     orgUi.setupUi(win)
     orgUi.stackedWidget.setCurrentIndex(1)
-    page = 0
+    page = 1
 
 
     def change_widget_1():  # 上传问题
@@ -117,6 +118,7 @@ if __name__ == '__main__':
 
     def change_widget_2():  # 搜索
         orgUi.stackedWidget.setCurrentIndex(3)
+        print('55555')
         orgUi.label_type.hide()
         orgUi.label_chapter.hide()
         orgUi.lineEdit_chapter_2.hide()
@@ -160,48 +162,43 @@ if __name__ == '__main__':
 
 
     def change_widget_7():  # 上传
+        user = 'fmy'
+        if os.path.exists('temp'):
+            with open('temp', "rt") as file:
+                user = file.readline()
         title = orgUi.textEdit_title.toPlainText()
-        chapter = orgUi.lineEdit_chapter.text()
-        print(title)
-        answer_org = orgUi.lineEdit_answer.text()
-        n = len(answer_org)
-        list_answer = list(answer_org)
+        chapter = org1.selected_chapter
         answerl = ['0', '0', '0', '0']
-        if orgUi.lineEdit_type.text() == "填空":
+        if org1.selected_type == "填空":
             type_l = 1
         else:
             type_l = 0
-        print(type_l)
-        if orgUi.lineEdit_public.text() == "yes":
+
+        if org1.selected_public == "yes":
             public = True
         else:
             public = False
-        print(333)
-        if type_l == 1:
-            answer = "1000"
-            answer1 = answer_org
-            answer2 = ""
-            answer3 = ""
-            answer4 = ""
-        else:
-            for i in range(n):
-                if list_answer[i] == 'A':
-                    answerl[0] = '1'
-                    answer1 = "A"
-                if list_answer[i] == 'B':
-                    answerl[1] = '1'
-                    answer2 = "B"
-                if list_answer[i] == 'C':
-                    answerl[2] = '1'
-                    answer3 = "C"
-                if list_answer[i] == 'D':
-                    answerl[3] = '1'
-                    answer4 = "D"
-            answer = "".join(answerl)
 
-        print(answer)
-        Stu.load_one_question(title, answer, chapter, type_l, answer1, answer2, answer3, answer4, public)
-        print('success')
+        if type_l == 1:
+            gap = orgUi.lineEdit_answer.text()
+            Stu.load_one_question(title, "", chapter, type_l, '', '', '', '', gap, public, user)
+        else:
+
+            # print('title =')
+            # print(title)
+            # print('selection = ')
+            #
+            # print(''.join(org1.selection))
+            # print(chapter)
+            # print(type_l)
+            # print(org1.answerA)
+            # print(org1.answerB)
+            # print(public)
+
+            Stu.load_one_question(title, ''.join(org1.selection), chapter, type_l, org1.answerA, org1.answerB,
+                                  org1.answerC, org1.answerD, '', public, user)
+
+        print('cuesss')
         # reply = QMessageBox.about(self, '上传成功')
 
         orgUi.textEdit_title.setText('')
@@ -213,7 +210,11 @@ if __name__ == '__main__':
 
 
     def change_widget_9(self):  # 搜索组
-
+        user = 'fmy'
+        if os.path.exists('temp'):
+            with open('temp', "rt") as file:
+                user = file.readline()
+        print('now')
         orgUi.pushButton_9.hide()
 
         orgUi.pushButton_10.hide()
@@ -221,23 +222,30 @@ if __name__ == '__main__':
         orgUi.widget_btn.show()
         orgUi.pushButton_11.clicked.connect(change_widget_11)
         print("enx")
-        group = Stu.search_groups(self.page)
+        print(page)
 
+        group = Stu.search_groups(page)
+        print(group)
         length = len(group)
         orgUi.btn0.setText(group[0])
-        orgUi.btn0.clicked.connect(change_widget_btn(group[0]))
+        print('begin')
+        orgUi.btn0.clicked.connect(change_widget_btn(group[0], user))
+        print('2')
         orgUi.btn1.setText(group[1])
-        orgUi.btn1.clicked.connect(change_widget_btn(group[1]))
+        print('3')
+        orgUi.btn1.clicked.connect(change_widget_btn(group[1], user))
+        print('4')
         orgUi.btn2.setText(group[2])
-        orgUi.btn2.clicked.connect(change_widget_btn(group[2]))
+        orgUi.btn2.clicked.connect(change_widget_btn(group[2], user))
 
 
     def change_widget_11(self):  # next
         self.page += 1
 
 
-    def change_widget_btn(text):  # 按下按钮
-        Stu.user_add_into_group(text)
+    def change_widget_btn(text, name):  # 按下按钮
+        Stu.user_add_into_group(text, name)
+        print('end')
 
 
     def create_group():
