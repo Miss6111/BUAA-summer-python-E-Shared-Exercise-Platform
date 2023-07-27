@@ -85,6 +85,8 @@ class Questions(Base):  # 有哪些问题
     answerB = sqlalchemy.Column(sqlalchemy.String(100))
     answerC = sqlalchemy.Column(sqlalchemy.String(100))
     answerD = sqlalchemy.Column(sqlalchemy.String(100))
+    # 填空题答案
+    gap = sqlalchemy.Column(sqlalchemy.String(20))
     public = sqlalchemy.Column(sqlalchemy.Boolean)  # 是否是所有人可见
 
 
@@ -124,7 +126,7 @@ class QGroups(Base):  # 问题小组，由每个用户主动创建
     name = sqlalchemy.Column(sqlalchemy.String(20), primary_key=True)
 
 
-# 每个用户的错题记录
+# 做题记录
 class Records(Base):
     __tablename__ = 'records'
     uid = sqlalchemy.Column(sqlalchemy.BIGINT, primary_key=True)
@@ -692,9 +694,16 @@ def drop_and_create():
     print('drop and create')
 
 
-def do_question(qid, right, user_name):  # 题目id;是否正确
+def do_question(qid, user_name, answer, gap):  # 题目id;是否正确
     s = create_session()
     uid = s.query(Stus).filter(Stus.name == user_name).first().uid
+    # 判单正确与否
+    mytype = s.query(Questions).filter(Questions.uid == uid).type
+    myanswer = s.query(Questions).filter(Questions.uid == uid).answer
+    mygap = s.query(Questions).filter(Questions.uid == uid).gap
+    right = mytype == 0 and answer == myanswer or mytype == 1 and gap == mygap
+    if mytype == 0:
+        return answer == myanswer
     new = Records(uid=uid, qid=qid, right=right)
     s.add(new)
     # 更新正确率并返回
@@ -707,8 +716,9 @@ def do_question(qid, right, user_name):  # 题目id;是否正确
     s.query(Records).filter(Records.uid == uid, Records.qid == qid).all().rate = true / total
     s.commit()
     s.close()
-    return true / total
-    # 返回值为正确率
+    lis = [right, myanswer, mygap, true / total]
+    return lis
+    # 返回值为 是否正确（1为正确，0为错误） 选择题标准答案 填空题标准答案 本题本人正确率
 
 
 # 形成个性化题组
