@@ -168,7 +168,6 @@ if __name__ == '__main__':
                 user = file.readline()
         title = orgUi.textEdit_title.toPlainText()
         chapter = org1.selected_chapter
-        answerl = ['0', '0', '0', '0']
         if org1.selected_type == "填空":
             type_l = 1
         else:
