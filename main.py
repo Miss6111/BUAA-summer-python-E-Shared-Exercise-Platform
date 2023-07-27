@@ -30,10 +30,21 @@ class admin_action():
         print('create group cancel')
 
     def create_group_ok(self):  # 创建组 ok
+        user = 'fmy'
+        # if os.path.exists('temp'):
+        #     with open('temp', "rt") as file:
+        #         user = file.readline()
+        print('user name find')
         gname = orgUi.groupname.text()
         # backend
-        Stu.creat_new_group(gname)
 
+        flag = Stu.create_new_group(gname, user)
+        if flag:
+            print('11')
+            reply = QMessageBox.about(win, '创建小组', '创建成功')
+            print('22')
+        else:
+            reply = QMessageBox.about(win, '创建小组', '创建失败，小组已经存在')
         orgUi.groupname.setText('')
         orgUi.wgn.hide()
         print('create group ok')
@@ -43,8 +54,13 @@ class admin_action():
         print('add people to group')
 
     def chose_group(self):
-        itemlist = ['好好学习组','天天向上组']
-        itemlist = Stu.search_groups(0)
+        # itemlist = ['好好学习组','天天向上组']
+        # for i in range(20):
+        #     print(i)
+        #     itemlist.append('1')
+        # print(itemlist)
+        itemlist = Stu.all_groups() #  backend
+        group_list.setWindowTitle('小组')
         group_list.initializeList(itemlist)
         group_list.show()
 

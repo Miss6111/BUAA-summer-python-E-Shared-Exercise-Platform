@@ -104,11 +104,6 @@ class Stus(Base):
     issuper = sqlalchemy.Column(sqlalchemy.Boolean)
     hasnew = sqlalchemy.Column(sqlalchemy.Boolean)
 
-
-Stu_now = ""  # 存当前正在操作的学生的名字，是一个字符串，-->重命名记得改
-Stu_now_id = 0;
-
-
 class Groups(Base):
     __tablename__ = 'groups'
     gid = sqlalchemy.Column(sqlalchemy.BIGINT, primary_key=True)
@@ -161,7 +156,6 @@ def create_new_user(name, password, manager):  # 按下注册确定按键的瞬�
     print('in create new user')
     s = create_session()
     if not check_name(Stus, name):
-        s.close()
         return False
     else:
         new = Stus(name=name, password=password, issuper=manager, Bi="你还没有写任何简介", quote="", groups=[],
@@ -172,18 +166,18 @@ def create_new_user(name, password, manager):  # 按下注册确定按键的瞬�
         return True
 
 
-def change_password(password):  # 改密码
+def change_password(password,name):  # 改密码
     """
 
     :param password:
     """
     s = create_session()
-    s.query(Stus).filter(Stus.name == Stu_now).first().password = password
+    s.query(Stus).filter(Stus.name == name).first().password = password
     s.commit()
     s.close()
 
 
-def change_name(new):  # 改名字，按下确定瞬间
+def change_name(new,name):  # 改名字，按下确定瞬间
     """
 
     :param new:
@@ -193,30 +187,37 @@ def change_name(new):  # 改名字，按下确定瞬间
         return False
     else:
         s = create_session()
-        s.query(Stus).filter(Stus.name == Stu_now).first().name = new
+        stu = s.query(Stus).filter(Stus.name == name).first()
+        stu.name = new
         s.commit()
         s.close()
         return True
+#当前用户属于的所有组
+def show_users_groups(name):
+    s = create_session()
+    groups = []
+    for i in s.query(Stus).filter(Stus.name == name).first().groups:
+        groups.append(i.name)
+    return groups
 
-
-def change_quote(new):  # 改格言
+def change_quote(new,name):  # 改格言
     """
 
     :param new:
     """
     s = create_session()
-    s.query(Stus).filter(Stus.name == Stu_now).first().quote = new
+    s.query(Stus).filter(Stus.name == name).first().quote = new
     s.commit()
     s.close()
 
 
-def change_bi(new):  # 改简介
+def change_bi(new,name):  # 改简介
     """
 
     :param new:
     """
     s = create_session()
-    s.query(Stus).filter(Stus.name == Stu_now).first().Bi = new
+    s.query(Stus).filter(Stus.name == name).first().Bi = new
     s.commit()
     s.close()
 
@@ -234,8 +235,6 @@ def login(name, password):  # 登入瞬间
     else:
         passw = s.query(Stus).filter(Stus.name == name).first().password
         if passw == password:  # 账号密码都正确
-            global Stu_now
-            Stu_now = s.query(Stus).filter(Stus.name == name).first().name
             s.close()
             return True
         else:
@@ -244,34 +243,40 @@ def login(name, password):  # 登入瞬间
 
 
 # 任务二 管理员创建小组，将他人加入小组，用户搜索加入小组，注意，此时要更新学生的问题组权限
-def check_super():
+def check_super(name):
     """
 
     :return:
     """
     s = create_session()
-    return s.query(Stus).filter(Stus.name == Stu_now).first().issuper
+    ans = s.query(Stus).filter(Stus.name == name).first().issuper
+    s.close()
+    return ans
 
 
-def create_new_group(g_name):  # 创建一个空的新的小组(小组名)
+def create_new_group(g_name,name):  # 创建一个空的新的小组(小组名)
     """
 
+    :param name:
     :param g_name:
     :return:
     """
+    print(1)
     s = create_session()
     if not check_name(Groups, g_name):  # 名字存在
         s.close()
         return False
-    elif s.query(Stus).filter(Stus.name == Stu_now).first().issuper == 0:
+    elif s.query(Stus).filter(Stus.name == name).first().issuper == 0:
         s.close()
         return False
     else:
-        uid = s.query(Stus).filter(Stus.name == Stu_now).first().uid
+        print(2)
+        uid = s.query(Stus).filter(Stus.name == name).first().uid
         new = Groups(name=g_name, uid=uid)
         s.add(new)
         s.commit()
         s.close()
+        return True
 
 
 # 将一组人加进group，注意问题权限
@@ -369,7 +374,7 @@ def search_groups(page):  # 用户查找组时
     return gnames
 
 
-def user_add_into_group(g_name):  # 用户主动申请加入
+def user_add_into_group(g_name,name):  # 用户主动申请加入
     """
 
     :param g_name:
@@ -377,14 +382,14 @@ def user_add_into_group(g_name):  # 用户主动申请加入
     """
     s = create_session()
     # 如果已经在组里，加入失败
-    uid = s.query(Stus).filter(Stus.name == Stu_now).first().uid
+    uid = s.query(Stus).filter(Stus.name == name).first().uid
     group = s.query(Groups).filter(Groups.name == g_name).first()
     gid = group.gid
     if gid in s.query(Stu_group).filter(Stu_group.uid == uid).all():
         s.close()
         return False
     # 加入成功
-    stu = s.query(Stus).filter(Stus.name == Stu_now).first()
+    stu = s.query(Stus).filter(Stus.name == name).first()
     stu.groups.append(group)  # 关联的是整个而不是一个值
 
     qgroups = group.qgroups  # 当前group的qgroups
@@ -396,6 +401,13 @@ def user_add_into_group(g_name):  # 用户主动申请加入
     s.commit()
     s.close()
 
+def all_groups():
+    groups = []
+    s = create_session()
+    all = s.query(Groups).all()
+    for i in all:
+        groups.append(i.name)
+    return groups
 
 # 任务三 上传 单个问题 或 一个文件的问题
 def show_all_chapter():
@@ -457,7 +469,7 @@ def load_one_question(title, answer, chapter, my_type, answer1, answer2, answer3
 #             s = create_session()
 
 
-def select_questions(chapters_name, mytype):  # 选择哪些chapters,填空,选择,权限
+def select_questions(chapters_name, mytype,user_name):  # 选择哪些chapters,填空,选择,权限
     """
 
     :param chapters_name:
@@ -467,7 +479,7 @@ def select_questions(chapters_name, mytype):  # 选择哪些chapters,填空,选�
     s = create_session()
     q = s.query(Questions).filter(or_(Questions.chapter.in_(chapters_name), Questions.public == True)).filter(
         Questions.type == mytype).all()
-    groups = s.query(Stus).filter(Stus.name == Stu_now).first().groups
+    groups = s.query(Stus).filter(Stus.name == user_name).first().groups
     gids = []  # 用户在的所有组
     for i in groups:
         gids.append(i.gid)
@@ -487,7 +499,7 @@ def select_questions(chapters_name, mytype):  # 选择哪些chapters,填空,选�
 
 
 # 问题共享功能
-def create_own_ques_group(name):  # 某个用户可以选择构造一个问题组并命名，类比学生和学生组
+def create_own_ques_group(name,user_name):  # 某个用户可以选择构造一个问题组并命名，类比学生和学生组
     """
 
     :param name:
@@ -496,7 +508,7 @@ def create_own_ques_group(name):  # 某个用户可以选择构造一个问题�
     if check_name(QGroups, name) == False:
         return False
     s = create_session()
-    uid = s.query(Stus).filter(Stus.name == Stu_now).first().uid
+    uid = s.query(Stus).filter(Stus.name == user_name).first().uid
     new = QGroups(name=name, uid=uid)
     s.add(new)
     s.commit()
@@ -542,14 +554,14 @@ def share_question_with_groups(qgname, gname):  # 与特定的用户组分享特
 
 
 # 只关心当前评论显示在在哪个答案的下方
-def send_comments(qid, content):
+def send_comments(qid, content,user_name):
     """
 
     :param qid:
     :param content:
     """
     s = create_session()
-    stu = s.query(Stus).filter(Stus.name == Stu_now).first()
+    stu = s.query(Stus).filter(Stus.name == user_name).first()
     new = Comments(qid=qid, content=content, sender=stu.uid)  # 保证不能被改变
     s.add(new)
     s.commit()
@@ -602,7 +614,7 @@ def generate_talent_tabel():
     pass
 
 
-def search_star_questions(page):  #
+def search_star_questions(page,name):  #
     """
 
     :param page:
@@ -610,7 +622,8 @@ def search_star_questions(page):  #
     """
     # 分页显示，每页十条
     s = create_session()
-    temps = s.query(Star_stu).filter(Star_stu.uid == Stu_now_id).limit(10).offset((page - 1) * 10).all()
+    id = s.query(Stus).filter(Stus.name == name).first().uid
+    temps = s.query(Star_stu).filter(Star_stu.uid == id).limit(10).offset((page - 1) * 10).all()
     questions = []
     for i in temps:
         questions.append(s.query(Questions).filter(Questions.qid == i.qid).first())
@@ -625,5 +638,16 @@ def drop_and_create():
 
 if __name__ == '__main__':
     # Base.metadata.create_all(engine)#一键在数据库生成所有的类
+    # # Base.metadata.drop_all(engine)#一键清除
+    s = create_session()
+    new = Groups(name='g_name')
+    s.add(new)
+    s.commit()
+    s.close()
+     # for i in range(100):
+     #     user1 = Stus(name = "stu"+str(i),password = '6',issuper = False)
+     #     s.add(user1)
+
     # Base.metadata.drop_all(engine)#一键清除
-    pass
+
+
