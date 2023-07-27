@@ -162,6 +162,7 @@ if __name__ == '__main__':
 
 
     def change_widget_7():  # 上传
+        org1.init_global()
         user = 'fmy'
         if os.path.exists('temp'):
             with open('temp', "rt") as file:
@@ -198,14 +199,8 @@ if __name__ == '__main__':
                                   org1.answerC, org1.answerD, '', public, user)
 
         print('cuesss')
-        # reply = QMessageBox.about(self, '上传成功')
+        QMessageBox.about(win,'上传问题', '上传成功')
 
-        orgUi.textEdit_title.setText('')
-        orgUi.lineEdit_public.setText('')
-        orgUi.lineEdit_type.setText('')
-        orgUi.lineEdit_answer.setText('')
-        orgUi.lineEdit_chapter.setText('')
-        orgUi.lineEdit_name.setText('')
 
 
     def change_widget_9(self):  # 搜索组

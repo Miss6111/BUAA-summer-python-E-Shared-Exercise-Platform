@@ -19,6 +19,24 @@ answerB = ''
 answerC = ''
 answerD = ''
 
+def init_global():
+    global selection
+    global selected_public
+    global selected_chapter
+    global selected_public
+    global selected_type
+    global answerA
+    global answerC
+    global answerB
+    global answerD
+    selected_chapter = "Chapter 1"
+    selected_type = "填空"
+    selected_public = "Yes"
+    selection = ['0', '0', '0', '0']
+    answerA = ''
+    answerB = ''
+    answerC = ''
+    answerD = ''
 
 # 定义函数来修改全局变量
 def modify_chapter(new):
