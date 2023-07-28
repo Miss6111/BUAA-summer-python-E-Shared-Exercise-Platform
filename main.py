@@ -76,14 +76,13 @@ class admin_action():
 
     def chose_people(self):  # 调出选择用户界面
         text = orgUi.personname.text()
-        # gname = orgUi.groupname_2.text()
-        # orgUi.waddp.close()
-        # self.wad = QtWidgets.QWidget(self.my_ad)
-        # list_win.setWindowTitle('添加用户到组：' + gname)
-        itemlist = ['小王', '小张']
-        itemlist = Stu.search_students(1, text)  # backend
-        user_list.initializeList(itemlist)
-        user_list.show()
+        gname = orgUi.waddpgn.text()
+        itemlist = Stu.search_students(gname, text)  # backend
+        if len(itemlist) == 0:
+            QMessageBox.information(user_list, "警告", f"没有不在此小组的用户或没有此用户")
+        else:
+            user_list.initializeList(itemlist)
+            user_list.show()
 
     def search_for_group(self):  # 调出选择组界面
         user = 'fmy'
