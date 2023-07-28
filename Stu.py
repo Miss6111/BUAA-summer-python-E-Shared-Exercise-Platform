@@ -554,6 +554,121 @@ def scope_questions(ques_name, chapters_name, mytype, user_name):  # 关键词�
     return q  # 返回值为满足要求的Questions条目
 
 
+# ************************************************************************************************************** #
+# 根据关键词搜索问题
+def scope_questions_title(ques_name, chapters_name, mytype, user_name):  # 关键词，章节，题型
+    """
+
+    :param ques_name:
+    :param chapters_name:
+    :param mytype:
+    :param user_name:
+    :return:
+    """
+    s = create_session()
+    # 搜索范围包括questions中的public或上传者为本人的，和qgroup中的
+    uid = s.query(Stus).filter(Stus.name == user_name).first().uid
+    qgroups = s.query(Stus).filter(Stus.name == user_name).first().qgroups
+    q = s.query(Questions).filter(or_(Questions.uid == uid, Questions.public == True,
+                                      Questions.qgroups.in_(qgroups))) \
+        .filter(Questions.chapter.in_(chapters_name)).filter(Questions.type == mytype).filter(
+        Questions.title.find(ques_name)).all()
+    # ************************************** #
+    title = []
+    for i in q:
+        title.append(i.title)
+    # ************************************** #
+    # 目前仅支持关键词为title子串
+    s.commit()
+    s.close()
+    return title  # 返回值为满足要求的Questions条目
+
+
+def scope_questions_answer(ques_name, chapters_name, mytype, user_name):  # 关键词，章节，题型
+    """
+
+    :param ques_name:
+    :param chapters_name:
+    :param mytype:
+    :param user_name:
+    :return:
+    """
+    s = create_session()
+    # 搜索范围包括questions中的public或上传者为本人的，和qgroup中的
+    uid = s.query(Stus).filter(Stus.name == user_name).first().uid
+    qgroups = s.query(Stus).filter(Stus.name == user_name).first().qgroups
+    q = s.query(Questions).filter(or_(Questions.uid == uid, Questions.public == True,
+                                      Questions.qgroups.in_(qgroups))) \
+        .filter(Questions.chapter.in_(chapters_name)).filter(Questions.type == mytype).filter(
+        Questions.title.find(ques_name)).all()
+    # ************************************** #
+    answer = []
+    for i in q:
+        answer.append(i.answer)
+    # ************************************** #
+    # 目前仅支持关键词为title子串
+    s.commit()
+    s.close()
+    return answer  # 返回值为满足要求的Questions条目
+
+
+def scope_questions_type(ques_name, chapters_name, mytype, user_name):  # 关键词，章节，题型
+    """
+
+    :param ques_name:
+    :param chapters_name:
+    :param mytype:
+    :param user_name:
+    :return:
+    """
+    s = create_session()
+    # 搜索范围包括questions中的public或上传者为本人的，和qgroup中的
+    uid = s.query(Stus).filter(Stus.name == user_name).first().uid
+    qgroups = s.query(Stus).filter(Stus.name == user_name).first().qgroups
+    q = s.query(Questions).filter(or_(Questions.uid == uid, Questions.public == True,
+                                      Questions.qgroups.in_(qgroups))) \
+        .filter(Questions.chapter.in_(chapters_name)).filter(Questions.type == mytype).filter(
+        Questions.title.find(ques_name)).all()
+    # ************************************** #
+    mytype = []
+    for i in q:
+        mytype.append(i.type)
+    # ************************************** #
+    # 目前仅支持关键词为title子串
+    s.commit()
+    s.close()
+    return mytype  # 返回值为满足要求的Questions条目
+
+
+def scope_questions_qid(ques_name, chapters_name, mytype, user_name):  # 关键词，章节，题型
+    """
+
+    :param ques_name:
+    :param chapters_name:
+    :param mytype:
+    :param user_name:
+    :return:
+    """
+    s = create_session()
+    # 搜索范围包括questions中的public或上传者为本人的，和qgroup中的
+    uid = s.query(Stus).filter(Stus.name == user_name).first().uid
+    qgroups = s.query(Stus).filter(Stus.name == user_name).first().qgroups
+    q = s.query(Questions).filter(or_(Questions.uid == uid, Questions.public == True,
+                                      Questions.qgroups.in_(qgroups))) \
+        .filter(Questions.chapter.in_(chapters_name)).filter(Questions.type == mytype).filter(
+        Questions.title.find(ques_name)).all()
+    # ************************************** #
+    qid = []
+    for i in q:
+        qid.append(i.qid)
+    # ************************************** #
+    # 目前仅支持关键词为title子串
+    s.commit()
+    s.close()
+    return qid  # 返回值为满足要求的Questions条目
+# ************************************************************************************************************** #
+
+
 # 问题共享功能
 def create_own_ques_group(name, user_name):  # 某个用户可以选择构造一个问题组并命名，类比学生和学生组
     """
@@ -756,7 +871,7 @@ def personalized_recommendation(qnum, chapters_name, choose, gap, user_name):
 def get_question(qid):
     s = create_session()
     ques = s.query(Questions).filter(Questions.qid == qid).first()
-    lis = [ques.title, ques.type, ques.answer1, ques.answer2, ques.answer3, ques.answer4]
+    lis = [ques.title, ques.type, ques.answer,ques.answer1, ques.answer2, ques.answer3, ques.answer4]
     s.commit()
     s.close()
     return lis
