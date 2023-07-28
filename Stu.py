@@ -330,6 +330,23 @@ def add_into_group(users, g_name):  # 此处users为名字字符串数组
     s.close()
 
 
+def search_for_groups(gname, name):  # 搜索组用，除去了当前用户已经在的组
+    s = create_session()
+    gname = gname.strip()
+    groups = s.query(Groups).filter(Groups.name.like('%' + gname + '%')).all()
+    names = []
+    uid = s.query(Stus).filter(Stus.name == name).first().uid
+    temps = []
+    for i in groups:
+        inGroups = s.query(Stu_group).filter(Stu_group.uid == uid).all()
+        for j in inGroups:
+            temps.append(j.gid)
+        if not i.gid in temps:
+            names.append(i.name)
+    return names
+    s.close()
+
+
 def search_students(gname, name):  # 去除了已经在表里的人
     """
 
@@ -390,39 +407,35 @@ def search_groups(page):  # 用户查找组时
     return gnames
 
 
-def user_add_into_group(gnames, name):  # 用户主动申请加入
+def user_add_into_group(gnames, name):  # 用户主动申请加入一串组,此时保证用户都不在这些组里
     """
 
     :param name:
     :param gnames:
     :return:
     """
-    print(gnames)
-    print(name)
     s = create_session()
     # 如果已经在组里，加入失败
-    uid = s.query(Stus).filter(Stus.name == name).first().uid
-    print('add')
-    groups = s.query(Groups).filter(Groups.name == gnames).all()
-    print('t')
-    gids = []
-    for i in groups:
-        gids.append(i.gid)
-    print(gids)
-    ingids = []
-    in_groups = s.query(Stu_group).filter(Stu_group.uid == uid).all()
-    for i in in_groups:
-        ingids.append(i.gid)
-    print(ingids)
-    repeat = []
+    # uid = s.query(Stus).filter(Stus.name == name).first().uid
+    groups = s.query(Groups).filter(Groups.name.in_(gnames)).all()
+    # gids = []
+    # for i in groups:
+    #     gids.append(i.gid)
+    # print(gids)
+    # ingids = []
+    # in_groups = s.query(Stu_group).filter(Stu_group.uid == uid).all()
+    # for i in in_groups:
+    #     ingids.append(i.gid)
+    # print(ingids)
+    # repeat = []
     stu = s.query(Stus).filter(Stus.name == name).first()
-    for i in gids:
-        if i in ingids:
-            repeat.append(s.query(Groups).filter(Groups.gid == i).first().name)
-        else:
-            # 加入成功
-            stu.groups.append(s.query(Groups).filter(Groups.gid == i).first())  # 关联的是整个而不是一个值
-
+    # for i in gids:
+    #     if i in ingids:
+    #         repeat.append(s.query(Groups).filter(Groups.gid == i).first().name)
+    #     else:
+    # 加入成功
+    for i in groups:
+        stu.groups.append(i)  # 关联的是整个而不是一个值
     for group in groups:
         qgroups = group.qgroups  # 当前group的qgroups
         # 这个学生目前的qgroups中不存在的才加入
@@ -432,8 +445,6 @@ def user_add_into_group(gnames, name):  # 用户主动申请加入
             stu.qgroups.append(j)  # 学生加入权限
     s.commit()
     s.close()
-    print('success')
-    return repeat
 
 
 # 任务三 上传 单个问题 或 一个文件的问题
@@ -469,7 +480,7 @@ def load_one_question(title, answer, chapter, my_type, answer1, answer2, answer3
     c = s.query(Chapters).filter(Chapters.name == chapter).first()
     q = Questions(title=title, answer=answer, type=my_type, answerA=answer1, answerB=answer2, answerC=answer3,
                   answerD=answer4, gap=gap, public=public, uid=s.query(Stus).filter(Stus.name == creater).first().uid,
-                  total=0, right=0,chapter=chapter)
+                  total=0, right=0, chapter=chapter)
     s.add(q)
     s.commit()
     c.ques.append(q)
@@ -748,6 +759,7 @@ def personalized_recommendation(qnum, chapters_name, choose, gap, user_name):
 if __name__ == '__main__':
     # Base.metadata.create_all(engine)#一键在数据库生成所有的类
     # Base.metadata.delete_all(engine)#一键清除S
-    load_one_question('title212', 'answ', 'Chapter 1', 1, 'answer1', 'answer2', 'answer3', 'answer4', 'tab', True, 'RRRR')
+    load_one_question('title212', 'answ', 'Chapter 1', 1, 'answer1', 'answer2', 'answer3', 'answer4', 'tab', True,
+                      'RRRR')
     # load_one_question(title='hhh',answer=)
     # user_add_into_group(['123', 'hhhhh'], 'stu9')  # 用户主动申请加入
