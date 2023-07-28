@@ -16,6 +16,30 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 # define index_upload 2
 # define index_search 3
 # define index_my_norm 4
+class search_action():
+    def search_for_group(self):  # 调出选择组界面
+        user = 'fmy'
+        if os.path.exists('temp'):
+            with open('temp', "rt") as file:
+                user = file.readline()
+        text = orgUi.search_group_name.text()
+        itemlist = Stu.search_for_groups(text, user)
+        if len(itemlist) == 0:
+            QMessageBox.information(search_group_list, "警告", f"您已加入当前小组或没有当前小组")
+        else:
+            search_group_list.initializeList(itemlist)
+            search_group_list.show()
+
+    def confirm_search_group_list(self):  # 确定搜索组
+        if os.path.exists('temp'):
+            with open('temp', "rt") as file:
+                user = file.readline()
+        selected_items = search_group_list.list_widget.selectedItems()
+        selected_names = [item.text() for item in selected_items]
+        QMessageBox.information(search_group_list, "选中的项", f"选中的项: {selected_names}")
+        Stu.user_add_into_group(selected_names, user)
+        search_group_list.close()
+
 
 class admin_action():
     def create_group(self):  # 调出创建组页面
@@ -83,29 +107,6 @@ class admin_action():
             user_list.initializeList(itemlist)
             user_list.show()
 
-    def search_for_group(self):  # 调出选择组界面
-        user = 'fmy'
-        if os.path.exists('temp'):
-            with open('temp', "rt") as file:
-                user = file.readline()
-        text = orgUi.search_group_name.text()
-        itemlist = Stu.search_for_groups(text, user)
-        if len(itemlist) == 0:
-            QMessageBox.information(search_group_list, "警告", f"您已加入当前小组或没有当前小组")
-        else:
-            search_group_list.initializeList(itemlist)
-            search_group_list.show()
-
-    def confirm_search_group_list(self):  # 确定搜索组
-        if os.path.exists('temp'):
-            with open('temp', "rt") as file:
-                user = file.readline()
-        selected_items = search_group_list.list_widget.selectedItems()
-        selected_names = [item.text() for item in selected_items]
-        QMessageBox.information(search_group_list, "选中的项", f"选中的项: {selected_names}")
-        Stu.user_add_into_group(selected_names, user)
-        search_group_list.close()
-
     def confirm_userlist(self):  # 确定用户
         selected_items = user_list.list_widget.selectedItems()
         selected_names = [item.text() for item in selected_items]
@@ -164,6 +165,7 @@ if __name__ == '__main__':
     def change_widget_4():  # 错误日志
         # orgUi.stackedWidget.setCurrentIndex(6)
         wrong.show()
+
 
     def change_widget_5():  # 我的
         # todo 确定是用户还是管理员
@@ -341,9 +343,9 @@ if __name__ == '__main__':
     orgUi.wgn_ok.clicked.connect(admin_action.create_group_ok)
     orgUi.waddpc.clicked.connect(orgUi.waddp.hide)
     orgUi.waddpsearch.clicked.connect(admin_action.chose_people)
-    orgUi.searchicon.clicked.connect(admin_action.search_for_group)
+    orgUi.searchicon.clicked.connect(search_action.search_for_group)
     user_list.confirm_button.clicked.connect(admin_action.confirm_userlist)
-    search_group_list.confirm_button.clicked.connect(admin_action.confirm_search_group_list)
+    search_group_list.confirm_button.clicked.connect(search_action.confirm_search_group_list)
     orgUi.waddpcg.clicked.connect(admin_action.chose_group)
     group_list.confirm_button.clicked.connect(admin_action.confirm_glist)
 
