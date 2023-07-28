@@ -10,19 +10,72 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QMessageBox
 import list_window, wrong_window
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-
 # define index_my_add 0
 # define index_welcom 1
 # define index_upload 2
 # define index_search 3
 # define index_my_norm 4
+from PyQt5.QtWidgets import QComboBox, QCheckBox
+
+selection = ['0', '0', '0', '0']
+
+
+def init_global():
+    global selection
+    selection = ['0', '0', '0', '0']
+
+
+# 定义函数来修改全局变量
+def modify_chapter(new):
+    global selected_chapter
+    selected_chapter = new
+
+
+def modify_type(new):
+    global selected_type
+    selected_type = new
+
+
+def modify_public(new):
+    global selected_public
+    selected_public = new
+
+
+def modify_selection(i):
+    global selection
+    if selection[i] == '0':
+        selection[i] = '1'
+    else:
+        selection[i] = '0'
+
+
+def setA(s):
+    global answerA
+    answerA = s
+
+
+def setB(s):
+    global answerB
+    answerB = s
+
+
+def setC(s):
+    global answerC
+    answerC = s
+
+
+def setD(s):
+    global answerD
+    answerD = s
+
+
 class search_action():
     def search_for_group(self):  # 调出选择组界面
         user = 'fmy'
-        if os.path.exists('temp'):
-            with open('temp', "rt") as file:
-                user = file.readline()
-        text = orgUi.search_group_name.text()
+        # if os.path.exists('temp'):
+        #     with open('temp', "rt") as file:
+        #         user = file.readline()
+        text = orgUi.groupline.text()
         itemlist = Stu.search_for_groups(text, user)
         if len(itemlist) == 0:
             QMessageBox.information(search_group_list, "警告", f"您已加入当前小组或没有当前小组")
@@ -39,6 +92,7 @@ class search_action():
         QMessageBox.information(search_group_list, "选中的项", f"选中的项: {selected_names}")
         Stu.user_add_into_group(selected_names, user)
         search_group_list.close()
+        QMessageBox.information(search_group_list, " ", f"加入成功")
 
 
 class admin_action():
@@ -139,12 +193,22 @@ if __name__ == '__main__':
     def change_widget_1():  # 上传问题
         orgUi.stackedWidget.setCurrentIndex(2)
 
+        orgUi.answer_load_A.hide()
+        orgUi.A_load.hide()
+        orgUi.answer_load_B.hide()
+        orgUi.B_load.hide()
+        orgUi.answer_load_C.hide()
+        orgUi.C_load.hide()
+        orgUi.answer_load_D.hide()
+        orgUi.D_load.hide()
+        orgUi.answer_load.show()
+
 
     def change_widget_2():  # 搜索
         orgUi.stackedWidget.setCurrentIndex(3)
-        orgUi.search_group_name.show()
-        orgUi.searchicon.show()
-        orgUi.pushButton_9.show()
+        orgUi.searchGroup.show()
+        orgUi.groupline.show()
+        orgUi.confirm_button.show()
         orgUi.pushButton_10.show()
         orgUi.label_type.hide()
         orgUi.label_key.hide()
@@ -154,8 +218,9 @@ if __name__ == '__main__':
         orgUi.lineEdit_type_2.hide()
         orgUi.pushButton_11.hide()
         orgUi.pushButton_12.hide()
-        orgUi.widget_btn.hide()
         orgUi.widget_ques.hide()
+        # orgUi.widget_btn.hide()
+        # orgUi.widget_ques.hide()
 
 
     def change_widget_3():  # 查看问题
@@ -195,31 +260,33 @@ if __name__ == '__main__':
 
 
     def change_widget_7():  # 上传
-        org1.init_global()
+
         user = 'fmy'
         if os.path.exists('temp'):
             with open('temp', "rt") as file:
                 user = file.readline()
         title = orgUi.textEdit_title.toPlainText()
-        chapter = org1.selected_chapter
-        if org1.selected_type == "填空":
+        if orgUi.type_choose.currentText() == "填空":
             type_l = 1
         else:
             type_l = 0
 
-        if org1.selected_public == "yes":
+        if orgUi.public_choose.currentText() == "Yes":
             public = True
         else:
             public = False
 
         if type_l == 1:
-            gap = orgUi.lineEdit_answer.text()
-            Stu.load_one_question(title, "", chapter, type_l, '', '', '', '', gap, public, user)
+            gap = orgUi.answer_load.text()
+            Stu.load_one_question(title, "", orgUi.chapter_choose.currentText(), type_l, '', '', '', '', gap, public,
+                                  user)
         else:
-            Stu.load_one_question(title, ''.join(org1.selection), chapter, type_l, org1.answerA, org1.answerB,
-                                  org1.answerC, org1.answerD, '', public, user)
+            Stu.load_one_question(title, ''.join(selection), orgUi.chapter_choose.currentText(), type_l,
+                                  orgUi.answer_load_A.text(),
+                                  orgUi.answer_load_B.text(),
+                                  orgUi.answer_load_C.text(), orgUi.answer_load_D.text(), '', public, user)
 
-        print('cuesss')
+        init_global()
         QMessageBox.about(win, '上传问题', '上传成功')
 
 
@@ -232,11 +299,10 @@ if __name__ == '__main__':
         if os.path.exists('temp'):
             with open('temp', "rt") as file:
                 user = file.readline()
-        print(user)
         orgUi.pushButton_10.hide()
-        orgUi.search_group_name.hide()
-        orgUi.searchicon.hide()
-        orgUi.pushButton_9.hide()
+        orgUi.searchGroup.hide()
+        orgUi.groupline.hide()
+        orgUi.confirm_button.hide()
         orgUi.label_type.show()
         orgUi.label_key.show()
         orgUi.label_chapter.show()
@@ -333,9 +399,9 @@ if __name__ == '__main__':
     orgUi.pushButton_5.clicked.connect(change_widget_5)
     orgUi.pushButton_6.clicked.connect(change_widget_6)
     orgUi.pushButton_7.clicked.connect(change_widget_7)
-    orgUi.pushButton_9.clicked.connect(change_widget_9)
+    # orgUi.pushButton_9.clicked.connect(change_widget_9)
     orgUi.pushButton_10.clicked.connect(change_widget_10)
-    # my window admin
+    # # my window admin
     orgUi.atg.clicked.connect(change_widget_2)
     orgUi.apb.clicked.connect(admin_action.add_people_to_group)
     orgUi.cgb.clicked.connect(admin_action.create_group)
@@ -343,11 +409,57 @@ if __name__ == '__main__':
     orgUi.wgn_ok.clicked.connect(admin_action.create_group_ok)
     orgUi.waddpc.clicked.connect(orgUi.waddp.hide)
     orgUi.waddpsearch.clicked.connect(admin_action.chose_people)
-    orgUi.searchicon.clicked.connect(search_action.search_for_group)
+    orgUi.confirm_button.clicked.connect(search_action.search_for_group)
     user_list.confirm_button.clicked.connect(admin_action.confirm_userlist)
     search_group_list.confirm_button.clicked.connect(search_action.confirm_search_group_list)
     orgUi.waddpcg.clicked.connect(admin_action.chose_group)
     group_list.confirm_button.clicked.connect(admin_action.confirm_glist)
+
+    def Modify_type():
+        if orgUi.type_choose.currentText() == '填空':
+            orgUi.answer_load_A.hide()
+            orgUi.A_load.hide()
+            orgUi.answer_load_B.hide()
+            orgUi.B_load.hide()
+            orgUi.answer_load_C.hide()
+            orgUi.C_load.hide()
+            orgUi.answer_load_D.hide()
+            orgUi.D_load.hide()
+            orgUi.answer_load.show()
+        else:
+            orgUi.answer_load_A.show()
+            orgUi.A_load.show()
+            orgUi.answer_load_B.show()
+            orgUi.B_load.show()
+            orgUi.answer_load_C.show()
+            orgUi.C_load.show()
+            orgUi.answer_load_D.show()
+            orgUi.D_load.show()
+            orgUi.answer_load.hide()
+
+    orgUi.type_choose.currentIndexChanged.connect(Modify_type)
+
+
+    def handleCheckboxA():
+        modify_selection(0)
+
+
+    def handleCheckboxB():
+        modify_selection(1)
+
+
+    def handleCheckboxC():
+        modify_selection(2)
+
+
+    def handleCheckboxD():
+        modify_selection(3)
+
+
+    orgUi.A_load.stateChanged.connect(handleCheckboxA)
+    orgUi.B_load.stateChanged.connect(handleCheckboxB)
+    orgUi.C_load.stateChanged.connect(handleCheckboxC)
+    orgUi.D_load.stateChanged.connect(handleCheckboxD)
 
     win.show()
     sys.exit(app.exec_())

@@ -9,7 +9,7 @@ from datetime import datetime
 from sqlalchemy import DateTime
 
 Base = declarative_base()
-DB_connect = 'mysql+mysqldb://root:1012416935@localhost/Test'
+DB_connect = 'mysql+mysqldb://root:222333dyh@localhost/Test'
 engine = create_engine(DB_connect, echo=True)
 
 
@@ -416,33 +416,18 @@ def user_add_into_group(gnames, name):  # 用户主动申请加入一串组,此�
     """
     s = create_session()
     # 如果已经在组里，加入失败
-    # uid = s.query(Stus).filter(Stus.name == name).first().uid
     groups = s.query(Groups).filter(Groups.name.in_(gnames)).all()
-    # gids = []
-    # for i in groups:
-    #     gids.append(i.gid)
-    # print(gids)
-    # ingids = []
-    # in_groups = s.query(Stu_group).filter(Stu_group.uid == uid).all()
-    # for i in in_groups:
-    #     ingids.append(i.gid)
-    # print(ingids)
-    # repeat = []
     stu = s.query(Stus).filter(Stus.name == name).first()
-    # for i in gids:
-    #     if i in ingids:
-    #         repeat.append(s.query(Groups).filter(Groups.gid == i).first().name)
-    #     else:
-    # 加入成功
     for i in groups:
         stu.groups.append(i)  # 关联的是整个而不是一个值
+        print(i.name)
     for group in groups:
         qgroups = group.qgroups  # 当前group的qgroups
         # 这个学生目前的qgroups中不存在的才加入
         for j in qgroups:
-            if j in stu.qgroups:
-                continue
-            stu.qgroups.append(j)  # 学生加入权限
+            print(j.name)
+            if not j in stu.qgroups:
+                stu.qgroups.append(j)  # 学生加入权限
     s.commit()
     s.close()
 
