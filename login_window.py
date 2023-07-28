@@ -2,7 +2,6 @@ import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget
 from sqlalchemy import create_engine
 import login_widget
-import about
 import os
 import Stu
 from PyQt5.QtWidgets import *

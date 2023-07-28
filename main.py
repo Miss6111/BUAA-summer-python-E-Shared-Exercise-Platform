@@ -8,7 +8,7 @@ import org1
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QMessageBox
 import about
-import list_window
+import list_window, wrong_window
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
@@ -17,7 +17,6 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 # define index_upload 2
 # define index_search 3
 # define index_my_norm 4
-
 
 class admin_action():
     def create_group(self):  # 调出创建组页面
@@ -100,6 +99,8 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     win = QMainWindow()
 
+    wrong = wrong_window.WrongWindow()
+    wrong.hide()
     user_list = list_window.CheckableListWidget()  # admin界面userlist
     user_list.hide()
     group_list = list_window.CheckableListWidget()  # admin界面grouplist
@@ -127,7 +128,6 @@ if __name__ == '__main__':
         orgUi.pushButton_12.hide()
         orgUi.widget_btn.hide()
         orgUi.widget_ques.hide()
-
 
 
     def change_widget_3():  # 查看问题
@@ -202,8 +202,7 @@ if __name__ == '__main__':
                                   org1.answerC, org1.answerD, '', public, user)
 
         print('cuesss')
-        QMessageBox.about(win,'上传问题', '上传成功')
-
+        QMessageBox.about(win, '上传问题', '上传成功')
 
 
     def change_widget_9(self):  # 搜索组
@@ -214,17 +213,18 @@ if __name__ == '__main__':
         orgUi.pushButton_10.hide()
         orgUi.pushButton_11.show()
         orgUi.widget_btn.show()
-        #orgUi.pushButton_11.clicked.connect(change_widget_11)
+        # orgUi.pushButton_11.clicked.connect(change_widget_11)
         print("enx")
         group = Stu.search_groups(page)
         print(group)
         length = len(group)
         orgUi.button0.setText(group[0])
-        orgUi.button0.clicked.connect(lambda:change_widget_btn(group[0]))
+        orgUi.button0.clicked.connect(lambda: change_widget_btn(group[0]))
         orgUi.button1.setText(group[1])
-        orgUi.button1.clicked.connect(lambda:change_widget_btn(group[1]))
+        orgUi.button1.clicked.connect(lambda: change_widget_btn(group[1]))
         orgUi.button2.setText(group[2])
-        orgUi.button2.clicked.connect(lambda:change_widget_btn(group[2]))
+        orgUi.button2.clicked.connect(lambda: change_widget_btn(group[2]))
+
 
     def change_widget_10():  # 搜索问题
         user = 'fmy'
@@ -243,45 +243,50 @@ if __name__ == '__main__':
         ques_name = orgUi.lineEdit_key.text()
         chapters_name = orgUi.lineEdit_chapter_2.text()
         mytype = orgUi.lineEdit_type_2.text()
-        orgUi.pushButton_12.clicked.connect(lambda:change_widget_12(ques_name,chapters_name,mytype,user))
+        orgUi.pushButton_12.clicked.connect(lambda: change_widget_12(ques_name, chapters_name, mytype, user))
 
 
-    def change_widget_12(ques_name,chapters_name,mytype,user):  # 搜索
+    def change_widget_12(ques_name, chapters_name, mytype, user):  # 搜索
         q = []
         q = Stu.scope_questions(ques_name, chapters_name, mytype, user)
         orgUi.question0.setText(q[0])
 
-        orgUi.question0.clicked.connect(lambda:change_widget_q(q[0]))
+        orgUi.question0.clicked.connect(lambda: change_widget_q(q[0]))
         orgUi.question1.setText(q[1])
-        orgUi.question1.clicked.connect(lambda:change_widget_q(q[1]))
+        orgUi.question1.clicked.connect(lambda: change_widget_q(q[1]))
         orgUi.question2.setText(q[2])
-        orgUi.question2.clicked.connect(lambda:change_widget_q(q[2]))
+        orgUi.question2.clicked.connect(lambda: change_widget_q(q[2]))
         orgUi.question3.setText(q[3])
-        orgUi.question3.clicked.connect(lambda:change_widget_q(q[3]))
+        orgUi.question3.clicked.connect(lambda: change_widget_q(q[3]))
 
-    def change_widget_q(text,answer,mytype):
+
+    def change_widget_q(text, answer, mytype):
         orgUi.stackedWidget.setCurrentIndex(5)
-        if(mytype == 1):
+        if (mytype == 1):
             orgUi.page_2.show()
             orgUi.page.hide()
             orgUi.page_3.hide()
             orgUi.textBrowser_3.setText(text)
             given = orgUi.answer1.text()
-            orgUi.submit.clicked.connect(lambda:change_widget_submit(given))
+            orgUi.submit.clicked.connect(lambda: change_widget_submit(given))
         else:
             orgUi.page.show()
             orgUi.page_2.hide()
             orgUi.page_3.hide()
             orgUi.textBrowser_2.setText(text)
 
+
     def change_widget_submit(given):  # 按下按钮
         orgUi.label_5.setText(given)
+
 
     def change_widget_star(given):
         orgUi.label_5.setText(given)
 
+
     def change_widget_star2(given):
         orgUi.label_5.setText(given)
+
 
     def change_widget_btn(text):  # 按下按钮
         user = 'fmy'
@@ -289,7 +294,7 @@ if __name__ == '__main__':
             with open('temp', "rt") as file:
                 user = file.readline()
         print(user)
-        #Stu.user_add_into_group(text,user)
+        # Stu.user_add_into_group(text,user)
 
 
     def create_group():
