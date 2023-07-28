@@ -137,7 +137,7 @@ background-color: rgb(255, 170, 0);</string>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>5</number>
+     <number>6</number>
     </property>
     <widget class="QWidget" name="my_ad">
      <widget class="QWidget" name="wad" native="true">
@@ -1335,7 +1335,7 @@ background-color: rgb(255, 203, 151);</string>
        </rect>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="page">
        <widget class="QPushButton" name="star">
@@ -1698,21 +1698,7 @@ p, li { white-space: pre-wrap; }
       </widget>
      </widget>
     </widget>
-    <widget class="QWidget" name="log">
-     <widget class="QLabel" name="label_3">
-      <property name="geometry">
-       <rect>
-        <x>160</x>
-        <y>130</y>
-        <width>261</width>
-        <height>61</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>错误日志</string>
-      </property>
-     </widget>
-    </widget>
+    <widget class="QWidget" name="log"/>
    </widget>
   </widget>
  </widget>
