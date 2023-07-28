@@ -330,6 +330,23 @@ def add_into_group(users, g_name):  # 此处users为名字字符串数组
     s.close()
 
 
+def search_for_groups(gname, name):  # 搜索组用，除去了当前用户已经在的组
+    s = create_session()
+    gname = gname.strip()
+    groups = s.query(Groups).filter(Groups.name.like('%' + gname + '%')).all()
+    names = []
+    uid = s.query(Stus).filter(Stus.name == name).first().uid
+    temps = []
+    for i in groups:
+        inGroups = s.query(Stu_group).filter(Stu_group.uid == uid).all()
+        for j in inGroups:
+            temps.append(j.gid)
+        if not i.gid in temps:
+            names.append(i.name)
+    return names
+    s.close()
+
+
 def search_students(gname, name):  # 去除了已经在表里的人
     """
 
@@ -390,39 +407,35 @@ def search_groups(page):  # 用户查找组时
     return gnames
 
 
-def user_add_into_group(gnames, name):  # 用户主动申请加入
+def user_add_into_group(gnames, name):  # 用户主动申请加入一串组,此时保证用户都不在这些组里
     """
 
     :param name:
     :param gnames:
     :return:
     """
-    print(gnames)
-    print(name)
     s = create_session()
     # 如果已经在组里，加入失败
-    uid = s.query(Stus).filter(Stus.name == name).first().uid
-    print('add')
-    groups = s.query(Groups).filter(Groups.name == gnames).all()
-    print('t')
-    gids = []
-    for i in groups:
-        gids.append(i.gid)
-    print(gids)
-    ingids = []
-    in_groups = s.query(Stu_group).filter(Stu_group.uid == uid).all()
-    for i in in_groups:
-        ingids.append(i.gid)
-    print(ingids)
-    repeat = []
+    # uid = s.query(Stus).filter(Stus.name == name).first().uid
+    groups = s.query(Groups).filter(Groups.name.in_(gnames)).all()
+    # gids = []
+    # for i in groups:
+    #     gids.append(i.gid)
+    # print(gids)
+    # ingids = []
+    # in_groups = s.query(Stu_group).filter(Stu_group.uid == uid).all()
+    # for i in in_groups:
+    #     ingids.append(i.gid)
+    # print(ingids)
+    # repeat = []
     stu = s.query(Stus).filter(Stus.name == name).first()
-    for i in gids:
-        if i in ingids:
-            repeat.append(s.query(Groups).filter(Groups.gid == i).first().name)
-        else:
-            # 加入成功
-            stu.groups.append(s.query(Groups).filter(Groups.gid == i).first())  # 关联的是整个而不是一个值
-
+    # for i in gids:
+    #     if i in ingids:
+    #         repeat.append(s.query(Groups).filter(Groups.gid == i).first().name)
+    #     else:
+    # 加入成功
+    for i in groups:
+        stu.groups.append(i)  # 关联的是整个而不是一个值
     for group in groups:
         qgroups = group.qgroups  # 当前group的qgroups
         # 这个学生目前的qgroups中不存在的才加入
@@ -432,8 +445,6 @@ def user_add_into_group(gnames, name):  # 用户主动申请加入
             stu.qgroups.append(j)  # 学生加入权限
     s.commit()
     s.close()
-    print('success')
-    return repeat
 
 
 # 任务三 上传 单个问题 或 一个文件的问题
@@ -710,11 +721,8 @@ def do_question(qid, user_name, answer, gap):  # 题目id;是否正确
     mygap = s.query(Questions).filter(Questions.uid == uid).first().gap
     ques = s.query(Questions).filter(Questions.uid == uid).first()
     ques.totol = ques.total + 1
-    right = mytype == 0 and answer == myanswer or mytype == 1 and gap == mygap
-    ques.right = ques.right + 1
-    if mytype == 0:
-        return answer == myanswer
-    new = Records(uid=uid, qid=qid, right=right)
+    right = (mytype == 0 or mytype == 2) and answer == myanswer or mytype == 1 and gap == mygap
+    new = Records(uid=uid, qid=qid, right=right, rate=0)
     s.add(new)
     # 更新正确率并返回
     records = s.query(Records).filter(Records.uid == uid, Records.qid == qid).all()
@@ -731,7 +739,6 @@ def do_question(qid, user_name, answer, gap):  # 题目id;是否正确
     # 返回值为 是否正确（1为正确，0为错误） 选择题标准答案 填空题标准答案 本题本人正确率 本题整体正确率
 
 
-# 形成个性化题组
 # 形成个性化题组
 def personalized_recommendation(qnum, chapters_name, choose, gap, user_name):
     # eg.(12,[2,3,4],1,0,168) means 根据168用户的错题记录，生成2、3、4、5章节的12道选择题组
@@ -758,7 +765,9 @@ def personalized_recommendation(qnum, chapters_name, choose, gap, user_name):
     # 返回问题id
 
 
+# 返回值是Records行
 
+# 根据id 返回 title, type, answer1, answer2, answer3, answer4
 def get_question(qid):
     s = create_session()
     ques = s.query(Questions).filter(Questions.qid == qid).first()

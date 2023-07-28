@@ -165,11 +165,14 @@ class Ui_MainWindow(object):
         self.waddpsearch.setIcon(icon2)
         self.waddpsearch.setIconSize(QtCore.QSize(30, 30))
         self.waddpsearch.setObjectName("waddpsearch")
+
         self.personname = QtWidgets.QLineEdit(self.waddp)
         self.personname.setGeometry(QtCore.QRect(20, 110, 191, 41))
         self.personname.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.personname.setText("")
         self.personname.setObjectName("personname")
+
+
         self.waddpcg = QtWidgets.QPushButton(self.waddp)
         self.waddpcg.setGeometry(QtCore.QRect(10, 30, 131, 51))
         font = QtGui.QFont()
@@ -305,11 +308,30 @@ class Ui_MainWindow(object):
         self.fsearch_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.fsearch_2.setFrameShadow(QtWidgets.QFrame.Raised)
         self.fsearch_2.setObjectName("fsearch_2")
+
         self.pushButton_9 = QtWidgets.QPushButton(self.fsearch_2)
         self.pushButton_9.setGeometry(QtCore.QRect(90, 40, 261, 131))
         self.pushButton_9.setStyleSheet("background-color: rgb(255, 203, 151);\n"
 "font: 24pt \"Agency FB\";\n"
 "font: 22pt \"Agency FB\";")
+
+        self.search_group_name = QtWidgets.QLineEdit(self.fsearch_2)
+        self.search_group_name.setGeometry(QtCore.QRect(400, 80, 400, 40))
+        self.search_group_name.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.search_group_name.setText("")
+        self.search_group_name.setObjectName("search_group_name")
+
+        self.searchicon = QtWidgets.QPushButton(self.fsearch_2)
+        self.searchicon.setGeometry(QtCore.QRect(820, 80, 41, 40))
+        self.searchicon.setStyleSheet("background-color: rgb(255, 203, 151);\n"
+                                       "border-radius:15px")
+        self.searchicon.setText("")
+        icon2 = QtGui.QIcon()
+        icon2.addPixmap(QtGui.QPixmap(":/icons/icon/search.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.searchicon.setIcon(icon2)
+        self.searchicon.setIconSize(QtCore.QSize(30, 30))
+        self.searchicon.setObjectName("searchicon")
+
         self.pushButton_9.setObjectName("pushButton_9")
         self.pushButton_10 = QtWidgets.QPushButton(self.fsearch_2)
         self.pushButton_10.setGeometry(QtCore.QRect(90, 260, 261, 131))
@@ -339,9 +361,13 @@ class Ui_MainWindow(object):
 "font: 12pt \"Agency FB\";\n"
 "")
         self.pushButton_11.setObjectName("pushButton_11")
+
         self.widget_btn = QtWidgets.QWidget(self.fsearch_2)
         self.widget_btn.setGeometry(QtCore.QRect(0, 0, 811, 521))
         self.widget_btn.setObjectName("widget_btn")
+
+
+
         self.button0 = QtWidgets.QPushButton(self.widget_btn)
         self.button0.setGeometry(QtCore.QRect(60, 0, 731, 51))
         self.button0.setStyleSheet("font: 14pt \"Agency FB\";")
@@ -648,7 +674,7 @@ class Ui_MainWindow(object):
         self.answer.setText(_translate("MainWindow", "answer"))
         self.answer_2.setText(_translate("MainWindow", "chapter"))
         self.pushButton_7.setText(_translate("MainWindow", "上传"))
-        self.pushButton_9.setText(_translate("MainWindow", "加入组"))
+        self.pushButton_9.setText(_translate("MainWindow", "搜索组"))
         self.pushButton_10.setText(_translate("MainWindow", "搜索问题"))
         self.label_type.setText(_translate("MainWindow", "类型"))
         self.label_chapter.setText(_translate("MainWindow", "章节"))

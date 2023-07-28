@@ -84,6 +84,29 @@ class admin_action():
         user_list.initializeList(itemlist)
         user_list.show()
 
+    def search_for_group(self):  # 调出选择组界面
+        user = 'fmy'
+        if os.path.exists('temp'):
+            with open('temp', "rt") as file:
+                user = file.readline()
+        text = orgUi.search_group_name.text()
+        itemlist = Stu.search_for_groups(text, user)
+        if len(itemlist) == 0:
+            QMessageBox.information(search_group_list, "警告", f"您已加入当前小组或没有当前小组")
+        else:
+            search_group_list.initializeList(itemlist)
+            search_group_list.show()
+
+    def confirm_search_group_list(self):  # 确定搜索组
+        if os.path.exists('temp'):
+            with open('temp', "rt") as file:
+                user = file.readline()
+        selected_items = search_group_list.list_widget.selectedItems()
+        selected_names = [item.text() for item in selected_items]
+        QMessageBox.information(search_group_list, "选中的项", f"选中的项: {selected_names}")
+        Stu.user_add_into_group(selected_names, user)
+        search_group_list.close()
+
     def confirm_userlist(self):  # 确定用户
         selected_items = user_list.list_widget.selectedItems()
         selected_names = [item.text() for item in selected_items]
@@ -104,6 +127,8 @@ if __name__ == '__main__':
     user_list.hide()
     group_list = list_window.CheckableListWidget()  # admin界面grouplist
     group_list.hide()
+    search_group_list = list_window.CheckableListWidget()
+    search_group_list.hide()
 
     orgUi = org1.Ui_MainWindow()
     orgUi.setupUi(win)
@@ -186,18 +211,6 @@ if __name__ == '__main__':
             gap = orgUi.lineEdit_answer.text()
             Stu.load_one_question(title, "", chapter, type_l, '', '', '', '', gap, public, user)
         else:
-
-            # print('title =')
-            # print(title)
-            # print('selection = ')
-            #
-            # print(''.join(org1.selection))
-            # print(chapter)
-            # print(type_l)
-            # print(org1.answerA)
-            # print(org1.answerB)
-            # print(public)
-
             Stu.load_one_question(title, ''.join(org1.selection), chapter, type_l, org1.answerA, org1.answerB,
                                   org1.answerC, org1.answerD, '', public, user)
 
@@ -214,10 +227,10 @@ if __name__ == '__main__':
         orgUi.pushButton_11.show()
         orgUi.widget_btn.show()
         # orgUi.pushButton_11.clicked.connect(change_widget_11)
+        # orgUi.pushButton_11.clicked.connect(change_widget_11)
         print("enx")
         group = Stu.search_groups(page)
         print(group)
-        length = len(group)
         orgUi.button0.setText(group[0])
         orgUi.button0.clicked.connect(lambda: change_widget_btn(group[0]))
         orgUi.button1.setText(group[1])
@@ -293,8 +306,7 @@ if __name__ == '__main__':
         if os.path.exists('temp'):
             with open('temp', "rt") as file:
                 user = file.readline()
-        print(user)
-        # Stu.user_add_into_group(text,user)
+        Stu.user_add_into_group(text, user)
 
 
     def create_group():
@@ -340,7 +352,9 @@ if __name__ == '__main__':
     orgUi.wgn_ok.clicked.connect(admin_action.create_group_ok)
     orgUi.waddpc.clicked.connect(orgUi.waddp.hide)
     orgUi.waddpsearch.clicked.connect(admin_action.chose_people)
+    orgUi.searchicon.clicked.connect(admin_action.search_for_group)
     user_list.confirm_button.clicked.connect(admin_action.confirm_userlist)
+    search_group_list.confirm_button.clicked.connect(admin_action.confirm_search_group_list)
     orgUi.waddpcg.clicked.connect(admin_action.chose_group)
     group_list.confirm_button.clicked.connect(admin_action.confirm_glist)
 
