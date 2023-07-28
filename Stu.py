@@ -721,11 +721,8 @@ def do_question(qid, user_name, answer, gap):  # 题目id;是否正确
     mygap = s.query(Questions).filter(Questions.uid == uid).first().gap
     ques = s.query(Questions).filter(Questions.uid == uid).first()
     ques.totol = ques.total + 1
-    right = mytype == 0 and answer == myanswer or mytype == 1 and gap == mygap
-    ques.right = ques.right + 1
-    if mytype == 0:
-        return answer == myanswer
-    new = Records(uid=uid, qid=qid, right=right)
+    right = (mytype == 0 or mytype == 2) and answer == myanswer or mytype == 1 and gap == mygap
+    new = Records(uid=uid, qid=qid, right=right, rate=0)
     s.add(new)
     # 更新正确率并返回
     records = s.query(Records).filter(Records.uid == uid, Records.qid == qid).all()
@@ -749,11 +746,35 @@ def personalized_recommendation(qnum, chapters_name, choose, gap, user_name):
     uid = s.query(Stus).filter(Stus.name == user_name).first().uid
     s.commit()
     s.close()
-    tops = s.query(Records).filter(Records.uid == uid) \
+    # 筛选出Records中 该人 该章节 该提醒 的所有错题记录
+    records = s.query(Records).filter(Records.uid == uid) \
         .filter(Questions.chapter.in_(chapters_name)) \
-        .filter(Questions.type == 1-choose, Questions.type == gap).order_by(Records.rate.desc()).limit(qnum).all()
-    return tops
-    # 返回值是Records行
+        .filter(Questions.type == 1 - choose, Questions.type == gap).all()
+    ques = []
+    for i in records:
+        id = i.qid
+        if id not in ques:
+            ques.append(id)
+    for i in range(len(ques)):
+        for j in range(i + 1, len(ques)):
+            a = s.query(Records).filter(Records.uid == uid, Records.qid == ques[i]).all().rate
+            b = s.query(Records).filter(Records.uid == uid, Records.qid == ques[j]).all().rate
+            if a < b:
+                ques[i], ques[j] = ques[j], ques[i]
+    return ques[0:qnum]
+    # 返回问题id
+
+
+# 返回值是Records行
+
+# 根据id 返回 title, type, answer1, answer2, answer3, answer4
+def get_question(qid):
+    s = create_session()
+    ques = s.query(Questions).filter(Questions.qid == qid).first()
+    lis = [ques.title, ques.type, ques.answer1, ques.answer2, ques.answer3, ques.answer4]
+    s.commit()
+    s.close()
+    return lis
 
 
 if __name__ == '__main__':
