@@ -9,7 +9,7 @@ from datetime import datetime
 from sqlalchemy import DateTime
 
 Base = declarative_base()
-DB_connect = 'mysql+mysqldb://root:222333dyh@localhost/Test'
+DB_connect = 'mysql+mysqldb://root:1012416935@localhost/Test'
 engine = create_engine(DB_connect, echo=True)
 
 

@@ -73,14 +73,15 @@ class admin_action():
         orgUi.waddpgn.setText(text)
         group_list.close()
 
-    def chose_people(self):  # 调出选择用户界面
+    def chose_people(self):  # 调出选择用户界面 模糊搜索
         text = orgUi.personname.text()
+        print(text)
         # gname = orgUi.groupname_2.text()
         # orgUi.waddp.close()
         # self.wad = QtWidgets.QWidget(self.my_ad)
         # list_win.setWindowTitle('添加用户到组：' + gname)
-        itemlist = ['小王', '小张']
-        itemlist = Stu.search_students(1, text)  # backend
+        # itemlist = ['小王', '小张']
+        itemlist = Stu.search_students(1, text)  # todo backend
         user_list.initializeList(itemlist)
         user_list.show()
 
@@ -101,6 +102,7 @@ class admin_action():
         if os.path.exists('temp'):
             with open('temp', "rt") as file:
                 user = file.readline()
+        print('confirm clicked')
         selected_items = search_group_list.list_widget.selectedItems()
         selected_names = [item.text() for item in selected_items]
         QMessageBox.information(search_group_list, "选中的项", f"选中的项: {selected_names}")
@@ -127,6 +129,7 @@ if __name__ == '__main__':
     user_list.hide()
     group_list = list_window.CheckableListWidget()  # admin界面grouplist
     group_list.hide()
+
     search_group_list = list_window.CheckableListWidget()
     search_group_list.hide()
 
@@ -169,7 +172,7 @@ if __name__ == '__main__':
             with open('temp', "rt") as file:
                 user = file.readline()
         # flag = Stu.check_super()  # admin todo backend
-        flag = False  # admin
+        flag = True  # admin
         if flag:
             tp = '管理员'
             orgUi.stackedWidget.setCurrentIndex(0)
