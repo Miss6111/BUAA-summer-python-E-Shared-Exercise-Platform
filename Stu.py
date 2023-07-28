@@ -469,7 +469,7 @@ def load_one_question(title, answer, chapter, my_type, answer1, answer2, answer3
     c = s.query(Chapters).filter(Chapters.name == chapter).first()
     q = Questions(title=title, answer=answer, type=my_type, answerA=answer1, answerB=answer2, answerC=answer3,
                   answerD=answer4, gap=gap, public=public, uid=s.query(Stus).filter(Stus.name == creater).first().uid,
-                  total=0, right=0,chapter=chapter)
+                  total=0, right=0, chapter=chapter)
     s.add(q)
     s.commit()
     c.ques.append(q)
@@ -732,22 +732,46 @@ def do_question(qid, user_name, answer, gap):  # 题目id;是否正确
 
 
 # 形成个性化题组
+# 形成个性化题组
 def personalized_recommendation(qnum, chapters_name, choose, gap, user_name):
     # eg.(12,[2,3,4],1,0,168) means 根据168用户的错题记录，生成2、3、4、5章节的12道选择题组
     s = create_session()
     uid = s.query(Stus).filter(Stus.name == user_name).first().uid
     s.commit()
     s.close()
-    tops = s.query(Records).filter(Records.uid == uid) \
+    # 筛选出Records中 该人 该章节 该提醒 的所有错题记录
+    records = s.query(Records).filter(Records.uid == uid) \
         .filter(Questions.chapter.in_(chapters_name)) \
-        .filter(Questions.type == 1-choose, Questions.type == gap).order_by(Records.rate.desc()).limit(qnum).all()
-    return tops
-    # 返回值是Records行
+        .filter(Questions.type == 1 - choose, Questions.type == gap).all()
+    ques = []
+    for i in records:
+        id = i.qid
+        if id not in ques:
+            ques.append(id)
+    for i in range(len(ques)):
+        for j in range(i + 1, len(ques)):
+            a = s.query(Records).filter(Records.uid == uid, Records.qid == ques[i]).all().rate
+            b = s.query(Records).filter(Records.uid == uid, Records.qid == ques[j]).all().rate
+            if a < b:
+                ques[i], ques[j] = ques[j], ques[i]
+    return ques[0:qnum]
+    # 返回问题id
+
+
+
+def get_question(qid):
+    s = create_session()
+    ques = s.query(Questions).filter(Questions.qid == qid).first()
+    lis = [ques.title, ques.type, ques.answer1, ques.answer2, ques.answer3, ques.answer4]
+    s.commit()
+    s.close()
+    return lis
 
 
 if __name__ == '__main__':
     # Base.metadata.create_all(engine)#一键在数据库生成所有的类
     # Base.metadata.delete_all(engine)#一键清除S
-    load_one_question('title212', 'answ', 'Chapter 1', 1, 'answer1', 'answer2', 'answer3', 'answer4', 'tab', True, 'RRRR')
+    load_one_question('title212', 'answ', 'Chapter 1', 1, 'answer1', 'answer2', 'answer3', 'answer4', 'tab', True,
+                      'RRRR')
     # load_one_question(title='hhh',answer=)
     # user_add_into_group(['123', 'hhhhh'], 'stu9')  # 用户主动申请加入

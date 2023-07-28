@@ -7,7 +7,6 @@ import Stu
 import org1
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QMessageBox
-import about
 import list_window, wrong_window
 from PyQt5 import QtCore, QtGui, QtWidgets
 
@@ -135,8 +134,8 @@ if __name__ == '__main__':
 
 
     def change_widget_4():  # 错误日志
-        orgUi.stackedWidget.setCurrentIndex(6)
-
+        # orgUi.stackedWidget.setCurrentIndex(6)
+        wrong.show()
 
     def change_widget_5():  # 我的
         # todo 确定是用户还是管理员
@@ -145,7 +144,7 @@ if __name__ == '__main__':
             with open('temp', "rt") as file:
                 user = file.readline()
         # flag = Stu.check_super()  # admin todo backend
-        flag = True  # admin
+        flag = False  # admin
         if flag:
             tp = '管理员'
             orgUi.stackedWidget.setCurrentIndex(0)
@@ -157,6 +156,7 @@ if __name__ == '__main__':
             tp = '普通用户'
             orgUi.stackedWidget.setCurrentIndex(4)
             orgUi.nhello1.setText(user)
+            # orgUi.bg.setText()  # 获取当前人所在的组
             orgUi.ntp1.setText(tp)
 
 

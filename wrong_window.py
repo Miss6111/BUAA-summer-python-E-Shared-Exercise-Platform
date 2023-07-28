@@ -1,6 +1,8 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget
 from sqlalchemy import create_engine
+import os
+import Stu
 import login_widget
 import exercise2, list_window
 from PyQt5.QtWidgets import *
@@ -17,10 +19,19 @@ class WrongWindow(QWidget):
         self.Ui = exercise2.Ui_Form()
         self.Ui.setupUi(self)
 
+        user = 'fmy'
+        if os.path.exists('temp'):
+            with open('temp', "rt") as file:
+                user = file.readline()
+        self.username = user
+
         self.num = 10
         self.chap = []
-        self.mode = 0 # 填空 + 选择
+        # self.mode = 0 # 填空 + 选择
+        self.choose = 1
+        self.gap = 1
         self.mode_text = ''
+        self.cur = 0
 
         self.chap_list = list_window.CheckableListWidget()
         self.chap_list.setWindowTitle('选择章节')
@@ -30,23 +41,16 @@ class WrongWindow(QWidget):
 
         self.mode_list = list_window.CheckableListWidget()
         self.mode_list.setWindowTitle('选择答题模式')
-        mode_item = ['只做填空','只做选择','填空和选择']
+        mode_item = ['只做填空', '只做选择', '填空和选择']
         self.mode_list.initializeList(mode_item)
         self.mode_list.hide()
 
         self.button_init()
         self.show()
 
-    def fresh(self):
-        self.Ui.exercise.setText('')
-
-    def next(self):
-        print('next')
-        self.fresh()
-        #  todo
-
     def select_chapter(self):
         self.chap_list.show()
+
     def select_confirm(self):
         selected_items = self.chap_list.list_widget.selectedItems()
         selected_names = [item.text() for item in selected_items]
@@ -57,6 +61,7 @@ class WrongWindow(QWidget):
 
     def select_mode(self):
         self.mode_list.show()
+
     def mode_select_confirm(self):
         selected_items = self.mode_list.list_widget.selectedItems()
         selected_names = [item.text() for item in selected_items]
@@ -66,8 +71,14 @@ class WrongWindow(QWidget):
             self.mode_list.show()
         else:
             self.mode_text = selected_names[0]
+            # mode_item = ['只做填空', '只做选择', '填空和选择']
+            if self.mode_text == '只做填空':
+                self.choose = 0
+            elif self.mode_text == '只做选择':
+                self.gap = 0
             reply = QMessageBox.about(self, '模式选择', '选择成功')
             self.mode_list.close()
+
     def confirm_enum(self):
         tnum = self.Ui.enums.text()
         if not tnum.isdigit():
@@ -77,6 +88,130 @@ class WrongWindow(QWidget):
             text = '已将题目数量设定为' + str(self.num)
             reply = QMessageBox.about(self, '题目数量', text)
 
+    def startexercise(self):
+        self.cur = 0
+        self.ques = Stu.personalized_recommendation(self.num, self.chap, self.choose, self.gap, self.username)
+        self.show_exercise(self.ques[self.cur])
+
+    def show_exercise(self, qid):
+        #  todo backend
+        lis = Stu.get_question(qid)
+        # lis =['ques.title', 0, 'ques.answer1',' ques.answer2', 'ques.answer3', 'ques.answer4']
+        self.Ui.exercise.setText(lis[0])
+        # type 0选择,1填空,2多选
+        if lis[1] == 0:
+            self.Ui.etype.setText('选择题')
+            self.Ui.stackedWidget.setCurrentIndex(0)
+            self.Ui.pushButton.setText(lis[2])
+            self.Ui.pushButton_2.setText(lis[3])
+            self.Ui.pushButton_3.setText(lis[4])
+            self.Ui.pushButton_4.setText(lis[5])
+        elif lis[1] == 1:
+            self.Ui.etype.setText('填空题')
+            self.Ui.stackedWidget.setCurrentIndex(1)
+        else:
+            self.Ui.etype.setText('多选题')
+            self.Ui.stackedWidget.setCurrentIndex(2)
+            self.Ui.checkBox.setText(lis[2])
+            self.Ui.checkBox_3.setText(lis[3])
+            self.Ui.checkBox_4.setText(lis[4])
+            self.Ui.checkBox_5.setText(lis[5])
+
+    def fresh(self):
+        self.Ui.exercise.setText('')
+
+    def next(self):
+        print('next')
+        self.fresh()
+        if self.cur + 1 < self.num:
+            self.cur = self.cur + 1
+            self.show_exercise(self.ques[self.cur])
+        else:
+            reply = QMessageBox.about(self, '', '已经是最后一道题了')
+
+    def pre(self):
+        self.fresh()
+        if self.cur - 1 >= 0:
+            self.cur = self.cur - 1
+            self.show_exercise(self.ques[self.cur])
+        else:
+            reply = QMessageBox.about(self, '', '已经是第一道题了')
+
+    def select_do_question_a(self):
+        lis = Stu.do_question(self.ques[self.cur], self.username, '1000', '')
+        answer = lis[0] == 1
+        if answer:
+            text = '正确'
+        else:
+            text = '错误'
+        reply = QMessageBox.about(self, '', 'text')
+        self.next()
+
+    def select_do_question_b(self):
+        lis = Stu.do_question(self.ques[self.cur], self.username, '0100', '')
+        answer = lis[0] == 1
+        if answer:
+            text = '正确'
+        else:
+            text = '错误'
+        reply = QMessageBox.about(self, '', 'text')
+        self.next()
+
+    def select_do_question_c(self):
+        lis = Stu.do_question(self.ques[self.cur], self.username, '0010', '')
+        answer = lis[0] == 1
+        if answer:
+            text = '正确'
+        else:
+            text = '错误'
+        reply = QMessageBox.about(self, '', 'text')
+        self.next()
+
+    def select_do_question_d(self):
+        lis = Stu.do_question(self.ques[self.cur], self.username, '0001', '')
+        answer = lis[0] == 1
+        if answer:
+            text = '正确'
+        else:
+            text = '错误'
+        reply = QMessageBox.about(self, '', 'text')
+        self.next()
+
+    def blank_do_question(self):
+        line0 = self.Ui.lineEdit.text()
+        line1 = self.Ui.lineEdit_2.text()
+        line2 = self.Ui.lineEdit_3.text()
+        line3 = self.Ui.lineEdit_4.text()
+        myans = line0 + '+' + line1 + '+' + line2 + '+' + line3
+        lis = Stu.do_question(self.ques[self.cur], self.username, 0, myans)
+        answer = lis[0] == 1
+        if answer:
+            text = '正确'
+        else:
+            text = '错误'
+        reply = QMessageBox.about(self, '', 'text')
+        self.next()
+
+    def mul_do_question(self):
+        myans = ''
+        mymul = []
+        mymul.append(self.Ui.checkBox.isChecked())
+        mymul.append(self.Ui.checkBox_3.isChecked())
+        mymul.append(self.Ui.checkBox_4.isChecked())
+        mymul.append(self.Ui.checkBox_5.isChecked())
+        for item in mymul:
+            if item:
+                myans = myans + '1'
+            else:
+                myans = myans + '0'
+        lis = Stu.do_question(self.ques[self.cur], self.username,myans, '')
+        answer = lis[0] == 1
+        if answer:
+            text = '正确'
+        else:
+            text = '错误'
+        reply = QMessageBox.about(self, '', 'text')
+        self.next()
 
     def button_init(self):
         self.Ui.s_chap.clicked.connect(self.select_chapter)
@@ -85,6 +220,13 @@ class WrongWindow(QWidget):
         self.mode_list.confirm_button.clicked.connect(self.mode_select_confirm)
         self.Ui.s_confirm.clicked.connect(self.confirm_enum)
         self.Ui.nexte.clicked.connect(self.next)
+        self.Ui.start.clicked.connect(self.startexercise)
+        self.Ui.pushButton.clicked.connect(self.select_do_question_a)
+        self.Ui.pushButton_2.clicked.connect(self.select_do_question_b)
+        self.Ui.pushButton_3.clicked.connect(self.select_do_question_c)
+        self.Ui.pushButton_4.clicked.connect(self.select_do_question_d)
+        self.Ui.confirm_mul.clicked.connect(self.mul_do_question)
+        self.Ui.confirm_blank.clicked.connect(self.blank_do_question)
 
 
 if __name__ == '__main__':

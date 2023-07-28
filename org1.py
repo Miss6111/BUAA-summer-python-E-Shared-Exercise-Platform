@@ -9,90 +9,18 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QComboBox, QCheckBox
-
-selected_chapter = "Chapter 1"
-selected_type = "填空"
-selected_public = "Yes"
-selection = ['0', '0', '0', '0']
-answerA = ''
-answerB = ''
-answerC = ''
-answerD = ''
-
-def init_global():
-    global selection
-    global selected_public
-    global selected_chapter
-    global selected_public
-    global selected_type
-    global answerA
-    global answerC
-    global answerB
-    global answerD
-    selected_chapter = "Chapter 1"
-    selected_type = "填空"
-    selected_public = "Yes"
-    selection = ['0', '0', '0', '0']
-    answerA = ''
-    answerB = ''
-    answerC = ''
-    answerD = ''
-
-# 定义函数来修改全局变量
-def modify_chapter(new):
-    global selected_chapter
-    selected_chapter = new
-
-
-def modify_type(new):
-    global selected_type
-    selected_type = new
-
-
-def modify_public(new):
-    global selected_public
-    selected_public = new
-
-
-def modify_selection(i):
-    global selection
-    if selection[i] == '0':
-        selection[i] = '1'
-    else:
-        selection[i] = '0'
-
-
-def setA(s):
-    global answerA
-    answerA = s
-
-
-def setB(s):
-    global answerB
-    answerB = s
-
-
-def setC(s):
-    global answerC
-    answerC = s
-
-
-def setD(s):
-    global answerD
-    answerD = s
 
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(934, 1052)
+        MainWindow.resize(912, 1050)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(-130, 0, 4211, 61))
         self.label.setStyleSheet("color: rgb(255, 170, 0);\n"
-                                 "background-color: rgb(255, 170, 0);")
+"background-color: rgb(255, 170, 0);")
         self.label.setText("")
         self.label.setObjectName("label")
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
@@ -120,14 +48,14 @@ class Ui_MainWindow(object):
         self.pushButton_6.setStyleSheet("background-color: rgb(255, 203, 151);")
         self.pushButton_6.setObjectName("pushButton_6")
         self.stackedWidget = QtWidgets.QStackedWidget(self.centralwidget)
-        self.stackedWidget.setGeometry(QtCore.QRect(0, 90, 941, 700))
+        self.stackedWidget.setGeometry(QtCore.QRect(0, 90, 941, 541))
         self.stackedWidget.setObjectName("stackedWidget")
         self.my_ad = QtWidgets.QWidget()
         self.my_ad.setObjectName("my_ad")
         self.wad = QtWidgets.QWidget(self.my_ad)
         self.wad.setGeometry(QtCore.QRect(30, 20, 861, 461))
         self.wad.setStyleSheet("border-radius:30px;\n"
-                               "background-color: rgb(255, 203, 151);")
+"background-color: rgb(255, 203, 151);")
         self.wad.setObjectName("wad")
         self.nhello2 = QtWidgets.QLabel(self.wad)
         self.nhello2.setGeometry(QtCore.QRect(180, 40, 491, 41))
@@ -183,11 +111,11 @@ class Ui_MainWindow(object):
         self.wgn = QtWidgets.QWidget(self.wad)
         self.wgn.setGeometry(QtCore.QRect(380, 100, 301, 181))
         self.wgn.setStyleSheet("#wgn{\n"
-                               "   border-radius:30px;\n"
-                               "   background-color:rgb(254, 225, 64);\n"
-                               "}\n"
-                               "\n"
-                               "")
+"   border-radius:30px;\n"
+"   background-color:rgb(254, 225, 64);\n"
+"}\n"
+"\n"
+"")
         self.wgn.setObjectName("wgn")
         self.groupname = QtWidgets.QLineEdit(self.wgn)
         self.groupname.setGeometry(QtCore.QRect(30, 60, 251, 41))
@@ -230,7 +158,7 @@ class Ui_MainWindow(object):
         self.waddpsearch = QtWidgets.QPushButton(self.waddp)
         self.waddpsearch.setGeometry(QtCore.QRect(230, 110, 41, 41))
         self.waddpsearch.setStyleSheet("background-color: rgb(255, 203, 151);\n"
-                                       "border-radius:15px")
+"border-radius:15px")
         self.waddpsearch.setText("")
         icon2 = QtGui.QIcon()
         icon2.addPixmap(QtGui.QPixmap(":/icons/icon/search.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -249,7 +177,7 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         self.waddpcg.setFont(font)
         self.waddpcg.setStyleSheet("background-color: rgb(255, 203, 151);\n"
-                                   "border-radius:15px")
+"border-radius:15px")
         self.waddpcg.setObjectName("waddpcg")
         self.waddpgn = QtWidgets.QLabel(self.waddp)
         self.waddpgn.setGeometry(QtCore.QRect(160, 30, 91, 41))
@@ -270,10 +198,10 @@ class Ui_MainWindow(object):
         self.widget = QtWidgets.QWidget(self.welcom)
         self.widget.setGeometry(QtCore.QRect(260, 230, 631, 271))
         self.widget.setStyleSheet("background-color:rgb(255, 170, 0);\n"
-                                  "border-bottom-left-radius:30px;\n"
-                                  "border-bottom-right-radius:30px;\n"
-                                  "\n"
-                                  "")
+"border-bottom-left-radius:30px;\n"
+"border-bottom-right-radius:30px;\n"
+"\n"
+"")
         self.widget.setObjectName("widget")
         self.abus = QtWidgets.QLabel(self.widget)
         self.abus.setGeometry(QtCore.QRect(250, -10, 291, 111))
@@ -294,10 +222,10 @@ class Ui_MainWindow(object):
         self.widget_2 = QtWidgets.QWidget(self.welcom)
         self.widget_2.setGeometry(QtCore.QRect(260, 50, 631, 181))
         self.widget_2.setStyleSheet("background-color:rgb(254, 225, 64);\n"
-                                    "border-top-left-radius:30px;\n"
-                                    "border-top-right-radius:30px;\n"
-                                    "\n"
-                                    "")
+"border-top-left-radius:30px;\n"
+"border-top-right-radius:30px;\n"
+"\n"
+"")
         self.widget_2.setObjectName("widget_2")
         self.abus_2 = QtWidgets.QLabel(self.widget_2)
         self.abus_2.setGeometry(QtCore.QRect(30, 10, 291, 71))
@@ -325,205 +253,39 @@ class Ui_MainWindow(object):
         self.title_2 = QtWidgets.QLabel(self.upload)
         self.title_2.setGeometry(QtCore.QRect(40, 30, 41, 16))
         self.title_2.setObjectName("title_2")
-
         self.lineEdit_name = QtWidgets.QLineEdit(self.upload)
         self.lineEdit_name.setGeometry(QtCore.QRect(90, 30, 781, 20))
         self.lineEdit_name.setObjectName("lineEdit_name")
-
         self.title = QtWidgets.QLabel(self.upload)
         self.title.setGeometry(QtCore.QRect(30, 80, 54, 12))
         self.title.setObjectName("title")
-
         self.textEdit_title = QtWidgets.QTextEdit(self.upload)
         self.textEdit_title.setGeometry(QtCore.QRect(90, 70, 781, 181))
         self.textEdit_title.setObjectName("textEdit_title")
-
         self.chapter = QtWidgets.QLabel(self.upload)
-        self.chapter.setGeometry(QtCore.QRect(40, 280, 121, 30))
+        self.chapter.setGeometry(QtCore.QRect(40, 280, 121, 16))
         self.chapter.setObjectName("chapter")
-
-        # self.lineEdit_public = QtWidgets.QLineEdit(self.upload)
-        # self.lineEdit_public.setGeometry(QtCore.QRect(180, 280, 651, 20))
-        # self.lineEdit_public.setObjectName("lineEdit_public")
-
-        self.lineEdit_public = QComboBox(self.upload)
-        self.lineEdit_public.setGeometry(QtCore.QRect(110, 280, 120, 30))
-        self.lineEdit_public.addItem("Yes")
-        self.lineEdit_public.addItem("No")
+        self.lineEdit_public = QtWidgets.QLineEdit(self.upload)
+        self.lineEdit_public.setGeometry(QtCore.QRect(180, 280, 651, 20))
         self.lineEdit_public.setObjectName("lineEdit_public")
-
-        def Modify_public():
-            modify_public(self.lineEdit_public.currentText())
-            print("Selected value:", self.lineEdit_public.currentText())
-
-        # 将槽函数与下拉框的选择变化信号关联起来
-        self.lineEdit_public.currentIndexChanged.connect(Modify_public)
-
         self.my_type = QtWidgets.QLabel(self.upload)
-        self.my_type.setGeometry(QtCore.QRect(40, 320, 121, 40))
+        self.my_type.setGeometry(QtCore.QRect(40, 330, 121, 16))
         self.my_type.setObjectName("my_type")
-
-        # self.lineEdit_type = QtWidgets.QLineEdit(self.upload)
-        # self.lineEdit_type.setGeometry(QtCore.QRect(180, 330, 711, 20))
-        # self.lineEdit_type.setObjectName("lineEdit_type")
-
-        self.lineEdit_type = QComboBox(self.upload)
-        self.lineEdit_type.setGeometry(QtCore.QRect(110, 330, 120, 30))
-        self.lineEdit_type.addItem("填空")
-        self.lineEdit_type.addItem("选择")
+        self.lineEdit_type = QtWidgets.QLineEdit(self.upload)
+        self.lineEdit_type.setGeometry(QtCore.QRect(180, 330, 711, 20))
         self.lineEdit_type.setObjectName("lineEdit_type")
-
-        def create_answer():
-            if selected_type == "选择":
-                self.lineEdit_answer.deleteLater()
-
-                # self.lineEdit_answerall = QtWidgets.QLineEdit(self.upload)
-                # self.lineEdit_answerall.setGeometry(QtCore.QRect(110, 380, 771, 20))
-                # self.lineEdit_answerall.setObjectName("lineEdit_answerall")
-                # self.lineEdit_answerall.setVisible(True)
-                self.A = QCheckBox(self.upload)
-                self.A.setGeometry(QtCore.QRect(60, 400, 90, 20))
-                self.A.setObjectName('A')
-                self.A.setVisible(True)
-
-                self.B = QCheckBox(self.upload)
-                self.B.setGeometry(QtCore.QRect(60, 430, 90, 20))
-                self.B.setObjectName('B')
-                self.B.setVisible(True)
-
-                self.C = QCheckBox(self.upload)
-                self.C.setGeometry(QtCore.QRect(60, 460, 90, 20))
-                self.C.setObjectName('C')
-                self.C.setVisible(True)
-
-                self.D = QCheckBox(self.upload)
-                self.D.setGeometry(QtCore.QRect(60, 490, 90, 20))
-                self.D.setObjectName('D')
-                self.D.setVisible(True)
-
-                self.lineEdit_answerA = QtWidgets.QLineEdit(self.upload)
-                self.lineEdit_answerA.setGeometry(QtCore.QRect(110, 400, 771, 20))
-                self.lineEdit_answerA.setObjectName("lineEdit_answerA")
-                self.lineEdit_answerA.setVisible(True)
-
-                self.lineEdit_answerB = QtWidgets.QLineEdit(self.upload)
-                self.lineEdit_answerB.setGeometry(QtCore.QRect(110, 430, 771, 20))
-                self.lineEdit_answerB.setObjectName("lineEdit_answerB")
-                self.lineEdit_answerB.setVisible(True)
-
-                self.lineEdit_answerC = QtWidgets.QLineEdit(self.upload)
-                self.lineEdit_answerC.setGeometry(QtCore.QRect(110, 460, 771, 20))
-                self.lineEdit_answerC.setObjectName("lineEdit_answerC")
-                self.lineEdit_answerC.setVisible(True)
-
-                self.lineEdit_answerD = QtWidgets.QLineEdit(self.upload)
-                self.lineEdit_answerD.setGeometry(QtCore.QRect(110, 490, 771, 20))
-                self.lineEdit_answerD.setObjectName("lineEdit_answerD")
-                self.lineEdit_answerD.setVisible(True)
-
-                self.A.stateChanged.connect(handleCheckboxA)
-                self.B.stateChanged.connect(handleCheckboxB)
-                self.C.stateChanged.connect(handleCheckboxC)
-                self.D.stateChanged.connect(handleCheckboxD)
-
-                self.lineEdit_answerA.textChanged.connect(TextA)
-                self.lineEdit_answerB.textChanged.connect(TextB)
-                self.lineEdit_answerC.textChanged.connect(TextC)
-                self.lineEdit_answerD.textChanged.connect(TextD)
-
-
-                self.answer_2.setGeometry(QtCore.QRect(40, 535, 70, 40))
-                self.lineEdit_chapter.setGeometry(QtCore.QRect(110, 540, 120, 30))
-
-            else:
-                self.answer_2.setGeometry(QtCore.QRect(40, 425, 70, 40))
-                self.lineEdit_chapter.setGeometry(QtCore.QRect(110, 430, 120, 30))
-
-                self.lineEdit_answerA.deleteLater()
-                self.lineEdit_answerB.deleteLater()
-                self.lineEdit_answerC.deleteLater()
-                self.lineEdit_answerD.deleteLater()
-                self.A.deleteLater()
-                self.B.deleteLater()
-                self.C.deleteLater()
-                self.D.deleteLater()
-
-                self.lineEdit_answer = QtWidgets.QLineEdit(self.upload)
-                self.lineEdit_answer.setGeometry(QtCore.QRect(110, 380, 771, 20))
-                self.lineEdit_answer.setObjectName("lineEdit_answer")
-                self.lineEdit_answer.setVisible(True)
-
-        self.lineEdit_answer = QtWidgets.QLineEdit(self.upload)
-        self.lineEdit_answer.setGeometry(QtCore.QRect(110, 380, 771, 20))
-        self.lineEdit_answer.setObjectName("lineEdit_answer")
-
-        def handleCheckboxA():
-            modify_selection(0)
-
-        def handleCheckboxB():
-            modify_selection(1)
-
-        def handleCheckboxC():
-            modify_selection(2)
-
-        def handleCheckboxD():
-            modify_selection(3)
-        def TextA(text):
-            print(text)
-            setA(text)
-
-        def TextB(text):
-            setB(text)
-
-        def TextC(text):
-            setC(text)
-
-        def TextD(text):
-            setD(text)
-
-        def Modify_type():
-            modify_type(self.lineEdit_type.currentText())
-            print("Selected value:", selected_type)
-            create_answer()
-
-        # 将槽函数与下拉框的选择变化信号关联起来
-        self.lineEdit_type.currentIndexChanged.connect(Modify_type)
-
         self.answer = QtWidgets.QLabel(self.upload)
         self.answer.setGeometry(QtCore.QRect(40, 380, 54, 12))
         self.answer.setObjectName("answer")
-
-        # self.lineEdit_answer = QtWidgets.QLineEdit(self.upload)
-        # self.lineEdit_answer.setGeometry(QtCore.QRect(110, 380, 771, 20))
-        # self.lineEdit_answer.setObjectName("lineEdit_answer")
-
+        self.lineEdit_answer = QtWidgets.QLineEdit(self.upload)
+        self.lineEdit_answer.setGeometry(QtCore.QRect(110, 380, 771, 20))
+        self.lineEdit_answer.setObjectName("lineEdit_answer")
         self.answer_2 = QtWidgets.QLabel(self.upload)
-        self.answer_2.setGeometry(QtCore.QRect(40, 425, 70, 40))
+        self.answer_2.setGeometry(QtCore.QRect(40, 430, 54, 12))
         self.answer_2.setObjectName("answer_2")
-
-        # self.lineEdit_chapter = QtWidgets.QLineEdit(self.upload)
-        # self.lineEdit_chapter.setGeometry(QtCore.QRect(110, 430, 771, 20))
-        # self.lineEdit_chapter.setObjectName("lineEdit_chapter")
-
-        self.lineEdit_chapter = QComboBox(self.upload)
-        self.lineEdit_chapter.setGeometry(QtCore.QRect(110, 430, 120, 30))
-        # 添加选项
-        self.lineEdit_chapter.addItem("Chapter 1")
-        self.lineEdit_chapter.addItem("Chapter 2")
-        self.lineEdit_chapter.addItem("Chapter 3")
-        self.lineEdit_chapter.addItem("Chapter 4")
-        self.lineEdit_chapter.addItem("Chapter 5")
-        self.lineEdit_chapter.addItem("Chapter 6")
-        self.lineEdit_chapter.addItem("Chapter 7")
+        self.lineEdit_chapter = QtWidgets.QLineEdit(self.upload)
+        self.lineEdit_chapter.setGeometry(QtCore.QRect(110, 430, 771, 20))
         self.lineEdit_chapter.setObjectName("lineEdit_chapter")
-
-        def Modify_chapter():
-            modify_chapter(self.lineEdit_chapter.currentText())
-            print("Selected value:", self.lineEdit_chapter.currentText())
-
-        # 将槽函数与下拉框的选择变化信号关联起来
-        self.lineEdit_chapter.currentIndexChanged.connect(Modify_chapter)
-
         self.pushButton_7 = QtWidgets.QPushButton(self.upload)
         self.pushButton_7.setGeometry(QtCore.QRect(780, 470, 75, 41))
         self.pushButton_7.setStyleSheet("background-color: rgb(255, 203, 151);")
@@ -707,9 +469,9 @@ class Ui_MainWindow(object):
         self.stackedWidget_2.setObjectName("stackedWidget_2")
         self.page = QtWidgets.QWidget()
         self.page.setObjectName("page")
-        self.pushButton_28 = QtWidgets.QPushButton(self.page)
-        self.pushButton_28.setGeometry(QtCore.QRect(250, 0, 93, 28))
-        self.pushButton_28.setObjectName("pushButton_28")
+        self.star = QtWidgets.QPushButton(self.page)
+        self.star.setGeometry(QtCore.QRect(250, 0, 93, 28))
+        self.star.setObjectName("star")
         self.layoutWidget = QtWidgets.QWidget(self.page)
         self.layoutWidget.setGeometry(QtCore.QRect(600, 330, 195, 30))
         self.layoutWidget.setObjectName("layoutWidget")
@@ -746,12 +508,15 @@ class Ui_MainWindow(object):
         self.label_4 = QtWidgets.QLabel(self.page)
         self.label_4.setGeometry(QtCore.QRect(0, 10, 171, 16))
         self.label_4.setObjectName("label_4")
+        self.submit1 = QtWidgets.QPushButton(self.page)
+        self.submit1.setGeometry(QtCore.QRect(660, 250, 93, 23))
+        self.submit1.setObjectName("submit1")
         self.stackedWidget_2.addWidget(self.page)
         self.page_2 = QtWidgets.QWidget()
         self.page_2.setObjectName("page_2")
-        self.pushButton_35 = QtWidgets.QPushButton(self.page_2)
-        self.pushButton_35.setGeometry(QtCore.QRect(270, 10, 93, 28))
-        self.pushButton_35.setObjectName("pushButton_35")
+        self.star2 = QtWidgets.QPushButton(self.page_2)
+        self.star2.setGeometry(QtCore.QRect(270, 10, 93, 28))
+        self.star2.setObjectName("star2")
         self.layoutWidget_3 = QtWidgets.QWidget(self.page_2)
         self.layoutWidget_3.setGeometry(QtCore.QRect(620, 340, 195, 30))
         self.layoutWidget_3.setObjectName("layoutWidget_3")
@@ -786,7 +551,7 @@ class Ui_MainWindow(object):
         self.lineEdit_4.setObjectName("lineEdit_4")
         self.verticalLayout_2.addWidget(self.lineEdit_4)
         self.label_5 = QtWidgets.QLabel(self.page_2)
-        self.label_5.setGeometry(QtCore.QRect(20, 20, 72, 15))
+        self.label_5.setGeometry(QtCore.QRect(20, 20, 211, 16))
         self.label_5.setObjectName("label_5")
         self.submit = QtWidgets.QPushButton(self.page_2)
         self.submit.setGeometry(QtCore.QRect(680, 260, 93, 23))
@@ -837,15 +602,12 @@ class Ui_MainWindow(object):
         self.stackedWidget.addWidget(self.problems)
         self.log = QtWidgets.QWidget()
         self.log.setObjectName("log")
-        self.label_3 = QtWidgets.QLabel(self.log)
-        self.label_3.setGeometry(QtCore.QRect(160, 130, 261, 61))
-        self.label_3.setObjectName("label_3")
         self.stackedWidget.addWidget(self.log)
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.stackedWidget.setCurrentIndex(5)
-        self.stackedWidget_2.setCurrentIndex(1)
+        self.stackedWidget.setCurrentIndex(6)
+        self.stackedWidget_2.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -906,7 +668,7 @@ class Ui_MainWindow(object):
         self.tg.setText(_translate("MainWindow", "以下是你目前加入的组"))
         self.bg.setText(_translate("MainWindow", "you are not in any group"))
         self.label_2.setText(_translate("MainWindow", "查看问题"))
-        self.pushButton_28.setText(_translate("MainWindow", "收藏"))
+        self.star.setText(_translate("MainWindow", "收藏"))
         self.pushButton_29.setText(_translate("MainWindow", "上一题"))
         self.pushButton_30.setText(_translate("MainWindow", "下一题"))
         self.textBrowser_2.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
@@ -919,7 +681,8 @@ class Ui_MainWindow(object):
         self.C.setText(_translate("MainWindow", "C"))
         self.D.setText(_translate("MainWindow", "D"))
         self.label_4.setText(_translate("MainWindow", "选择题"))
-        self.pushButton_35.setText(_translate("MainWindow", "收藏"))
+        self.submit1.setText(_translate("MainWindow", "提交"))
+        self.star2.setText(_translate("MainWindow", "收藏"))
         self.pushButton_36.setText(_translate("MainWindow", "上一题"))
         self.pushButton_37.setText(_translate("MainWindow", "下一题"))
         self.textBrowser_3.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
@@ -946,4 +709,3 @@ class Ui_MainWindow(object):
         self.checkBox_2.setText(_translate("MainWindow", "CheckBox"))
         self.checkBox_3.setText(_translate("MainWindow", "CheckBox"))
         self.label_6.setText(_translate("MainWindow", "多选题"))
-        self.label_3.setText(_translate("MainWindow", "错误日志"))
