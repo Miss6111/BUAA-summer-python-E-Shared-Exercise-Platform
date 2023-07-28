@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(996, 683)
+        MainWindow.resize(1003, 834)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.label = QtWidgets.QLabel(self.centralwidget)
@@ -48,7 +48,7 @@ class Ui_MainWindow(object):
         self.pushButton_6.setStyleSheet("background-color: rgb(255, 203, 151);")
         self.pushButton_6.setObjectName("pushButton_6")
         self.stackedWidget = QtWidgets.QStackedWidget(self.centralwidget)
-        self.stackedWidget.setGeometry(QtCore.QRect(60, 60, 871, 751))
+        self.stackedWidget.setGeometry(QtCore.QRect(70, 70, 981, 791))
         self.stackedWidget.setObjectName("stackedWidget")
         self.my_ad = QtWidgets.QWidget()
         self.my_ad.setObjectName("my_ad")
@@ -93,7 +93,7 @@ class Ui_MainWindow(object):
         self.tadmin.setGeometry(QtCore.QRect(50, 250, 361, 21))
         self.tadmin.setObjectName("tadmin")
         self.hello2 = QtWidgets.QLabel(self.wad)
-        self.hello2.setGeometry(QtCore.QRect(40, 40, 121, 41))
+        self.hello2.setGeometry(QtCore.QRect(10, 40, 121, 41))
         font = QtGui.QFont()
         font.setPointSize(17)
         font.setBold(True)
@@ -101,7 +101,7 @@ class Ui_MainWindow(object):
         self.hello2.setFont(font)
         self.hello2.setObjectName("hello2")
         self.tp2 = QtWidgets.QLabel(self.wad)
-        self.tp2.setGeometry(QtCore.QRect(40, 120, 201, 61))
+        self.tp2.setGeometry(QtCore.QRect(10, 120, 201, 61))
         font = QtGui.QFont()
         font.setPointSize(17)
         font.setBold(False)
@@ -196,7 +196,7 @@ class Ui_MainWindow(object):
         self.icwelc.setText("")
         self.icwelc.setObjectName("icwelc")
         self.widget = QtWidgets.QWidget(self.welcom)
-        self.widget.setGeometry(QtCore.QRect(260, 230, 631, 271))
+        self.widget.setGeometry(QtCore.QRect(260, 230, 661, 311))
         self.widget.setStyleSheet("background-color:rgb(255, 170, 0);\n"
 "border-bottom-left-radius:30px;\n"
 "border-bottom-right-radius:30px;\n"
@@ -204,7 +204,7 @@ class Ui_MainWindow(object):
 "")
         self.widget.setObjectName("widget")
         self.abus = QtWidgets.QLabel(self.widget)
-        self.abus.setGeometry(QtCore.QRect(250, -10, 291, 111))
+        self.abus.setGeometry(QtCore.QRect(220, -40, 291, 111))
         font = QtGui.QFont()
         font.setPointSize(17)
         font.setBold(True)
@@ -214,13 +214,13 @@ class Ui_MainWindow(object):
         self.abus.setFont(font)
         self.abus.setObjectName("abus")
         self.textBrowser = QtWidgets.QTextBrowser(self.widget)
-        self.textBrowser.setGeometry(QtCore.QRect(110, 70, 551, 381))
+        self.textBrowser.setGeometry(QtCore.QRect(210, 50, 551, 381))
         font = QtGui.QFont()
         font.setPointSize(9)
         self.textBrowser.setFont(font)
         self.textBrowser.setObjectName("textBrowser")
         self.widget_2 = QtWidgets.QWidget(self.welcom)
-        self.widget_2.setGeometry(QtCore.QRect(260, 50, 651, 181))
+        self.widget_2.setGeometry(QtCore.QRect(260, 50, 661, 181))
         self.widget_2.setStyleSheet("background-color:rgb(254, 225, 64);\n"
 "border-top-left-radius:30px;\n"
 "border-top-right-radius:30px;\n"
@@ -534,7 +534,7 @@ class Ui_MainWindow(object):
         self.label_2.setGeometry(QtCore.QRect(130, 150, 591, 211))
         self.label_2.setObjectName("label_2")
         self.stackedWidget_2 = QtWidgets.QStackedWidget(self.problems)
-        self.stackedWidget_2.setGeometry(QtCore.QRect(10, 0, 811, 381))
+        self.stackedWidget_2.setGeometry(QtCore.QRect(40, 60, 811, 381))
         self.stackedWidget_2.setObjectName("stackedWidget_2")
         self.page = QtWidgets.QWidget()
         self.page.setObjectName("page")
@@ -683,7 +683,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(6)
         self.stackedWidget_2.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 

@@ -5,7 +5,7 @@ import pyqtgraph as pg
 # x轴是时间，一天为一增
 # y轴是掌握程度，每个章节一条线
 # 导入所需模块
-from PyQt5.QtWidgets import QApplication
+from PyQt5.QtWidgets import QApplication, QDialog
 import pyqtgraph as pg
 from datetime import datetime
 import sys
@@ -133,136 +133,139 @@ class SeriesNameDelegate(PyQt5.QtWidgets.QGraphicsItem):
         painter.drawText(self.boundingRect(), self.series.name())
 
 
-if __name__ == '__main__':
-    # 示例用法
-    # errorData = createSampleErrorData()
-    # generateStudentAbilityChart(errorData)
-    app = QApplication(sys.argv)
-    chart = QChart()
-    # 设置图表旁边的空白大小
-    chart.setMargins(QMargins(100, 50, 100, 50))  # 左、上、右、下边距都设置为50
+class MainWindow(QDialog):
+    def __init__(self):
+        super().__init__()
 
-    chart.setTitle("能力分析图")
-    chart.setAnimationOptions(QChart.SeriesAnimations)
-    chart.legend().hide()
+        self.setWindowTitle("Graph")
+        # 示例用法
+        # errorData = createSampleErrorData()
+        # generateStudentAbilityChart(errorData)
 
-    pen = QPen()
-    pen.setColor(Qt.blue)  # 设置为红色
-    pen.setWidth(2)  # 设置线宽
+        chart = QChart()
+        # 设置图表旁边的空白大小
+        chart.setMargins(QMargins(100, 50, 100, 50))  # 左、上、右、下边距都设置为50
 
-    line_series = QLineSeries()  # 申请一条折线
-    line_series.setPen(pen)
+        chart.setTitle("能力分析图")
+        chart.setAnimationOptions(QChart.SeriesAnimations)
+        chart.legend().hide()
 
-    pen = QPen()
-    pen.setColor(Qt.blue)  # 设置为红色
-    pen.setWidth(2)  # 设置线宽
+        pen = QPen()
+        pen.setColor(Qt.blue)  # 设置为红色
+        pen.setWidth(2)  # 设置线宽
 
-    line_series2 = QLineSeries()  # 申请一条折线
-    line_series2.setPen(pen)
+        line_series = QLineSeries()  # 申请一条折线
+        line_series.setPen(pen)
 
-    pen = QPen()
-    pen.setColor(Qt.blue)  # 设置为红色
-    pen.setWidth(2)  # 设置线宽
+        pen = QPen()
+        pen.setColor(Qt.blue)  # 设置为红色
+        pen.setWidth(2)  # 设置线宽
 
-    line_series3 = QLineSeries()  # 申请一条折线
-    line_series3.setPen(pen)
+        line_series2 = QLineSeries()  # 申请一条折线
+        line_series2.setPen(pen)
 
-    pen = QPen()
-    pen.setColor(Qt.blue)  # 设置为红色
-    pen.setWidth(2)  # 设置线宽
+        pen = QPen()
+        pen.setColor(Qt.blue)  # 设置为红色
+        pen.setWidth(2)  # 设置线宽
 
-    line_series4 = QLineSeries()  # 申请一条折线
-    line_series4.setPen(pen)
+        line_series3 = QLineSeries()  # 申请一条折线
+        line_series3.setPen(pen)
 
-    pen = QPen()
-    pen.setColor(Qt.blue)  # 设置为红色
-    pen.setWidth(2)  # 设置线宽
+        pen = QPen()
+        pen.setColor(Qt.blue)  # 设置为红色
+        pen.setWidth(2)  # 设置线宽
 
-    line_series5 = QLineSeries()  # 申请一条折线
-    line_series5.setPen(pen)
+        line_series4 = QLineSeries()  # 申请一条折线
+        line_series4.setPen(pen)
 
-    pen = QPen()
-    pen.setColor(Qt.blue)  # 设置为红色
-    pen.setWidth(2)  # 设置线宽
+        pen = QPen()
+        pen.setColor(Qt.blue)  # 设置为红色
+        pen.setWidth(2)  # 设置线宽
 
-    line_series6 = QLineSeries()  # 申请一条折线
-    line_series6.setPen(pen)
+        line_series5 = QLineSeries()  # 申请一条折线
+        line_series5.setPen(pen)
 
-    pen = QPen()
-    pen.setColor(Qt.blue)  # 设置为红色
-    pen.setWidth(2)  # 设置线宽
+        pen = QPen()
+        pen.setColor(Qt.blue)  # 设置为红色
+        pen.setWidth(2)  # 设置线宽
 
-    line_series7 = QLineSeries()  # 申请一条折线
-    line_series7.setPen(pen)
+        line_series6 = QLineSeries()  # 申请一条折线
+        line_series6.setPen(pen)
 
-    x_values = [1, 2, 3, 4, 5, 6, 7]
-    y_values = [1, 2, 4, 3, 1, 3, 5]
-    for value in range(0, len(x_values)):
-        line_series.append(x_values[value], y_values[value])
-    x_values = [7, 2, 3, 4, 5, 6, 7]
-    y_values = [1, 2, 4, 3, 1, 3, 5]
-    line_series1 = QLineSeries()
-    for value in range(0, len(x_values)):
-        line_series1.append(x_values[value], y_values[value])
+        pen = QPen()
+        pen.setColor(Qt.blue)  # 设置为红色
+        pen.setWidth(2)  # 设置线宽
 
-    chart.addSeries(line_series)
-    chart.addSeries(line_series2)  # 加入
-    chart.addSeries(line_series3)  # 加入
-    chart.addSeries(line_series4)  # 加入
-    chart.addSeries(line_series5)  # 加入
-    chart.addSeries(line_series6)  # 加入
-    chart.addSeries(line_series7)  # 加入
+        line_series7 = QLineSeries()  # 申请一条折线
+        line_series7.setPen(pen)
 
-    axis_x = QValueAxis()  # 创建x轴
-    axis_x.setTitleText('日期(七天)')
-    axis_x.setLabelFormat("%d")
-    chart.addAxis(axis_x, Qt.AlignBottom)
-    line_series.attachAxis(axis_x)
+        x_values = [1, 2, 3, 4, 5, 6, 7]
+        y_values = [1, 2, 4, 3, 1, 3, 5]
+        for value in range(0, len(x_values)):
+            line_series.append(x_values[value], y_values[value])
+        x_values = [7, 2, 3, 4, 5, 6, 7]
+        y_values = [1, 2, 4, 3, 1, 3, 5]
+        line_series1 = QLineSeries()
+        for value in range(0, len(x_values)):
+            line_series1.append(x_values[value], y_values[value])
 
-    axis_y = QValueAxis()
-    axis_y.setTitleText('掌握能力')
-    axis_y.setLabelFormat("%d")
-    chart.addAxis(axis_y, Qt.AlignLeft)
-    line_series.attachAxis(axis_y)
+        chart.addSeries(line_series)
+        chart.addSeries(line_series2)  # 加入
+        chart.addSeries(line_series3)  # 加入
+        chart.addSeries(line_series4)  # 加入
+        chart.addSeries(line_series5)  # 加入
+        chart.addSeries(line_series6)  # 加入
+        chart.addSeries(line_series7)  # 加入
 
-    chart_view = QChartView(chart)
+        axis_x = QValueAxis()  # 创建x轴
+        axis_x.setTitleText('日期(七天)')
+        axis_x.setLabelFormat("%d")
+        chart.addAxis(axis_x, Qt.AlignBottom)
+        line_series.attachAxis(axis_x)
 
-    # # 创建标签，在折线上方显示系列名称
-    font = QFont("Arial", 10, QFont.Bold)
-    series1_label = chart_view.scene().addText("Chapter 1", font)
-    series1_label.setDefaultTextColor(Qt.blue)
-    series1_label.setPos(700, 20)
+        axis_y = QValueAxis()
+        axis_y.setTitleText('掌握能力')
+        axis_y.setLabelFormat("%d")
+        chart.addAxis(axis_y, Qt.AlignLeft)
+        line_series.attachAxis(axis_y)
 
-    series2_label = chart_view.scene().addText("Chapter 2", font)
-    series2_label.setDefaultTextColor(Qt.black)
-    series2_label.setPos(700, 40)
+        chart_view = QChartView(chart)
 
-    series3_label = chart_view.scene().addText("Chapter 3", font)
-    series3_label.setDefaultTextColor(Qt.red)
-    series3_label.setPos(700, 60)
+        # # 创建标签，在折线上方显示系列名称
+        font = QFont("Arial", 10, QFont.Bold)
+        series1_label = chart_view.scene().addText("Chapter 1", font)
+        series1_label.setDefaultTextColor(Qt.blue)
+        series1_label.setPos(700, 20)
 
-    series4_label = chart_view.scene().addText("Chapter 4", font)
-    series4_label.setDefaultTextColor(Qt.darkYellow)
-    series4_label.setPos(700, 80)
+        series2_label = chart_view.scene().addText("Chapter 2", font)
+        series2_label.setDefaultTextColor(Qt.black)
+        series2_label.setPos(700, 40)
 
-    series5_label = chart_view.scene().addText("Chapter 5", font)
-    series5_label.setDefaultTextColor(Qt.green)
-    series5_label.setPos(700, 100)
+        series3_label = chart_view.scene().addText("Chapter 3", font)
+        series3_label.setDefaultTextColor(Qt.red)
+        series3_label.setPos(700, 60)
 
-    series6_label = chart_view.scene().addText("Chapter 6", font)
-    series6_label.setDefaultTextColor(Qt.gray)
-    series6_label.setPos(700, 120)
+        series4_label = chart_view.scene().addText("Chapter 4", font)
+        series4_label.setDefaultTextColor(Qt.darkYellow)
+        series4_label.setPos(700, 80)
 
-    series7_label = chart_view.scene().addText("Chapter 7", font)
-    series7_label.setDefaultTextColor(Qt.darkGreen)
-    series7_label.setPos(700, 140)
+        series5_label = chart_view.scene().addText("Chapter 5", font)
+        series5_label.setDefaultTextColor(Qt.green)
+        series5_label.setPos(700, 100)
 
-    chart_view.setMinimumSize(800, 600)
-    chart_view.setMaximumSize(800, 600)
-    chart_view.setRenderHint(QPainter.Antialiasing)
-    v_box = QVBoxLayout()
-    v_box.addWidget(chart_view)
-    W = QWidget()
-    W.setLayout(v_box)
-    W.show()
-    sys.exit(app.exec_())
+        series6_label = chart_view.scene().addText("Chapter 6", font)
+        series6_label.setDefaultTextColor(Qt.gray)
+        series6_label.setPos(700, 120)
+
+        series7_label = chart_view.scene().addText("Chapter 7", font)
+        series7_label.setDefaultTextColor(Qt.darkGreen)
+        series7_label.setPos(700, 140)
+
+        chart_view.setMinimumSize(800, 600)
+        chart_view.setMaximumSize(800, 600)
+        chart_view.setRenderHint(QPainter.Antialiasing)
+        v_box = QVBoxLayout()
+        v_box.addWidget(chart_view)
+        W = QWidget(self)
+        W.setLayout(v_box)
+        W.show()

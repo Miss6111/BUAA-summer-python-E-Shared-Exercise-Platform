@@ -2,6 +2,7 @@
 import os.path
 
 import Stu
+import Graph
 # 按 Shift+F10 执行或将其替换为您的代码。
 # 按 双击 Shift 在所有地方搜索类、文件、工具窗口、操作和设置。
 import org1
@@ -290,10 +291,6 @@ if __name__ == '__main__':
         QMessageBox.about(win, '上传问题', '上传成功')
 
 
-    def change_widget_9(self):  # 失效
-        pass
-
-
     def change_widget_10():  # 搜索问题
         user = 'fmy'
         if os.path.exists('temp'):
@@ -390,8 +387,12 @@ if __name__ == '__main__':
     def add_people_to_group():
         orgUi.waddp.show()
         print('add people to group')
+    def graph_show():
+        new_window = Graph.MainWindow()
+        new_window.exec_()
 
 
+    orgUi.personability.clicked.connect(graph_show)
     orgUi.pushButton.clicked.connect(change_widget_1)
     orgUi.pushButton_2.clicked.connect(change_widget_2)
     orgUi.pushButton_3.clicked.connect(change_widget_3)
@@ -455,11 +456,11 @@ if __name__ == '__main__':
     def handleCheckboxD():
         modify_selection(3)
 
-
     orgUi.A_load.stateChanged.connect(handleCheckboxA)
     orgUi.B_load.stateChanged.connect(handleCheckboxB)
     orgUi.C_load.stateChanged.connect(handleCheckboxC)
     orgUi.D_load.stateChanged.connect(handleCheckboxD)
+
 
     win.show()
     sys.exit(app.exec_())

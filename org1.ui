@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1003</width>
-    <height>683</height>
+    <height>834</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -130,14 +130,14 @@ background-color: rgb(255, 170, 0);</string>
    <widget class="QStackedWidget" name="stackedWidget">
     <property name="geometry">
      <rect>
-      <x>-40</x>
+      <x>70</x>
       <y>70</y>
       <width>981</width>
       <height>791</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>6</number>
     </property>
     <widget class="QWidget" name="my_ad">
      <widget class="QWidget" name="wad" native="true">
@@ -1507,8 +1507,8 @@ background-color: rgb(255, 203, 151);</string>
      <widget class="QStackedWidget" name="stackedWidget_2">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>0</y>
+        <x>40</x>
+        <y>60</y>
         <width>811</width>
         <height>381</height>
        </rect>
