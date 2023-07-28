@@ -226,6 +226,11 @@ if __name__ == '__main__':
 
     def change_widget_3():  # 查看问题
         orgUi.stackedWidget.setCurrentIndex(5)
+        lis = Stu.get_question(1)
+        t = str(1)
+        print(t)
+        orgUi.label_2.setText(t)
+        change_widget_q(lis[0], lis[2],lis[1])
 
 
     def change_widget_4():  # 错误日志
@@ -310,42 +315,184 @@ if __name__ == '__main__':
         ques_name = orgUi.lineEdit_key.text()
         chapters_name = orgUi.lineEdit_chapter_2.text()
         mytype = orgUi.lineEdit_type_2.text()
-        orgUi.pushButton_12.clicked.connect(lambda: change_widget_12(ques_name, chapters_name, mytype, user))
+        lis = [ques_name,int(chapters_name),int(mytype),user]
+        orgUi.pushButton_12.clicked.connect(lambda: change_widget_12(lis))
 
 
-    def change_widget_12(ques_name, chapters_name, mytype, user):  # 搜索
+    def change_widget_12(lis):  # 搜索按键ques_name,chapters_name,mytype,user
+        orgUi.widget_ques.show()
+        orgUi.label_type.hide()
+        orgUi.label_key.hide()
+        orgUi.label_chapter.hide()
+        orgUi.lineEdit_chapter_2.hide()
+        orgUi.lineEdit_key.hide()
+        orgUi.lineEdit_type_2.hide()
+        orgUi.pushButton_12.hide()
         q = []
-        q = Stu.scope_questions(ques_name, chapters_name, mytype, user)
+        ans = []
+        typ = []
+        qid = []
+        q = Stu.scope_questions_title(lis[0], lis[1], lis[2], lis[3])
+        ans = Stu.scope_questions_answer(lis[0], lis[1], lis[2], lis[3])
+        typ = Stu.scope_questions_type(lis[0], lis[1], lis[2], lis[3])
+        qid = Stu.scope_questions_qid(lis[0], lis[1], lis[2], lis[3])
         orgUi.question0.setText(q[0])
 
-        orgUi.question0.clicked.connect(lambda: change_widget_q(q[0]))
+        orgUi.question0.clicked.connect(lambda:change_widget_q(q[0], ans[0], typ[0],qid[0]))
         orgUi.question1.setText(q[1])
-        orgUi.question1.clicked.connect(lambda: change_widget_q(q[1]))
+        orgUi.question1.clicked.connect(lambda:change_widget_q(q[1], ans[1], typ[1],qid[1]))
         orgUi.question2.setText(q[2])
-        orgUi.question2.clicked.connect(lambda: change_widget_q(q[2]))
+        orgUi.question2.clicked.connect(lambda:change_widget_q(q[2], ans[2], typ[2],qid[2]))
         orgUi.question3.setText(q[3])
-        orgUi.question3.clicked.connect(lambda: change_widget_q(q[3]))
+        orgUi.question3.clicked.connect(lambda:change_widget_q(q[3], ans[3], typ[3],qid[3]))
 
-
-    def change_widget_q(text, answer, mytype):
+    def change_widget_q(text, answer, mytype, qid):
+        print("qqqqqqq")
         orgUi.stackedWidget.setCurrentIndex(5)
-        if (mytype == 1):
+        t = str(qid)
+        print(t)
+        orgUi.label_2.setText(t)
+        a = 0
+        b = 0
+        c = 0
+        d = 0
+        a1 = 0
+        b1 = 0
+        c1 = 0
+        d1 = 0
+        ans = list(answer)
+        if ans[0] == "1":
+            a1 = 1
+        if ans[1] == "1":
+            b1 = 1
+        if ans[2] == "1":
+            c1 = 1
+        if ans[3] == "1":
+            d1 = 1
+        if mytype == 1:
             orgUi.page_2.show()
             orgUi.page.hide()
             orgUi.page_3.hide()
             orgUi.textBrowser_3.setText(text)
             given = orgUi.answer1.text()
-            orgUi.submit.clicked.connect(lambda: change_widget_submit(given))
+            orgUi.submit.clicked.connect(lambda:change_widget_submit(given,answer))
         else:
             orgUi.page.show()
             orgUi.page_2.hide()
             orgUi.page_3.hide()
             orgUi.textBrowser_2.setText(text)
+            orgUi.A.clicked.connect(lambda: change_widget_a(text, answer, mytype, qid))
+            if orgUi.A.text() == "A!":
+                a = 1
+                print(a, end="a")
+
+            orgUi.B.clicked.connect(lambda: change_widget_b(text, answer, mytype, qid))
+            if orgUi.B.text() == "B!":
+                b = 1
+                print(b,end="b")
+
+            orgUi.C.clicked.connect(lambda: change_widget_c(text, answer, mytype, qid))
+            if orgUi.C.text() == "C!":
+                c = 1
+
+            orgUi.D.clicked.connect(lambda: change_widget_d(text, answer, mytype, qid))
+            if orgUi.D.text() == "D!":
+                d = 1
+
+            orgUi.submit1.clicked.connect(lambda: change_widget_submit1(a,b,c,d,a1,b1,c1,d1))
+
+    def change_widget_submit1(a,b,c,d,a1,b1,c1,d1):
+        print("enter")
+        if a == a1 and b == b1 and c == c1 and d == d1:
+            right = 1
+        else:
+            right = 0
+        print("********")
+        print (right)
+        print("********")
+        if right == 0:
+            if a1 == 1 and a1 == 1:
+                orgUi.A.setStyleSheet("background-color: rgb(69, 188, 55);")  # green
+            else:
+                orgUi.A.setStyleSheet("background-color: rgb(255, 43, 15);")  # red
+            if b1 == 1:
+                orgUi.B.setStyleSheet("background-color: rgb(69, 188, 55);")
+            else:
+                orgUi.B.setStyleSheet("background-color: rgb(255, 43, 15);")
+            if c1 == 1:
+                orgUi.C.setStyleSheet("background-color: rgb(69, 188, 55);")
+            else:
+                orgUi.C.setStyleSheet("background-color: rgb(255, 43, 15);")
+            if d1 == 1:
+                orgUi.D.setStyleSheet("background-color: rgb(69, 188, 55);")
+            else:
+                orgUi.D.setStyleSheet("background-color: rgb(255, 43, 15);")
+        else:
+            if a1 == 1:
+                orgUi.A.setStyleSheet("background-color: rgb(69, 188, 55);")
+            if b1 == 1:
+                orgUi.B.setStyleSheet("background-color: rgb(69, 188, 55);")
+            if c1 == 1:
+                orgUi.C.setStyleSheet("background-color: rgb(69, 188, 55);")
+            if d1 == 1:
+                orgUi.D.setStyleSheet("background-color: rgb(69, 188, 55);")
 
 
-    def change_widget_submit(given):  # 按下按钮
-        orgUi.label_5.setText(given)
+    def change_widget_next():
+        t =orgUi.label_2.text()
+        qid = int(t)+1
+        lis = Stu.get_question(qid)
 
+        t = str(qid)
+        print(t)
+        orgUi.label_2.setText(t)
+        change_widget_q(lis[0], lis[2], lis[1])
+        orgUi.A.setStyleSheet("background-color: rgb(255, 255, 255);")
+
+        orgUi.B.setStyleSheet("background-color: rgb(255, 255, 255);")
+        orgUi.C.setStyleSheet("background-color: rgb(255, 255, 255);")
+        orgUi.D.setStyleSheet("background-color: rgb(255, 255, 255);")
+        orgUi.answer1.setText("")
+    def change_widget_front():
+        t = orgUi.label_2.text()
+        qid = int(t) - 1
+        lis = Stu.get_question(qid)
+
+        t = str(qid)
+        print(t)
+        orgUi.label_2.setText(t)
+        change_widget_q(lis[0], lis[2], lis[1])
+        orgUi.A.setStyleSheet("background-color: rgb(255, 255, 255);")
+
+        orgUi.B.setStyleSheet("background-color: rgb(255, 255, 255);")
+        orgUi.C.setStyleSheet("background-color: rgb(255, 255, 255);")
+        orgUi.D.setStyleSheet("background-color: rgb(255, 255, 255);")
+        orgUi.answer1.setText("")
+
+    def change_widget_a(text, answer, mytype, qid):
+            orgUi.A.setText("A!")
+            orgUi.A.setStyleSheet("background-color: rgb(255, 203, 151);")
+            change_widget_q(text, answer, mytype, qid)
+
+    def change_widget_b(text, answer, mytype, qid):
+            orgUi.B.setText("B!")
+            orgUi.B.setStyleSheet("background-color: rgb(255, 203, 151);")
+            change_widget_q(text, answer, mytype, qid)
+
+    def change_widget_c(text, answer, mytype, qid):
+            orgUi.C.setText("C!")
+            orgUi.C.setStyleSheet("background-color: rgb(255, 203, 151);")
+            change_widget_q(text, answer, mytype, qid)
+
+    def change_widget_d(text, answer, mytype, qid):
+            orgUi.D.setText("D!")
+            orgUi.D.setStyleSheet("background-color: rgb(255, 203, 151);")
+            change_widget_q(text, answer, mytype, qid)
+
+    def change_widget_submit(given,answer):  # 按下按钮
+        if given != answer:
+            orgUi.answer1.setStyleSheet("background-color: rgb(255, 43, 15);")
+        orgUi.label_5.setText(answer)
 
     def change_widget_star(given):
         orgUi.label_5.setText(given)
@@ -402,7 +549,12 @@ if __name__ == '__main__':
     orgUi.pushButton_7.clicked.connect(change_widget_7)
     # orgUi.pushButton_9.clicked.connect(change_widget_9)
     orgUi.pushButton_10.clicked.connect(change_widget_10)
-    # # my window admin
+    orgUi.pushButton_12.clicked.connect(change_widget_12)
+    orgUi.pushButton_29.clicked.connect(change_widget_front)
+    orgUi.pushButton_30.clicked.connect(change_widget_next)
+    orgUi.pushButton_36.clicked.connect(change_widget_front)
+    orgUi.pushButton_37.clicked.connect(change_widget_next)
+    # my window admin
     orgUi.atg.clicked.connect(change_widget_2)
     orgUi.apb.clicked.connect(admin_action.add_people_to_group)
     orgUi.cgb.clicked.connect(admin_action.create_group)
