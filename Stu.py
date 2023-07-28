@@ -732,28 +732,17 @@ def do_question(qid, user_name, answer, gap):  # 题目id;是否正确
 
 
 # 形成个性化题组
-def personalized_recommendation(qnum, chapters_name, mytype, user_name):
+def personalized_recommendation(qnum, chapters_name, choose, gap, user_name):
+    # eg.(12,[2,3,4],1,0,168) means 根据168用户的错题记录，生成2、3、4、5章节的12道选择题组
     s = create_session()
     uid = s.query(Stus).filter(Stus.name == user_name).first().uid
-    # qids = s.query(Records).filter(Records.uid == uid).all().qid
-    # for i in qids:
-    #     records = s.query(Records).filter(Records.uid == uid, Records.qid == i).all()
-    #     total, true = 0, 0
-    #     for j in records:
-    #         total += 1
-    #         if j.right == 1:
-    #             true += 1
-    #     s.query(Records).filter(Records.uid == uid, Records.qid == i).all().rate = true / total
     s.commit()
     s.close()
     tops = s.query(Records).filter(Records.uid == uid) \
         .filter(Questions.chapter.in_(chapters_name)) \
-        .filter(Questions.type == mytype).order_by(Records.rate.desc()).limit(qnum).all()
-    qnames = []
-    for i in tops:
-        qnames.append(i)
-    return qnames
-    # 返回值是题目名称
+        .filter(Questions.type == 1-choose, Questions.type == gap).order_by(Records.rate.desc()).limit(qnum).all()
+    return tops
+    # 返回值是Records行
 
 
 if __name__ == '__main__':
