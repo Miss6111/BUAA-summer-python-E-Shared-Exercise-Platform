@@ -141,6 +141,10 @@ if __name__ == '__main__':
 
     def change_widget_2():  # 搜索
         orgUi.stackedWidget.setCurrentIndex(3)
+        orgUi.search_group_name.show()
+        orgUi.searchicon.show()
+        orgUi.pushButton_9.show()
+        orgUi.pushButton_10.show()
         orgUi.label_type.hide()
         orgUi.label_key.hide()
         orgUi.label_chapter.hide()
@@ -217,25 +221,8 @@ if __name__ == '__main__':
         QMessageBox.about(win, '上传问题', '上传成功')
 
 
-    def change_widget_9(self):  # 搜索组
-
-        page = 1
-        orgUi.pushButton_9.hide()
-
-        orgUi.pushButton_10.hide()
-        orgUi.pushButton_11.show()
-        orgUi.widget_btn.show()
-        # orgUi.pushButton_11.clicked.connect(change_widget_11)
-        # orgUi.pushButton_11.clicked.connect(change_widget_11)
-        print("enx")
-        group = Stu.search_groups(page)
-        print(group)
-        orgUi.button0.setText(group[0])
-        orgUi.button0.clicked.connect(lambda: change_widget_btn(group[0]))
-        orgUi.button1.setText(group[1])
-        orgUi.button1.clicked.connect(lambda: change_widget_btn(group[1]))
-        orgUi.button2.setText(group[2])
-        orgUi.button2.clicked.connect(lambda: change_widget_btn(group[2]))
+    def change_widget_9(self):  # 失效
+        pass
 
 
     def change_widget_10():  # 搜索问题
@@ -244,6 +231,9 @@ if __name__ == '__main__':
             with open('temp', "rt") as file:
                 user = file.readline()
         print(user)
+        orgUi.pushButton_10.hide()
+        orgUi.search_group_name.hide()
+        orgUi.searchicon.hide()
         orgUi.pushButton_9.hide()
         orgUi.label_type.show()
         orgUi.label_key.show()
