@@ -130,7 +130,9 @@ class admin_action():
         user_list.close()
     def upload(self):
         window = upload_file.MainWindow()
-        window.exec_()
+        path = window.getPath()
+        Stu.load_file(path,user)
+
 
 
 # 按间距中的绿色按钮以运行脚本。

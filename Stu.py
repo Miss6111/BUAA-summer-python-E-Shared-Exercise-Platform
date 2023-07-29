@@ -1,4 +1,4 @@
-# import openpyxl
+import openpyxl
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -465,7 +465,7 @@ def load_one_question(title, answer, chapter, my_type, answer1, answer2, answer3
     c = s.query(Chapters).filter(Chapters.name == chapter).first()
     q = Questions(title=title, answer=answer, type=my_type, answerA=answer1, answerB=answer2, answerC=answer3,
                   answerD=answer4, gap=gap, public=public, uid=s.query(Stus).filter(Stus.name == creater).first().uid,
-                  total=0, right=0, chapter=chapter)
+                  total=0, right=0, chapter=chapter, name=title[:10])
     s.add(q)
     s.commit()
     c.ques.append(q)
@@ -474,29 +474,77 @@ def load_one_question(title, answer, chapter, my_type, answer1, answer2, answer3
     # 分组，给问题加标签
 
 
-# def load_files(path, name):  # 需要规定文件格式？？再想
-#     """
-#
-#     :param name:
-#     :param path:
-#     """
-#     f = openpyxl.load_workbook(path)
-#     names = f.get_sheet_names()  # 所有sheet
-#     for sheet_name in names:  # 每一页
-#         sheet = f.get_sheet_by_name(sheet_name)
-#         rows = sheet.max_row
-#         for i in range(rows):  # 每一行是一个问题
-#             title = sheet.cell(i + 1, 1).value
-#             answer = sheet.cell(i + 1, 2).value
-#             chapter = sheet.cell(i + 1, 3).value
-#             mytype = sheet.cell(i + 1, 4).value
-#             answer1 = sheet.cell(i + 1, 5).value
-#             answer2 = sheet.cell(i + 1, 6).value
-#             answer3 = sheet.cell(i + 1, 7).value
-#             answer4 = sheet.cell(i + 1, 8).value
-#             # 默认是公开的
-#             load_one_question(title, answer, chapter, mytype, answer1, answer2, answer3, answer4, public=True,
-#                               creater=name)
+def initial_data():
+    """
+
+    :param name:
+    :param path:
+    """
+    # s = create_session()
+    # for i in range(1,9):
+    #     s.add(Chapters(name = 'Chapter_'+str(i)))
+    # s.commit()
+    # s.close()
+    f = openpyxl.load_workbook("C:\\Users\\dyh\\Desktop\\qu.xlsx")  # 改成本地的地址
+    names = f.get_sheet_names()  # 所有sheet
+    for sheet_name in names:  # 每一页
+        sheet = f.get_sheet_by_name(sheet_name)
+        rows = sheet.max_row
+        for i in range(1,rows):  # 每一行是一个问题
+            title = sheet.cell(i + 1, 1).value
+            A = sheet.cell(i + 1, 2).value
+            B = sheet.cell(i + 1, 3).value
+            C = sheet.cell(i + 1, 4).value
+            D = sheet.cell(i + 1, 5).value
+            answer_ = sheet.cell(i + 1, 6).value
+            chapters = ['Chapter_1', 'Chapter_2', 'Chapter_3', 'Chapter_4', 'Chapter_5', 'Chapter_6', 'Chapter_7',
+                        'Chapter_8', 'Chapter_9']
+            answer = ['0', '0', '0','0']
+            gap = ''
+            if "A" in answer_:
+                gap = A
+                answer[0] = '1'
+            if "B" in answer_:
+                gap = B
+                answer[1] = '1'
+            if "C" in answer_:
+                gap = C
+                answer[2] = '1'
+            if "D" in answer_:
+                gap = D
+                answer[3] = '1'
+            if i % 2 == 0:  # 选择
+                # title, answer, chapter, my_type, answer1, answer2, answer3, answer4, gap, public, creater
+                load_one_question(title, ''.join(answer), chapters[int(i / 150) + 1], 0, A, B, C, D, '', public=True,
+                                  creater='RRRR')
+            else:  # 填空
+                load_one_question(title, '', chapters[int(i / 150) + 1], 1, A, B, C, D, gap, public=True,
+                                  creater='RRRR')
+
+
+def load_files(path, name):  # 需要规定文件格式？？再想
+    """
+
+    :param name:
+    :param path:
+    """
+    f = openpyxl.load_workbook(path)
+    names = f.get_sheet_names()  # 所有sheet
+    for sheet_name in names:  # 每一页
+        sheet = f.get_sheet_by_name(sheet_name)
+        rows = sheet.max_row
+        for i in range(rows):  # 每一行是一个问题
+            title = sheet.cell(i + 1, 1).value
+            answer = sheet.cell(i + 1, 2).value
+            chapter = sheet.cell(i + 1, 3).value
+            mytype = sheet.cell(i + 1, 4).value
+            answer1 = sheet.cell(i + 1, 5).value
+            answer2 = sheet.cell(i + 1, 6).value
+            answer3 = sheet.cell(i + 1, 7).value
+            answer4 = sheet.cell(i + 1, 8).value
+            # 默认是公开的
+            load_one_question(title, answer, chapter, mytype, answer1, answer2, answer3, answer4, public=True,
+                              creater=name)
 
 
 # def select_questions(chapters_name, mytype, user_name):  # 选择哪些chapters,填空,选择,权限
@@ -902,17 +950,17 @@ def get_question(qid):
     return lis
 
 
-if __name__ == '__main__':
-    # Base.metadata.create_all(engine)#一键在数据库生成所有的类
-    # Base.metadata.delete_all(engine)#一键清除S
-    load_one_question('title212', 'answ', 'Chapter 1', 1, 'answer1', 'answer2', 'answer3', 'answer4', 'tab', True,
-                      'RRRR')
-    # load_one_question(title='hhh',answer=)
-    # user_add_into_group(['123', 'hhhhh'], 'stu9')  # 用户主动申请加入
-
-
 def getMotto(name):
-
-    s  = create_session()
+    s = create_session()
     motto = s.query(Stus).filter(Stus.name == name).first().quote
     return motto
+
+
+if __name__ == '__main__':
+    pass
+    # Base.metadata.create_all(engine)#一键在数据库生成所有的类
+    # Base.metadata.delete_all(engine)#一键清除S
+    # load_one_question('title212', 'answ', 'Chapter 1', 1, 'answer1', 'answer2', 'answer3', 'answer4', 'tab', True,'RRRR')
+    #initial_data()
+    # load_one_question(title='hhh',answer=)
+    # user_add_into_group(['123', 'hhhhh'], 'stu9')  # 用户主动申请加入
