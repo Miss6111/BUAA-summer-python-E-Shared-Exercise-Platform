@@ -482,11 +482,11 @@ def initial_data():
     :param name:
     :param path:
     """
-    # s = create_session()
-    # for i in range(1,9):
-    #     s.add(Chapters(name = 'Chapter_'+str(i)))
-    # s.commit()
-    # s.close()
+    s = create_session()
+    for i in range(1, 9):
+        s.add(Chapters(name='Chapter_' + str(i)))
+    s.commit()
+    s.close()
     f = openpyxl.load_workbook("D:\\Users\\23673\\Desktop\\summer_python\\try.xlsx")  # 改成本地的地址
     names = f.sheetnames  # 所有sheet
     for sheet_name in names:  # 每一页
