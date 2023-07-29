@@ -313,9 +313,14 @@ if __name__ == '__main__':
         orgUi.lineEdit_type_2.show()
         orgUi.pushButton_12.show()
         ques_name = orgUi.lineEdit_key.text()
-        chapters_name = orgUi.lineEdit_chapter_2.text()
-        mytype = orgUi.lineEdit_type_2.text()
-        lis = [ques_name,int(chapters_name),int(mytype),user]
+        chapters_name = orgUi.lineEdit_chapter_2.currentText()
+        mytype = orgUi.lineEdit_type_2.currentText()
+        x = 0
+        if mytype == '填空':
+            x = 1
+        else:
+            x = 0
+        lis = [ques_name,chapters_name,x,user]
         orgUi.pushButton_12.clicked.connect(lambda: change_widget_12(lis))
 
 

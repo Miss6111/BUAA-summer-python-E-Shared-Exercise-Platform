@@ -871,7 +871,7 @@ def personalized_recommendation(qnum, chapters_name, choose, gap, user_name):
 def get_question(qid):
     s = create_session()
     ques = s.query(Questions).filter(Questions.qid == qid).first()
-    lis = [ques.title, ques.type, ques.answer,ques.answer1, ques.answer2, ques.answer3, ques.answer4]
+    lis = [ques.title, ques.type, ques.answer,ques.answerA, ques.answerB, ques.answerC, ques.answerD]
     s.commit()
     s.close()
     return lis

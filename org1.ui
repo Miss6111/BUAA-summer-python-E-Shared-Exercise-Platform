@@ -137,7 +137,7 @@ background-color: rgb(255, 170, 0);</string>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>6</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="my_ad">
      <widget class="QWidget" name="wad" native="true">
@@ -1215,19 +1215,6 @@ font: 24pt &quot;Agency FB&quot;;</string>
          <string>搜索问题</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEdit_type_2">
-        <property name="geometry">
-         <rect>
-          <x>350</x>
-          <y>190</y>
-          <width>291</width>
-          <height>51</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">font: 14pt &quot;Agency FB&quot;;</string>
-        </property>
-       </widget>
        <widget class="QLineEdit" name="lineEdit_key">
         <property name="geometry">
          <rect>
@@ -1246,7 +1233,7 @@ font: 24pt &quot;Agency FB&quot;;</string>
          <rect>
           <x>130</x>
           <y>200</y>
-          <width>61</width>
+          <width>141</width>
           <height>41</height>
          </rect>
         </property>
@@ -1262,7 +1249,7 @@ font: 24pt &quot;Agency FB&quot;;</string>
          <rect>
           <x>130</x>
           <y>310</y>
-          <width>61</width>
+          <width>161</width>
           <height>41</height>
          </rect>
         </property>
@@ -1271,19 +1258,6 @@ font: 24pt &quot;Agency FB&quot;;</string>
         </property>
         <property name="text">
          <string>章节</string>
-        </property>
-       </widget>
-       <widget class="QLineEdit" name="lineEdit_chapter_2">
-        <property name="geometry">
-         <rect>
-          <x>350</x>
-          <y>300</y>
-          <width>291</width>
-          <height>51</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">font: 14pt &quot;Agency FB&quot;;</string>
         </property>
        </widget>
        <widget class="QLabel" name="label_key">
@@ -1320,19 +1294,96 @@ font: 12pt &quot;Agency FB&quot;;
          <string>搜索</string>
         </property>
        </widget>
+       <widget class="QComboBox" name="lineEdit_type_2">
+        <property name="geometry">
+         <rect>
+          <x>350</x>
+          <y>190</y>
+          <width>181</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Agency FB</family>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
+        <item>
+         <property name="text">
+          <string>填空</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>选择</string>
+         </property>
+        </item>
+       </widget>
+       <widget class="QComboBox" name="lineEdit_chapter_2">
+        <property name="geometry">
+         <rect>
+          <x>350</x>
+          <y>300</y>
+          <width>181</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Bell MT</family>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
+        <item>
+         <property name="text">
+          <string>Chapter_1</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Chapter_2</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Chapter_3</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Chapter_4</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Chapter_5</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Chapter_6</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Chapter_7</string>
+         </property>
+        </item>
+       </widget>
        <zorder>widget_ques</zorder>
        <zorder>searchGroup</zorder>
        <zorder>pushButton_11</zorder>
        <zorder>groupline</zorder>
        <zorder>confirm_button</zorder>
        <zorder>pushButton_10</zorder>
-       <zorder>lineEdit_type_2</zorder>
        <zorder>lineEdit_key</zorder>
        <zorder>label_type</zorder>
        <zorder>label_chapter</zorder>
-       <zorder>lineEdit_chapter_2</zorder>
        <zorder>label_key</zorder>
        <zorder>pushButton_12</zorder>
+       <zorder>lineEdit_type_2</zorder>
+       <zorder>lineEdit_chapter_2</zorder>
       </widget>
      </widget>
     </widget>
