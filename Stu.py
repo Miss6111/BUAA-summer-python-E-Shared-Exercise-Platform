@@ -9,8 +9,8 @@ from sqlalchemy import or_
 from datetime import datetime
 from sqlalchemy import DateTime
 
-Base = declarative_base()
-DB_connect = 'mysql+mysqldb://root:222333dyh@localhost/Test'
+Base = sqlalchemy.orm.declarative_base()
+DB_connect = 'mysql+mysqldb://root:86901260@localhost/myDB_1'
 engine = create_engine(DB_connect, echo=True)
 
 
@@ -487,12 +487,12 @@ def initial_data():
     #     s.add(Chapters(name = 'Chapter_'+str(i)))
     # s.commit()
     # s.close()
-    f = openpyxl.load_workbook("C:\\Users\\dyh\\Desktop\\qu.xlsx")  # 改成本地的地址
-    names = f.get_sheet_names()  # 所有sheet
+    f = openpyxl.load_workbook("D:\\Users\\23673\\Desktop\\summer_python\\try.xlsx")  # 改成本地的地址
+    names = f.sheetnames  # 所有sheet
     for sheet_name in names:  # 每一页
-        sheet = f.get_sheet_by_name(sheet_name)
+        sheet = f[sheet_name]
         rows = sheet.max_row
-        for i in range(1,rows):  # 每一行是一个问题
+        for i in range(1, rows):  # 每一行是一个问题
             title = sheet.cell(i + 1, 1).value
             A = sheet.cell(i + 1, 2).value
             B = sheet.cell(i + 1, 3).value
@@ -501,7 +501,7 @@ def initial_data():
             answer_ = sheet.cell(i + 1, 6).value
             chapters = ['Chapter_1', 'Chapter_2', 'Chapter_3', 'Chapter_4', 'Chapter_5', 'Chapter_6', 'Chapter_7',
                         'Chapter_8', 'Chapter_9']
-            answer = ['0', '0', '0','0']
+            answer = ['0', '0', '0', '0']
             gap = ''
             if "A" in answer_:
                 gap = A
@@ -969,6 +969,6 @@ if __name__ == '__main__':
     # Base.metadata.create_all(engine)#一键在数据库生成所有的类
     # Base.metadata.delete_all(engine)#一键清除S
     # load_one_question('title212', 'answ', 'Chapter 1', 1, 'answer1', 'answer2', 'answer3', 'answer4', 'tab', True,'RRRR')
-    #initial_data()
+    initial_data()
     # load_one_question(title='hhh',answer=)
     # user_add_into_group(['123', 'hhhhh'], 'stu9')  # 用户主动申请加入
