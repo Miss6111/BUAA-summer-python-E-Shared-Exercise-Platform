@@ -963,8 +963,28 @@ def getMotto(name):
     motto = s.query(Stus).filter(Stus.name == name).first().quote
     return motto
 
-def get_accurate_rate(user):#查record，每章做题数，每章错误率[[],[],[]]
-    return None
+
+def get_accurate_rate(user_name):  # 查record，每章做题数，每章正确率[[],[],[]]
+    s = create_session()
+    uid = s.query(Stus).filter(Stus.name == user_name).first().uid
+    chap_right = []
+    chap_total = []
+    for chapter in Chapters.name:
+        records = s.query(Records).filter(Records.uid == uid).all()
+        total, right = 0, 0
+        for i in records:
+            id = i.qid
+            cha = s.query(Questions).filter(Questions.qid == id).first().chapter
+            if chapter == cha:
+                total += 1
+                if i.right == 1:
+                    right += 1
+        chap_total.append(total)
+        chap_right.append(right)
+    s.commit()
+    s.close()
+    return [chap_total, chap_right]
+
 
 if __name__ == '__main__':
     pass
@@ -974,5 +994,3 @@ if __name__ == '__main__':
     initial_data()
     # load_one_question(title='hhh',answer=)
     # user_add_into_group(['123', 'hhhhh'], 'stu9')  # 用户主动申请加入
-
-
