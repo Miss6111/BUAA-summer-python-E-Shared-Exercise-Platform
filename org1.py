@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'org1.ui'
+# Form implementation generated from reading ui file 'newui.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.9
 #
@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1003, 834)
+        MainWindow.resize(1048, 834)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.label = QtWidgets.QLabel(self.centralwidget)
@@ -48,7 +48,7 @@ class Ui_MainWindow(object):
         self.pushButton_6.setStyleSheet("background-color: rgb(255, 203, 151);")
         self.pushButton_6.setObjectName("pushButton_6")
         self.stackedWidget = QtWidgets.QStackedWidget(self.centralwidget)
-        self.stackedWidget.setGeometry(QtCore.QRect(70, 70, 981, 791))
+        self.stackedWidget.setGeometry(QtCore.QRect(80, 70, 981, 791))
         self.stackedWidget.setObjectName("stackedWidget")
         self.my_ad = QtWidgets.QWidget()
         self.my_ad.setObjectName("my_ad")
@@ -366,6 +366,10 @@ class Ui_MainWindow(object):
         self.answer_load_C = QtWidgets.QLineEdit(self.upload)
         self.answer_load_C.setGeometry(QtCore.QRect(170, 610, 611, 41))
         self.answer_load_C.setObjectName("answer_load_C")
+        self.pushButton_8 = QtWidgets.QPushButton(self.upload)
+        self.pushButton_8.setGeometry(QtCore.QRect(840, 30, 75, 41))
+        self.pushButton_8.setStyleSheet("background-color: rgb(255, 203, 151);")
+        self.pushButton_8.setObjectName("pushButton_8")
         self.stackedWidget.addWidget(self.upload)
         self.search = QtWidgets.QWidget()
         self.search.setObjectName("search")
@@ -505,7 +509,7 @@ class Ui_MainWindow(object):
         self.tp1.setFont(font)
         self.tp1.setObjectName("tp1")
         self.atg = QtWidgets.QPushButton(self.wnorm)
-        self.atg.setGeometry(QtCore.QRect(680, 30, 161, 71))
+        self.atg.setGeometry(QtCore.QRect(50, 370, 161, 71))
         font = QtGui.QFont()
         font.setPointSize(17)
         self.atg.setFont(font)
@@ -542,6 +546,26 @@ class Ui_MainWindow(object):
         self.ntp1.setFont(font)
         self.ntp1.setText("")
         self.ntp1.setObjectName("ntp1")
+        self.label_3 = QtWidgets.QLabel(self.wnorm)
+        self.label_3.setGeometry(QtCore.QRect(130, 120, 81, 16))
+        self.label_3.setObjectName("label_3")
+        self.label_motto = QtWidgets.QLabel(self.wnorm)
+        self.label_motto.setGeometry(QtCore.QRect(210, 120, 441, 16))
+        self.label_motto.setObjectName("label_motto")
+        self.password_change = QtWidgets.QPushButton(self.wnorm)
+        self.password_change.setGeometry(QtCore.QRect(240, 370, 161, 71))
+        font = QtGui.QFont()
+        font.setPointSize(17)
+        self.password_change.setFont(font)
+        self.password_change.setStyleSheet("background-color:rgb(255, 170, 0)")
+        self.password_change.setObjectName("password_change")
+        self.motto_change = QtWidgets.QPushButton(self.wnorm)
+        self.motto_change.setGeometry(QtCore.QRect(430, 370, 161, 71))
+        font = QtGui.QFont()
+        font.setPointSize(17)
+        self.motto_change.setFont(font)
+        self.motto_change.setStyleSheet("background-color:rgb(255, 170, 0)")
+        self.motto_change.setObjectName("motto_change")
         self.stackedWidget.addWidget(self.my_norm)
         self.problems = QtWidgets.QWidget()
         self.problems.setObjectName("problems")
@@ -698,7 +722,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.stackedWidget.setCurrentIndex(3)
+        self.stackedWidget.setCurrentIndex(2)
         self.stackedWidget_2.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
@@ -755,6 +779,7 @@ class Ui_MainWindow(object):
         self.B_load.setText(_translate("MainWindow", "B"))
         self.C_load.setText(_translate("MainWindow", "C"))
         self.D_load.setText(_translate("MainWindow", "D"))
+        self.pushButton_8.setText(_translate("MainWindow", "上传文件"))
         self.searchGroup.setText(_translate("MainWindow", "搜索组"))
         self.pushButton_11.setText(_translate("MainWindow", "下一页"))
         self.confirm_button.setText(_translate("MainWindow", "搜索"))
@@ -781,6 +806,10 @@ class Ui_MainWindow(object):
         self.atg.setText(_translate("MainWindow", "加入组"))
         self.tg.setText(_translate("MainWindow", "以下是你目前加入的组"))
         self.bg.setText(_translate("MainWindow", "you are not in any group"))
+        self.label_3.setText(_translate("MainWindow", "个人谏言："))
+        self.label_motto.setText(_translate("MainWindow", "hello world！"))
+        self.password_change.setText(_translate("MainWindow", "改密码"))
+        self.motto_change.setText(_translate("MainWindow", "改谏言"))
         self.label_2.setText(_translate("MainWindow", "查看问题"))
         self.star.setText(_translate("MainWindow", "收藏"))
         self.pushButton_29.setText(_translate("MainWindow", "上一题"))

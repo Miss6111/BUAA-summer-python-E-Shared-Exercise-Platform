@@ -31,7 +31,9 @@ class LoginWindow(QWidget):
             self.close()
             with open('temp', 'wt') as file:
                 file.write(username)
-            os.system("python ./23231.py")
+            with open('pass', 'wt') as file:
+                file.write(password)
+            os.system("python ./main.py")
         else:
             reply = QMessageBox.about(self, '登录', '账号或密码错误')
         print("login clicked")

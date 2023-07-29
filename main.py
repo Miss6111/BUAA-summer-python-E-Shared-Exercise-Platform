@@ -1,13 +1,14 @@
 # 这是一个示例 Python 脚本。
 import os.path
 
+import upload_file
 import Stu
 import Graph
 # 按 Shift+F10 执行或将其替换为您的代码。
 # 按 双击 Shift 在所有地方搜索类、文件、工具窗口、操作和设置。
 import org1
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QMessageBox
+from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QMessageBox, QInputDialog, QFileDialog
 import list_window, wrong_window
 from PyQt5 import QtCore, QtGui, QtWidgets
 
@@ -25,23 +26,6 @@ def init_global():
     global selection
     selection = ['0', '0', '0', '0']
 
-
-# 定义函数来修改全局变量
-def modify_chapter(new):
-    global selected_chapter
-    selected_chapter = new
-
-
-def modify_type(new):
-    global selected_type
-    selected_type = new
-
-
-def modify_public(new):
-    global selected_public
-    selected_public = new
-
-
 def modify_selection(i):
     global selection
     if selection[i] == '0':
@@ -50,32 +34,23 @@ def modify_selection(i):
         selection[i] = '0'
 
 
-def setA(s):
-    global answerA
-    answerA = s
+class norm_action():
+    def change_password(self):
+        text, ok = QInputDialog.getText(win, '改密码', '请输入原密码:')
+        if ok:
+            if text == password:
+                text2, ok2 = QInputDialog.getText(win, '改密码', '请输入新密码:')
+                Stu.change_password(text2, user)
+            else:
+                reply = QMessageBox.about(win, '改密码', '原密码错误')
 
-
-def setB(s):
-    global answerB
-    answerB = s
-
-
-def setC(s):
-    global answerC
-    answerC = s
-
-
-def setD(s):
-    global answerD
-    answerD = s
-
-
+    def change_motto(self):
+        text, ok = QInputDialog.getText(win, '改谏言', '请输入新谏言:')
+        if ok:
+            Stu.change_quote(text,user)
+            orgUi.label_motto.setText(text)
 class search_action():
     def search_for_group(self):  # 调出选择组界面
-        user = 'fmy'
-        # if os.path.exists('temp'):
-        #     with open('temp', "rt") as file:
-        #         user = file.readline()
         text = orgUi.groupline.text()
         itemlist = Stu.search_for_groups(text, user)
         if len(itemlist) == 0:
@@ -85,9 +60,6 @@ class search_action():
             search_group_list.show()
 
     def confirm_search_group_list(self):  # 确定搜索组
-        if os.path.exists('temp'):
-            with open('temp', "rt") as file:
-                user = file.readline()
         selected_items = search_group_list.list_widget.selectedItems()
         selected_names = [item.text() for item in selected_items]
         QMessageBox.information(search_group_list, "选中的项", f"选中的项: {selected_names}")
@@ -107,21 +79,14 @@ class admin_action():
         print('create group cancel')
 
     def create_group_ok(self):  # 创建组 ok
-        user = 'fmy'
-        # if os.path.exists('temp'):
-        #     with open('temp', "rt") as file:
-        #         user = file.readline()
-        print('user name find')
         gname = orgUi.groupname.text()
         # backend
 
         flag = Stu.create_new_group(gname, user)
         if flag:
-            print('11')
-            reply = QMessageBox.about(win, '创建小组', '创建成功')
-            print('22')
+            QMessageBox.about(win, '创建小组', '创建成功')
         else:
-            reply = QMessageBox.about(win, '创建小组', '创建失败，小组已经存在')
+            QMessageBox.about(win, '创建小组', '创建失败，小组已经存在')
         orgUi.groupname.setText('')
         orgUi.wgn.hide()
         print('create group ok')
@@ -131,14 +96,8 @@ class admin_action():
         print('add people to group')
 
     def chose_group(self):
-        # itemlist = ['好好学习组','天天向上组']
-        # for i in range(20):
-        #     print(i)
-        #     itemlist.append('1')
-        # print(itemlist)
-        print('chose group1')
+
         itemlist = Stu.all_groups()  # backend
-        print('chose group2')
         group_list.setWindowTitle('小组')
         group_list.initializeList(itemlist)
         group_list.show()
@@ -169,6 +128,9 @@ class admin_action():
         gname = orgUi.waddpgn.text()
         Stu.add_into_group(selected_names, gname)  # todo backend
         user_list.close()
+    def upload(self):
+        window = upload_file.MainWindow()
+        window.exec_()
 
 
 # 按间距中的绿色按钮以运行脚本。
@@ -189,6 +151,18 @@ if __name__ == '__main__':
     orgUi.setupUi(win)
     orgUi.stackedWidget.setCurrentIndex(1)
     page = 1
+
+    user = 'fmy'
+    if os.path.exists('temp'):
+        with open('temp', "rt") as file:
+            user = file.readline()
+    if os.path.exists('pass'):
+        with open('pass', "rt") as file:
+            password = file.readline()
+
+    orgUi.label_motto.setText(Stu.getMotto(user))
+    orgUi.password_change.clicked.connect(norm_action.change_password)
+    orgUi.motto_change.clicked.connect(norm_action.change_motto)
 
 
     def change_widget_1():  # 上传问题
@@ -617,6 +591,8 @@ if __name__ == '__main__':
     orgUi.B_load.stateChanged.connect(handleCheckboxB)
     orgUi.C_load.stateChanged.connect(handleCheckboxC)
     orgUi.D_load.stateChanged.connect(handleCheckboxD)
+    #orgUi.pushButton_8.clicked.connect(upload_file)
+    orgUi.pushButton_8.clicked.connect(admin_action.upload)
 
 
     win.show()
