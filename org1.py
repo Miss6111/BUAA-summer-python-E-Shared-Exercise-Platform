@@ -9,90 +9,18 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QComboBox, QCheckBox
-
-selected_chapter = "Chapter 1"
-selected_type = "填空"
-selected_public = "Yes"
-selection = ['0', '0', '0', '0']
-answerA = ''
-answerB = ''
-answerC = ''
-answerD = ''
-
-def init_global():
-    global selection
-    global selected_public
-    global selected_chapter
-    global selected_public
-    global selected_type
-    global answerA
-    global answerC
-    global answerB
-    global answerD
-    selected_chapter = "Chapter 1"
-    selected_type = "填空"
-    selected_public = "Yes"
-    selection = ['0', '0', '0', '0']
-    answerA = ''
-    answerB = ''
-    answerC = ''
-    answerD = ''
-
-# 定义函数来修改全局变量
-def modify_chapter(new):
-    global selected_chapter
-    selected_chapter = new
-
-
-def modify_type(new):
-    global selected_type
-    selected_type = new
-
-
-def modify_public(new):
-    global selected_public
-    selected_public = new
-
-
-def modify_selection(i):
-    global selection
-    if selection[i] == '0':
-        selection[i] = '1'
-    else:
-        selection[i] = '0'
-
-
-def setA(s):
-    global answerA
-    answerA = s
-
-
-def setB(s):
-    global answerB
-    answerB = s
-
-
-def setC(s):
-    global answerC
-    answerC = s
-
-
-def setD(s):
-    global answerD
-    answerD = s
 
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(934, 1052)
+        MainWindow.resize(1003, 834)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(-130, 0, 4211, 61))
         self.label.setStyleSheet("color: rgb(255, 170, 0);\n"
-                                 "background-color: rgb(255, 170, 0);")
+"background-color: rgb(255, 170, 0);")
         self.label.setText("")
         self.label.setObjectName("label")
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
@@ -120,17 +48,17 @@ class Ui_MainWindow(object):
         self.pushButton_6.setStyleSheet("background-color: rgb(255, 203, 151);")
         self.pushButton_6.setObjectName("pushButton_6")
         self.stackedWidget = QtWidgets.QStackedWidget(self.centralwidget)
-        self.stackedWidget.setGeometry(QtCore.QRect(0, 90, 941, 700))
+        self.stackedWidget.setGeometry(QtCore.QRect(70, 70, 981, 791))
         self.stackedWidget.setObjectName("stackedWidget")
         self.my_ad = QtWidgets.QWidget()
         self.my_ad.setObjectName("my_ad")
         self.wad = QtWidgets.QWidget(self.my_ad)
         self.wad.setGeometry(QtCore.QRect(30, 20, 861, 461))
         self.wad.setStyleSheet("border-radius:30px;\n"
-                               "background-color: rgb(255, 203, 151);")
+"background-color: rgb(255, 203, 151);")
         self.wad.setObjectName("wad")
         self.nhello2 = QtWidgets.QLabel(self.wad)
-        self.nhello2.setGeometry(QtCore.QRect(180, 40, 491, 41))
+        self.nhello2.setGeometry(QtCore.QRect(180, 40, 541, 41))
         font = QtGui.QFont()
         font.setPointSize(17)
         font.setBold(True)
@@ -139,7 +67,7 @@ class Ui_MainWindow(object):
         self.nhello2.setText("")
         self.nhello2.setObjectName("nhello2")
         self.ntp2 = QtWidgets.QLabel(self.wad)
-        self.ntp2.setGeometry(QtCore.QRect(250, 120, 161, 61))
+        self.ntp2.setGeometry(QtCore.QRect(250, 120, 251, 61))
         font = QtGui.QFont()
         font.setPointSize(17)
         font.setBold(False)
@@ -162,10 +90,10 @@ class Ui_MainWindow(object):
         self.apb.setStyleSheet("background-color:rgb(254, 225, 64);")
         self.apb.setObjectName("apb")
         self.tadmin = QtWidgets.QLabel(self.wad)
-        self.tadmin.setGeometry(QtCore.QRect(120, 250, 291, 21))
+        self.tadmin.setGeometry(QtCore.QRect(50, 250, 361, 21))
         self.tadmin.setObjectName("tadmin")
         self.hello2 = QtWidgets.QLabel(self.wad)
-        self.hello2.setGeometry(QtCore.QRect(80, 40, 81, 41))
+        self.hello2.setGeometry(QtCore.QRect(10, 40, 121, 41))
         font = QtGui.QFont()
         font.setPointSize(17)
         font.setBold(True)
@@ -173,7 +101,7 @@ class Ui_MainWindow(object):
         self.hello2.setFont(font)
         self.hello2.setObjectName("hello2")
         self.tp2 = QtWidgets.QLabel(self.wad)
-        self.tp2.setGeometry(QtCore.QRect(80, 120, 161, 61))
+        self.tp2.setGeometry(QtCore.QRect(10, 120, 201, 61))
         font = QtGui.QFont()
         font.setPointSize(17)
         font.setBold(False)
@@ -183,11 +111,11 @@ class Ui_MainWindow(object):
         self.wgn = QtWidgets.QWidget(self.wad)
         self.wgn.setGeometry(QtCore.QRect(380, 100, 301, 181))
         self.wgn.setStyleSheet("#wgn{\n"
-                               "   border-radius:30px;\n"
-                               "   background-color:rgb(254, 225, 64);\n"
-                               "}\n"
-                               "\n"
-                               "")
+"   border-radius:30px;\n"
+"   background-color:rgb(254, 225, 64);\n"
+"}\n"
+"\n"
+"")
         self.wgn.setObjectName("wgn")
         self.groupname = QtWidgets.QLineEdit(self.wgn)
         self.groupname.setGeometry(QtCore.QRect(30, 60, 251, 41))
@@ -195,7 +123,7 @@ class Ui_MainWindow(object):
         self.groupname.setText("")
         self.groupname.setObjectName("groupname")
         self.tgn = QtWidgets.QLabel(self.wgn)
-        self.tgn.setGeometry(QtCore.QRect(100, 20, 151, 31))
+        self.tgn.setGeometry(QtCore.QRect(120, 20, 241, 31))
         self.tgn.setStyleSheet("background-color:rgb(254, 225, 64);")
         self.tgn.setObjectName("tgn")
         self.wgn_cancel = QtWidgets.QPushButton(self.wgn)
@@ -230,7 +158,7 @@ class Ui_MainWindow(object):
         self.waddpsearch = QtWidgets.QPushButton(self.waddp)
         self.waddpsearch.setGeometry(QtCore.QRect(230, 110, 41, 41))
         self.waddpsearch.setStyleSheet("background-color: rgb(255, 203, 151);\n"
-                                       "border-radius:15px")
+"border-radius:15px")
         self.waddpsearch.setText("")
         icon2 = QtGui.QIcon()
         icon2.addPixmap(QtGui.QPixmap(":/icons/icon/search.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -249,7 +177,7 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         self.waddpcg.setFont(font)
         self.waddpcg.setStyleSheet("background-color: rgb(255, 203, 151);\n"
-                                   "border-radius:15px")
+"border-radius:15px")
         self.waddpcg.setObjectName("waddpcg")
         self.waddpgn = QtWidgets.QLabel(self.waddp)
         self.waddpgn.setGeometry(QtCore.QRect(160, 30, 91, 41))
@@ -268,15 +196,15 @@ class Ui_MainWindow(object):
         self.icwelc.setText("")
         self.icwelc.setObjectName("icwelc")
         self.widget = QtWidgets.QWidget(self.welcom)
-        self.widget.setGeometry(QtCore.QRect(260, 230, 631, 271))
+        self.widget.setGeometry(QtCore.QRect(260, 230, 661, 311))
         self.widget.setStyleSheet("background-color:rgb(255, 170, 0);\n"
-                                  "border-bottom-left-radius:30px;\n"
-                                  "border-bottom-right-radius:30px;\n"
-                                  "\n"
-                                  "")
+"border-bottom-left-radius:30px;\n"
+"border-bottom-right-radius:30px;\n"
+"\n"
+"")
         self.widget.setObjectName("widget")
         self.abus = QtWidgets.QLabel(self.widget)
-        self.abus.setGeometry(QtCore.QRect(250, -10, 291, 111))
+        self.abus.setGeometry(QtCore.QRect(220, -40, 291, 111))
         font = QtGui.QFont()
         font.setPointSize(17)
         font.setBold(True)
@@ -286,21 +214,21 @@ class Ui_MainWindow(object):
         self.abus.setFont(font)
         self.abus.setObjectName("abus")
         self.textBrowser = QtWidgets.QTextBrowser(self.widget)
-        self.textBrowser.setGeometry(QtCore.QRect(130, 70, 421, 311))
+        self.textBrowser.setGeometry(QtCore.QRect(210, 50, 551, 381))
         font = QtGui.QFont()
         font.setPointSize(9)
         self.textBrowser.setFont(font)
         self.textBrowser.setObjectName("textBrowser")
         self.widget_2 = QtWidgets.QWidget(self.welcom)
-        self.widget_2.setGeometry(QtCore.QRect(260, 50, 631, 181))
+        self.widget_2.setGeometry(QtCore.QRect(260, 50, 661, 181))
         self.widget_2.setStyleSheet("background-color:rgb(254, 225, 64);\n"
-                                    "border-top-left-radius:30px;\n"
-                                    "border-top-right-radius:30px;\n"
-                                    "\n"
-                                    "")
+"border-top-left-radius:30px;\n"
+"border-top-right-radius:30px;\n"
+"\n"
+"")
         self.widget_2.setObjectName("widget_2")
         self.abus_2 = QtWidgets.QLabel(self.widget_2)
-        self.abus_2.setGeometry(QtCore.QRect(30, 10, 291, 71))
+        self.abus_2.setGeometry(QtCore.QRect(30, 10, 431, 81))
         font = QtGui.QFont()
         font.setPointSize(17)
         font.setBold(True)
@@ -310,7 +238,7 @@ class Ui_MainWindow(object):
         self.abus_2.setFont(font)
         self.abus_2.setObjectName("abus_2")
         self.abus_3 = QtWidgets.QLabel(self.widget_2)
-        self.abus_3.setGeometry(QtCore.QRect(40, 70, 551, 71))
+        self.abus_3.setGeometry(QtCore.QRect(30, 80, 551, 71))
         font = QtGui.QFont()
         font.setPointSize(13)
         font.setBold(False)
@@ -322,212 +250,122 @@ class Ui_MainWindow(object):
         self.stackedWidget.addWidget(self.welcom)
         self.upload = QtWidgets.QWidget()
         self.upload.setObjectName("upload")
-        self.title_2 = QtWidgets.QLabel(self.upload)
-        self.title_2.setGeometry(QtCore.QRect(40, 30, 41, 16))
-        self.title_2.setObjectName("title_2")
-
+        self.name = QtWidgets.QLabel(self.upload)
+        self.name.setEnabled(True)
+        self.name.setGeometry(QtCore.QRect(30, 20, 111, 41))
+        font = QtGui.QFont()
+        font.setFamily("Bell MT")
+        font.setPointSize(14)
+        self.name.setFont(font)
+        self.name.setObjectName("name")
         self.lineEdit_name = QtWidgets.QLineEdit(self.upload)
-        self.lineEdit_name.setGeometry(QtCore.QRect(90, 30, 781, 20))
+        self.lineEdit_name.setGeometry(QtCore.QRect(170, 30, 451, 41))
         self.lineEdit_name.setObjectName("lineEdit_name")
-
         self.title = QtWidgets.QLabel(self.upload)
-        self.title.setGeometry(QtCore.QRect(30, 80, 54, 12))
+        self.title.setGeometry(QtCore.QRect(30, 80, 131, 41))
+        font = QtGui.QFont()
+        font.setFamily("Bell MT")
+        font.setPointSize(14)
+        self.title.setFont(font)
         self.title.setObjectName("title")
-
         self.textEdit_title = QtWidgets.QTextEdit(self.upload)
-        self.textEdit_title.setGeometry(QtCore.QRect(90, 70, 781, 181))
+        self.textEdit_title.setGeometry(QtCore.QRect(170, 90, 611, 171))
         self.textEdit_title.setObjectName("textEdit_title")
-
-        self.chapter = QtWidgets.QLabel(self.upload)
-        self.chapter.setGeometry(QtCore.QRect(40, 280, 121, 30))
-        self.chapter.setObjectName("chapter")
-
-        # self.lineEdit_public = QtWidgets.QLineEdit(self.upload)
-        # self.lineEdit_public.setGeometry(QtCore.QRect(180, 280, 651, 20))
-        # self.lineEdit_public.setObjectName("lineEdit_public")
-
-        self.lineEdit_public = QComboBox(self.upload)
-        self.lineEdit_public.setGeometry(QtCore.QRect(110, 280, 120, 30))
-        self.lineEdit_public.addItem("Yes")
-        self.lineEdit_public.addItem("No")
-        self.lineEdit_public.setObjectName("lineEdit_public")
-
-        def Modify_public():
-            modify_public(self.lineEdit_public.currentText())
-            print("Selected value:", self.lineEdit_public.currentText())
-
-        # 将槽函数与下拉框的选择变化信号关联起来
-        self.lineEdit_public.currentIndexChanged.connect(Modify_public)
-
-        self.my_type = QtWidgets.QLabel(self.upload)
-        self.my_type.setGeometry(QtCore.QRect(40, 320, 121, 40))
-        self.my_type.setObjectName("my_type")
-
-        # self.lineEdit_type = QtWidgets.QLineEdit(self.upload)
-        # self.lineEdit_type.setGeometry(QtCore.QRect(180, 330, 711, 20))
-        # self.lineEdit_type.setObjectName("lineEdit_type")
-
-        self.lineEdit_type = QComboBox(self.upload)
-        self.lineEdit_type.setGeometry(QtCore.QRect(110, 330, 120, 30))
-        self.lineEdit_type.addItem("填空")
-        self.lineEdit_type.addItem("选择")
-        self.lineEdit_type.setObjectName("lineEdit_type")
-
-        def create_answer():
-            if selected_type == "选择":
-                self.lineEdit_answer.deleteLater()
-
-                # self.lineEdit_answerall = QtWidgets.QLineEdit(self.upload)
-                # self.lineEdit_answerall.setGeometry(QtCore.QRect(110, 380, 771, 20))
-                # self.lineEdit_answerall.setObjectName("lineEdit_answerall")
-                # self.lineEdit_answerall.setVisible(True)
-                self.A = QCheckBox(self.upload)
-                self.A.setGeometry(QtCore.QRect(60, 400, 90, 20))
-                self.A.setObjectName('A')
-                self.A.setVisible(True)
-
-                self.B = QCheckBox(self.upload)
-                self.B.setGeometry(QtCore.QRect(60, 430, 90, 20))
-                self.B.setObjectName('B')
-                self.B.setVisible(True)
-
-                self.C = QCheckBox(self.upload)
-                self.C.setGeometry(QtCore.QRect(60, 460, 90, 20))
-                self.C.setObjectName('C')
-                self.C.setVisible(True)
-
-                self.D = QCheckBox(self.upload)
-                self.D.setGeometry(QtCore.QRect(60, 490, 90, 20))
-                self.D.setObjectName('D')
-                self.D.setVisible(True)
-
-                self.lineEdit_answerA = QtWidgets.QLineEdit(self.upload)
-                self.lineEdit_answerA.setGeometry(QtCore.QRect(110, 400, 771, 20))
-                self.lineEdit_answerA.setObjectName("lineEdit_answerA")
-                self.lineEdit_answerA.setVisible(True)
-
-                self.lineEdit_answerB = QtWidgets.QLineEdit(self.upload)
-                self.lineEdit_answerB.setGeometry(QtCore.QRect(110, 430, 771, 20))
-                self.lineEdit_answerB.setObjectName("lineEdit_answerB")
-                self.lineEdit_answerB.setVisible(True)
-
-                self.lineEdit_answerC = QtWidgets.QLineEdit(self.upload)
-                self.lineEdit_answerC.setGeometry(QtCore.QRect(110, 460, 771, 20))
-                self.lineEdit_answerC.setObjectName("lineEdit_answerC")
-                self.lineEdit_answerC.setVisible(True)
-
-                self.lineEdit_answerD = QtWidgets.QLineEdit(self.upload)
-                self.lineEdit_answerD.setGeometry(QtCore.QRect(110, 490, 771, 20))
-                self.lineEdit_answerD.setObjectName("lineEdit_answerD")
-                self.lineEdit_answerD.setVisible(True)
-
-                self.A.stateChanged.connect(handleCheckboxA)
-                self.B.stateChanged.connect(handleCheckboxB)
-                self.C.stateChanged.connect(handleCheckboxC)
-                self.D.stateChanged.connect(handleCheckboxD)
-
-                self.lineEdit_answerA.textChanged.connect(TextA)
-                self.lineEdit_answerB.textChanged.connect(TextB)
-                self.lineEdit_answerC.textChanged.connect(TextC)
-                self.lineEdit_answerD.textChanged.connect(TextD)
-
-
-                self.answer_2.setGeometry(QtCore.QRect(40, 535, 70, 40))
-                self.lineEdit_chapter.setGeometry(QtCore.QRect(110, 540, 120, 30))
-
-            else:
-                self.answer_2.setGeometry(QtCore.QRect(40, 425, 70, 40))
-                self.lineEdit_chapter.setGeometry(QtCore.QRect(110, 430, 120, 30))
-
-                self.lineEdit_answerA.deleteLater()
-                self.lineEdit_answerB.deleteLater()
-                self.lineEdit_answerC.deleteLater()
-                self.lineEdit_answerD.deleteLater()
-                self.A.deleteLater()
-                self.B.deleteLater()
-                self.C.deleteLater()
-                self.D.deleteLater()
-
-                self.lineEdit_answer = QtWidgets.QLineEdit(self.upload)
-                self.lineEdit_answer.setGeometry(QtCore.QRect(110, 380, 771, 20))
-                self.lineEdit_answer.setObjectName("lineEdit_answer")
-                self.lineEdit_answer.setVisible(True)
-
-        self.lineEdit_answer = QtWidgets.QLineEdit(self.upload)
-        self.lineEdit_answer.setGeometry(QtCore.QRect(110, 380, 771, 20))
-        self.lineEdit_answer.setObjectName("lineEdit_answer")
-
-        def handleCheckboxA():
-            modify_selection(0)
-
-        def handleCheckboxB():
-            modify_selection(1)
-
-        def handleCheckboxC():
-            modify_selection(2)
-
-        def handleCheckboxD():
-            modify_selection(3)
-        def TextA(text):
-            print(text)
-            setA(text)
-
-        def TextB(text):
-            setB(text)
-
-        def TextC(text):
-            setC(text)
-
-        def TextD(text):
-            setD(text)
-
-        def Modify_type():
-            modify_type(self.lineEdit_type.currentText())
-            print("Selected value:", selected_type)
-            create_answer()
-
-        # 将槽函数与下拉框的选择变化信号关联起来
-        self.lineEdit_type.currentIndexChanged.connect(Modify_type)
-
+        self.public_load = QtWidgets.QLabel(self.upload)
+        self.public_load.setGeometry(QtCore.QRect(40, 270, 131, 41))
+        font = QtGui.QFont()
+        font.setFamily("Bell MT")
+        font.setPointSize(14)
+        self.public_load.setFont(font)
+        self.public_load.setObjectName("public_load")
+        self.type = QtWidgets.QLabel(self.upload)
+        self.type.setGeometry(QtCore.QRect(40, 310, 121, 61))
+        font = QtGui.QFont()
+        font.setFamily("Bell MT")
+        font.setPointSize(14)
+        self.type.setFont(font)
+        self.type.setObjectName("type")
         self.answer = QtWidgets.QLabel(self.upload)
-        self.answer.setGeometry(QtCore.QRect(40, 380, 54, 12))
+        self.answer.setGeometry(QtCore.QRect(40, 420, 131, 61))
+        font = QtGui.QFont()
+        font.setFamily("Bell MT")
+        font.setPointSize(14)
+        self.answer.setFont(font)
         self.answer.setObjectName("answer")
-
-        # self.lineEdit_answer = QtWidgets.QLineEdit(self.upload)
-        # self.lineEdit_answer.setGeometry(QtCore.QRect(110, 380, 771, 20))
-        # self.lineEdit_answer.setObjectName("lineEdit_answer")
-
-        self.answer_2 = QtWidgets.QLabel(self.upload)
-        self.answer_2.setGeometry(QtCore.QRect(40, 425, 70, 40))
-        self.answer_2.setObjectName("answer_2")
-
-        # self.lineEdit_chapter = QtWidgets.QLineEdit(self.upload)
-        # self.lineEdit_chapter.setGeometry(QtCore.QRect(110, 430, 771, 20))
-        # self.lineEdit_chapter.setObjectName("lineEdit_chapter")
-
-        self.lineEdit_chapter = QComboBox(self.upload)
-        self.lineEdit_chapter.setGeometry(QtCore.QRect(110, 430, 120, 30))
-        # 添加选项
-        self.lineEdit_chapter.addItem("Chapter 1")
-        self.lineEdit_chapter.addItem("Chapter 2")
-        self.lineEdit_chapter.addItem("Chapter 3")
-        self.lineEdit_chapter.addItem("Chapter 4")
-        self.lineEdit_chapter.addItem("Chapter 5")
-        self.lineEdit_chapter.addItem("Chapter 6")
-        self.lineEdit_chapter.addItem("Chapter 7")
-        self.lineEdit_chapter.setObjectName("lineEdit_chapter")
-
-        def Modify_chapter():
-            modify_chapter(self.lineEdit_chapter.currentText())
-            print("Selected value:", self.lineEdit_chapter.currentText())
-
-        # 将槽函数与下拉框的选择变化信号关联起来
-        self.lineEdit_chapter.currentIndexChanged.connect(Modify_chapter)
-
+        self.Chapter = QtWidgets.QLabel(self.upload)
+        self.Chapter.setGeometry(QtCore.QRect(40, 370, 101, 41))
+        font = QtGui.QFont()
+        font.setFamily("Bell MT")
+        font.setPointSize(14)
+        self.Chapter.setFont(font)
+        self.Chapter.setObjectName("Chapter")
+        self.answer_load = QtWidgets.QLineEdit(self.upload)
+        self.answer_load.setGeometry(QtCore.QRect(170, 430, 611, 41))
+        self.answer_load.setObjectName("answer_load")
         self.pushButton_7 = QtWidgets.QPushButton(self.upload)
-        self.pushButton_7.setGeometry(QtCore.QRect(780, 470, 75, 41))
+        self.pushButton_7.setGeometry(QtCore.QRect(760, 320, 75, 41))
         self.pushButton_7.setStyleSheet("background-color: rgb(255, 203, 151);")
         self.pushButton_7.setObjectName("pushButton_7")
+        self.type_choose = QtWidgets.QComboBox(self.upload)
+        self.type_choose.setGeometry(QtCore.QRect(170, 330, 141, 31))
+        self.type_choose.setObjectName("type_choose")
+        self.type_choose.addItem("")
+        self.type_choose.addItem("")
+        self.public_choose = QtWidgets.QComboBox(self.upload)
+        self.public_choose.setGeometry(QtCore.QRect(170, 280, 141, 31))
+        self.public_choose.setObjectName("public_choose")
+        self.public_choose.addItem("")
+        self.public_choose.addItem("")
+        self.chapter_choose = QtWidgets.QComboBox(self.upload)
+        self.chapter_choose.setGeometry(QtCore.QRect(170, 380, 141, 31))
+        self.chapter_choose.setObjectName("chapter_choose")
+        self.chapter_choose.addItem("")
+        self.chapter_choose.addItem("")
+        self.chapter_choose.addItem("")
+        self.chapter_choose.addItem("")
+        self.chapter_choose.addItem("")
+        self.chapter_choose.addItem("")
+        self.chapter_choose.addItem("")
+        self.A_load = QtWidgets.QCheckBox(self.upload)
+        self.A_load.setGeometry(QtCore.QRect(70, 490, 71, 41))
+        font = QtGui.QFont()
+        font.setFamily("Bell MT")
+        font.setPointSize(14)
+        self.A_load.setFont(font)
+        self.A_load.setObjectName("A_load")
+        self.B_load = QtWidgets.QCheckBox(self.upload)
+        self.B_load.setGeometry(QtCore.QRect(70, 550, 91, 41))
+        font = QtGui.QFont()
+        font.setFamily("Bell MT")
+        font.setPointSize(14)
+        self.B_load.setFont(font)
+        self.B_load.setObjectName("B_load")
+        self.C_load = QtWidgets.QCheckBox(self.upload)
+        self.C_load.setGeometry(QtCore.QRect(70, 620, 71, 31))
+        font = QtGui.QFont()
+        font.setFamily("Bell MT")
+        font.setPointSize(14)
+        self.C_load.setFont(font)
+        self.C_load.setObjectName("C_load")
+        self.D_load = QtWidgets.QCheckBox(self.upload)
+        self.D_load.setGeometry(QtCore.QRect(70, 670, 61, 41))
+        font = QtGui.QFont()
+        font.setFamily("Bell MT")
+        font.setPointSize(14)
+        self.D_load.setFont(font)
+        self.D_load.setObjectName("D_load")
+        self.answer_load_A = QtWidgets.QLineEdit(self.upload)
+        self.answer_load_A.setGeometry(QtCore.QRect(170, 490, 611, 41))
+        self.answer_load_A.setObjectName("answer_load_A")
+        self.answer_load_B = QtWidgets.QLineEdit(self.upload)
+        self.answer_load_B.setGeometry(QtCore.QRect(170, 550, 611, 41))
+        self.answer_load_B.setObjectName("answer_load_B")
+        self.answer_load_D = QtWidgets.QLineEdit(self.upload)
+        self.answer_load_D.setGeometry(QtCore.QRect(170, 670, 611, 41))
+        self.answer_load_D.setObjectName("answer_load_D")
+        self.answer_load_C = QtWidgets.QLineEdit(self.upload)
+        self.answer_load_C.setGeometry(QtCore.QRect(170, 610, 611, 41))
+        self.answer_load_C.setObjectName("answer_load_C")
         self.stackedWidget.addWidget(self.upload)
         self.search = QtWidgets.QWidget()
         self.search.setObjectName("search")
@@ -543,71 +381,27 @@ class Ui_MainWindow(object):
         self.fsearch_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.fsearch_2.setFrameShadow(QtWidgets.QFrame.Raised)
         self.fsearch_2.setObjectName("fsearch_2")
-        self.pushButton_9 = QtWidgets.QPushButton(self.fsearch_2)
-        self.pushButton_9.setGeometry(QtCore.QRect(90, 40, 261, 131))
-        self.pushButton_9.setStyleSheet("background-color: rgb(255, 203, 151);\n"
+        self.searchGroup = QtWidgets.QPushButton(self.fsearch_2)
+        self.searchGroup.setGeometry(QtCore.QRect(90, 40, 261, 131))
+        self.searchGroup.setStyleSheet("background-color: rgb(255, 203, 151);\n"
 "font: 24pt \"Agency FB\";\n"
 "font: 22pt \"Agency FB\";")
-        self.pushButton_9.setObjectName("pushButton_9")
-        self.pushButton_10 = QtWidgets.QPushButton(self.fsearch_2)
-        self.pushButton_10.setGeometry(QtCore.QRect(90, 260, 261, 131))
-        self.pushButton_10.setStyleSheet("background-color: rgb(255, 203, 151);\n"
-"font: 26pt \"Agency FB\";\n"
-"font: 24pt \"Agency FB\";")
-        self.pushButton_10.setObjectName("pushButton_10")
-        self.label_type = QtWidgets.QLabel(self.fsearch_2)
-        self.label_type.setGeometry(QtCore.QRect(100, 80, 61, 41))
-        self.label_type.setStyleSheet("font: 18pt \"Agency FB\";")
-        self.label_type.setObjectName("label_type")
-        self.label_chapter = QtWidgets.QLabel(self.fsearch_2)
-        self.label_chapter.setGeometry(QtCore.QRect(100, 160, 61, 41))
-        self.label_chapter.setStyleSheet("font: 18pt \"Agency FB\";")
-        self.label_chapter.setObjectName("label_chapter")
-        self.lineEdit_type_2 = QtWidgets.QLineEdit(self.fsearch_2)
-        self.lineEdit_type_2.setGeometry(QtCore.QRect(190, 80, 291, 31))
-        self.lineEdit_type_2.setStyleSheet("font: 14pt \"Agency FB\";")
-        self.lineEdit_type_2.setObjectName("lineEdit_type_2")
-        self.lineEdit_chapter_2 = QtWidgets.QLineEdit(self.fsearch_2)
-        self.lineEdit_chapter_2.setGeometry(QtCore.QRect(190, 160, 291, 31))
-        self.lineEdit_chapter_2.setStyleSheet("font: 14pt \"Agency FB\";")
-        self.lineEdit_chapter_2.setObjectName("lineEdit_chapter_2")
+        self.searchGroup.setObjectName("searchGroup")
         self.pushButton_11 = QtWidgets.QPushButton(self.fsearch_2)
         self.pushButton_11.setGeometry(QtCore.QRect(760, 430, 91, 41))
         self.pushButton_11.setStyleSheet("background-color: rgb(255, 203, 151);\n"
 "font: 12pt \"Agency FB\";\n"
 "")
         self.pushButton_11.setObjectName("pushButton_11")
-        self.widget_btn = QtWidgets.QWidget(self.fsearch_2)
-        self.widget_btn.setGeometry(QtCore.QRect(0, 0, 811, 521))
-        self.widget_btn.setObjectName("widget_btn")
-        self.button0 = QtWidgets.QPushButton(self.widget_btn)
-        self.button0.setGeometry(QtCore.QRect(60, 0, 731, 51))
-        self.button0.setStyleSheet("font: 14pt \"Agency FB\";")
-        self.button0.setObjectName("button0")
-        self.button1 = QtWidgets.QPushButton(self.widget_btn)
-        self.button1.setGeometry(QtCore.QRect(60, 60, 731, 51))
-        self.button1.setStyleSheet("font: 14pt \"Agency FB\";")
-        self.button1.setObjectName("button1")
-        self.button2 = QtWidgets.QPushButton(self.widget_btn)
-        self.button2.setGeometry(QtCore.QRect(60, 120, 731, 51))
-        self.button2.setStyleSheet("font: 14pt \"Agency FB\";")
-        self.button2.setObjectName("button2")
-        self.label_key = QtWidgets.QLabel(self.fsearch_2)
-        self.label_key.setGeometry(QtCore.QRect(70, 10, 91, 41))
-        self.label_key.setStyleSheet("font: 18pt \"Agency FB\";")
-        self.label_key.setObjectName("label_key")
-        self.lineEdit_key = QtWidgets.QLineEdit(self.fsearch_2)
-        self.lineEdit_key.setGeometry(QtCore.QRect(190, 20, 291, 31))
-        self.lineEdit_key.setStyleSheet("font: 14pt \"Agency FB\";")
-        self.lineEdit_key.setObjectName("lineEdit_key")
-        self.pushButton_12 = QtWidgets.QPushButton(self.fsearch_2)
-        self.pushButton_12.setGeometry(QtCore.QRect(390, 210, 91, 41))
-        self.pushButton_12.setStyleSheet("background-color: rgb(255, 203, 151);\n"
-"font: 12pt \"Agency FB\";\n"
-"")
-        self.pushButton_12.setObjectName("pushButton_12")
+        self.groupline = QtWidgets.QLineEdit(self.fsearch_2)
+        self.groupline.setGeometry(QtCore.QRect(450, 90, 251, 31))
+        self.groupline.setObjectName("groupline")
+        self.confirm_button = QtWidgets.QPushButton(self.fsearch_2)
+        self.confirm_button.setGeometry(QtCore.QRect(710, 90, 51, 31))
+        self.confirm_button.setObjectName("confirm_button")
         self.widget_ques = QtWidgets.QWidget(self.fsearch_2)
-        self.widget_ques.setGeometry(QtCore.QRect(0, -60, 841, 541))
+        self.widget_ques.setEnabled(True)
+        self.widget_ques.setGeometry(QtCore.QRect(-270, 240, 921, 491))
         self.widget_ques.setStyleSheet("")
         self.widget_ques.setObjectName("widget_ques")
         self.question0 = QtWidgets.QPushButton(self.widget_ques)
@@ -622,18 +416,70 @@ class Ui_MainWindow(object):
         self.question3 = QtWidgets.QPushButton(self.widget_ques)
         self.question3.setGeometry(QtCore.QRect(50, 370, 781, 91))
         self.question3.setObjectName("question3")
+        self.pushButton_10 = QtWidgets.QPushButton(self.fsearch_2)
+        self.pushButton_10.setGeometry(QtCore.QRect(90, 260, 261, 131))
+        self.pushButton_10.setStyleSheet("background-color: rgb(255, 203, 151);\n"
+"font: 26pt \"Agency FB\";\n"
+"font: 24pt \"Agency FB\";")
+        self.pushButton_10.setObjectName("pushButton_10")
+        self.lineEdit_key = QtWidgets.QLineEdit(self.fsearch_2)
+        self.lineEdit_key.setGeometry(QtCore.QRect(350, 100, 291, 51))
+        self.lineEdit_key.setStyleSheet("font: 14pt \"Agency FB\";")
+        self.lineEdit_key.setObjectName("lineEdit_key")
+        self.label_type = QtWidgets.QLabel(self.fsearch_2)
+        self.label_type.setGeometry(QtCore.QRect(130, 200, 141, 41))
+        self.label_type.setStyleSheet("font: 18pt \"Agency FB\";")
+        self.label_type.setObjectName("label_type")
+        self.label_chapter = QtWidgets.QLabel(self.fsearch_2)
+        self.label_chapter.setGeometry(QtCore.QRect(130, 310, 161, 41))
+        self.label_chapter.setStyleSheet("font: 18pt \"Agency FB\";")
+        self.label_chapter.setObjectName("label_chapter")
+        self.label_key = QtWidgets.QLabel(self.fsearch_2)
+        self.label_key.setGeometry(QtCore.QRect(130, 110, 91, 41))
+        self.label_key.setStyleSheet("font: 18pt \"Agency FB\";")
+        self.label_key.setObjectName("label_key")
+        self.pushButton_12 = QtWidgets.QPushButton(self.fsearch_2)
+        self.pushButton_12.setGeometry(QtCore.QRect(760, 430, 91, 41))
+        self.pushButton_12.setStyleSheet("background-color: rgb(255, 203, 151);\n"
+"font: 12pt \"Agency FB\";\n"
+"")
+        self.pushButton_12.setObjectName("pushButton_12")
+        self.lineEdit_type_2 = QtWidgets.QComboBox(self.fsearch_2)
+        self.lineEdit_type_2.setGeometry(QtCore.QRect(350, 190, 181, 51))
+        font = QtGui.QFont()
+        font.setFamily("Agency FB")
+        font.setPointSize(14)
+        self.lineEdit_type_2.setFont(font)
+        self.lineEdit_type_2.setObjectName("lineEdit_type_2")
+        self.lineEdit_type_2.addItem("")
+        self.lineEdit_type_2.addItem("")
+        self.lineEdit_chapter_2 = QtWidgets.QComboBox(self.fsearch_2)
+        self.lineEdit_chapter_2.setGeometry(QtCore.QRect(350, 300, 181, 51))
+        font = QtGui.QFont()
+        font.setFamily("Bell MT")
+        font.setPointSize(14)
+        self.lineEdit_chapter_2.setFont(font)
+        self.lineEdit_chapter_2.setObjectName("lineEdit_chapter_2")
+        self.lineEdit_chapter_2.addItem("")
+        self.lineEdit_chapter_2.addItem("")
+        self.lineEdit_chapter_2.addItem("")
+        self.lineEdit_chapter_2.addItem("")
+        self.lineEdit_chapter_2.addItem("")
+        self.lineEdit_chapter_2.addItem("")
+        self.lineEdit_chapter_2.addItem("")
         self.widget_ques.raise_()
-        self.widget_btn.raise_()
-        self.pushButton_9.raise_()
+        self.searchGroup.raise_()
+        self.pushButton_11.raise_()
+        self.groupline.raise_()
+        self.confirm_button.raise_()
         self.pushButton_10.raise_()
+        self.lineEdit_key.raise_()
         self.label_type.raise_()
         self.label_chapter.raise_()
+        self.label_key.raise_()
+        self.pushButton_12.raise_()
         self.lineEdit_type_2.raise_()
         self.lineEdit_chapter_2.raise_()
-        self.pushButton_11.raise_()
-        self.label_key.raise_()
-        self.lineEdit_key.raise_()
-        self.pushButton_12.raise_()
         self.stackedWidget.addWidget(self.search)
         self.my_norm = QtWidgets.QWidget()
         self.my_norm.setObjectName("my_norm")
@@ -703,13 +549,13 @@ class Ui_MainWindow(object):
         self.label_2.setGeometry(QtCore.QRect(130, 150, 591, 211))
         self.label_2.setObjectName("label_2")
         self.stackedWidget_2 = QtWidgets.QStackedWidget(self.problems)
-        self.stackedWidget_2.setGeometry(QtCore.QRect(10, 0, 811, 381))
+        self.stackedWidget_2.setGeometry(QtCore.QRect(40, 60, 811, 381))
         self.stackedWidget_2.setObjectName("stackedWidget_2")
         self.page = QtWidgets.QWidget()
         self.page.setObjectName("page")
-        self.pushButton_28 = QtWidgets.QPushButton(self.page)
-        self.pushButton_28.setGeometry(QtCore.QRect(250, 0, 93, 28))
-        self.pushButton_28.setObjectName("pushButton_28")
+        self.star = QtWidgets.QPushButton(self.page)
+        self.star.setGeometry(QtCore.QRect(250, 0, 93, 28))
+        self.star.setObjectName("star")
         self.layoutWidget = QtWidgets.QWidget(self.page)
         self.layoutWidget.setGeometry(QtCore.QRect(600, 330, 195, 30))
         self.layoutWidget.setObjectName("layoutWidget")
@@ -746,12 +592,15 @@ class Ui_MainWindow(object):
         self.label_4 = QtWidgets.QLabel(self.page)
         self.label_4.setGeometry(QtCore.QRect(0, 10, 171, 16))
         self.label_4.setObjectName("label_4")
+        self.submit1 = QtWidgets.QPushButton(self.page)
+        self.submit1.setGeometry(QtCore.QRect(660, 250, 93, 23))
+        self.submit1.setObjectName("submit1")
         self.stackedWidget_2.addWidget(self.page)
         self.page_2 = QtWidgets.QWidget()
         self.page_2.setObjectName("page_2")
-        self.pushButton_35 = QtWidgets.QPushButton(self.page_2)
-        self.pushButton_35.setGeometry(QtCore.QRect(270, 10, 93, 28))
-        self.pushButton_35.setObjectName("pushButton_35")
+        self.star2 = QtWidgets.QPushButton(self.page_2)
+        self.star2.setGeometry(QtCore.QRect(270, 10, 93, 28))
+        self.star2.setObjectName("star2")
         self.layoutWidget_3 = QtWidgets.QWidget(self.page_2)
         self.layoutWidget_3.setGeometry(QtCore.QRect(620, 340, 195, 30))
         self.layoutWidget_3.setObjectName("layoutWidget_3")
@@ -786,7 +635,7 @@ class Ui_MainWindow(object):
         self.lineEdit_4.setObjectName("lineEdit_4")
         self.verticalLayout_2.addWidget(self.lineEdit_4)
         self.label_5 = QtWidgets.QLabel(self.page_2)
-        self.label_5.setGeometry(QtCore.QRect(20, 20, 72, 15))
+        self.label_5.setGeometry(QtCore.QRect(20, 20, 211, 16))
         self.label_5.setObjectName("label_5")
         self.submit = QtWidgets.QPushButton(self.page_2)
         self.submit.setGeometry(QtCore.QRect(680, 260, 93, 23))
@@ -837,15 +686,20 @@ class Ui_MainWindow(object):
         self.stackedWidget.addWidget(self.problems)
         self.log = QtWidgets.QWidget()
         self.log.setObjectName("log")
-        self.label_3 = QtWidgets.QLabel(self.log)
-        self.label_3.setGeometry(QtCore.QRect(160, 130, 261, 61))
-        self.label_3.setObjectName("label_3")
+        self.abilityWidget = QtWidgets.QWidget(self.log)
+        self.abilityWidget.setEnabled(True)
+        self.abilityWidget.setGeometry(QtCore.QRect(-1, -21, 951, 491))
+        self.abilityWidget.setObjectName("abilityWidget")
         self.stackedWidget.addWidget(self.log)
+        self.personability = QtWidgets.QPushButton(self.centralwidget)
+        self.personability.setGeometry(QtCore.QRect(470, 10, 75, 41))
+        self.personability.setStyleSheet("background-color: rgb(255, 203, 151);")
+        self.personability.setObjectName("personability")
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.stackedWidget.setCurrentIndex(5)
-        self.stackedWidget_2.setCurrentIndex(1)
+        self.stackedWidget.setCurrentIndex(3)
+        self.stackedWidget_2.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -871,42 +725,64 @@ class Ui_MainWindow(object):
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'SimSun\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:16pt;\">项目名称：pyExercise</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:16pt;\">项目名称：</span><span style=\" font-size:16pt; font-weight:600;\">pyExercise</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:16pt;\">参与人员：</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:16pt;\">   段宇函</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:16pt;\">   方沐阳</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:16pt;\">   陆莹锦</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:16pt;\">   王芊文</span></p></body></html>"))
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:16pt; font-weight:600;\">         段宇函</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:16pt; font-weight:600;\">        方沐阳</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:16pt; font-weight:600;\">         陆莹锦</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:16pt; font-weight:600;\">         王芊文</span></p></body></html>"))
         self.abus_2.setText(_translate("MainWindow", "欢迎来到pyExercise"))
         self.abus_3.setText(_translate("MainWindow", "这里是一个帮助你掌握题目、获得成长的python小程序"))
-        self.title_2.setText(_translate("MainWindow", "name"))
+        self.name.setText(_translate("MainWindow", "name"))
         self.title.setText(_translate("MainWindow", "title"))
-        self.chapter.setText(_translate("MainWindow", "public： yes/no"))
-        self.my_type.setText(_translate("MainWindow", "type： 填空/选择"))
+        self.public_load.setText(_translate("MainWindow", "public"))
+        self.type.setText(_translate("MainWindow", "type"))
         self.answer.setText(_translate("MainWindow", "answer"))
-        self.answer_2.setText(_translate("MainWindow", "chapter"))
+        self.Chapter.setText(_translate("MainWindow", "chapter"))
         self.pushButton_7.setText(_translate("MainWindow", "上传"))
-        self.pushButton_9.setText(_translate("MainWindow", "加入组"))
-        self.pushButton_10.setText(_translate("MainWindow", "搜索问题"))
-        self.label_type.setText(_translate("MainWindow", "类型"))
-        self.label_chapter.setText(_translate("MainWindow", "章节"))
+        self.type_choose.setItemText(0, _translate("MainWindow", "填空"))
+        self.type_choose.setItemText(1, _translate("MainWindow", "选择"))
+        self.public_choose.setItemText(0, _translate("MainWindow", "Yes"))
+        self.public_choose.setItemText(1, _translate("MainWindow", "No"))
+        self.chapter_choose.setItemText(0, _translate("MainWindow", "Chapter_1"))
+        self.chapter_choose.setItemText(1, _translate("MainWindow", "Chapter_2"))
+        self.chapter_choose.setItemText(2, _translate("MainWindow", "Chapter_3"))
+        self.chapter_choose.setItemText(3, _translate("MainWindow", "Chapter_4"))
+        self.chapter_choose.setItemText(4, _translate("MainWindow", "Chapter_5"))
+        self.chapter_choose.setItemText(5, _translate("MainWindow", "Chapter_6"))
+        self.chapter_choose.setItemText(6, _translate("MainWindow", "Chapter_7"))
+        self.A_load.setText(_translate("MainWindow", "A"))
+        self.B_load.setText(_translate("MainWindow", "B"))
+        self.C_load.setText(_translate("MainWindow", "C"))
+        self.D_load.setText(_translate("MainWindow", "D"))
+        self.searchGroup.setText(_translate("MainWindow", "搜索组"))
         self.pushButton_11.setText(_translate("MainWindow", "下一页"))
-        self.button0.setText(_translate("MainWindow", "PushButton"))
-        self.button1.setText(_translate("MainWindow", "PushButton"))
-        self.button2.setText(_translate("MainWindow", "PushButton"))
-        self.label_key.setText(_translate("MainWindow", "关键字"))
-        self.pushButton_12.setText(_translate("MainWindow", "搜索"))
+        self.confirm_button.setText(_translate("MainWindow", "搜索"))
         self.question0.setText(_translate("MainWindow", "PushButton"))
         self.question1.setText(_translate("MainWindow", "PushButton"))
         self.question2.setText(_translate("MainWindow", "PushButton"))
         self.question3.setText(_translate("MainWindow", "PushButton"))
+        self.pushButton_10.setText(_translate("MainWindow", "搜索问题"))
+        self.label_type.setText(_translate("MainWindow", "类型"))
+        self.label_chapter.setText(_translate("MainWindow", "章节"))
+        self.label_key.setText(_translate("MainWindow", "名字"))
+        self.pushButton_12.setText(_translate("MainWindow", "搜索"))
+        self.lineEdit_type_2.setItemText(0, _translate("MainWindow", "填空"))
+        self.lineEdit_type_2.setItemText(1, _translate("MainWindow", "选择"))
+        self.lineEdit_chapter_2.setItemText(0, _translate("MainWindow", "Chapter_1"))
+        self.lineEdit_chapter_2.setItemText(1, _translate("MainWindow", "Chapter_2"))
+        self.lineEdit_chapter_2.setItemText(2, _translate("MainWindow", "Chapter_3"))
+        self.lineEdit_chapter_2.setItemText(3, _translate("MainWindow", "Chapter_4"))
+        self.lineEdit_chapter_2.setItemText(4, _translate("MainWindow", "Chapter_5"))
+        self.lineEdit_chapter_2.setItemText(5, _translate("MainWindow", "Chapter_6"))
+        self.lineEdit_chapter_2.setItemText(6, _translate("MainWindow", "Chapter_7"))
         self.hello1.setText(_translate("MainWindow", "Hello"))
         self.tp1.setText(_translate("MainWindow", "你的身份是："))
         self.atg.setText(_translate("MainWindow", "加入组"))
         self.tg.setText(_translate("MainWindow", "以下是你目前加入的组"))
         self.bg.setText(_translate("MainWindow", "you are not in any group"))
         self.label_2.setText(_translate("MainWindow", "查看问题"))
-        self.pushButton_28.setText(_translate("MainWindow", "收藏"))
+        self.star.setText(_translate("MainWindow", "收藏"))
         self.pushButton_29.setText(_translate("MainWindow", "上一题"))
         self.pushButton_30.setText(_translate("MainWindow", "下一题"))
         self.textBrowser_2.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
@@ -919,7 +795,8 @@ class Ui_MainWindow(object):
         self.C.setText(_translate("MainWindow", "C"))
         self.D.setText(_translate("MainWindow", "D"))
         self.label_4.setText(_translate("MainWindow", "选择题"))
-        self.pushButton_35.setText(_translate("MainWindow", "收藏"))
+        self.submit1.setText(_translate("MainWindow", "提交"))
+        self.star2.setText(_translate("MainWindow", "收藏"))
         self.pushButton_36.setText(_translate("MainWindow", "上一题"))
         self.pushButton_37.setText(_translate("MainWindow", "下一题"))
         self.textBrowser_3.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
@@ -946,4 +823,4 @@ class Ui_MainWindow(object):
         self.checkBox_2.setText(_translate("MainWindow", "CheckBox"))
         self.checkBox_3.setText(_translate("MainWindow", "CheckBox"))
         self.label_6.setText(_translate("MainWindow", "多选题"))
-        self.label_3.setText(_translate("MainWindow", "错误日志"))
+        self.personability.setText(_translate("MainWindow", "个人能力"))

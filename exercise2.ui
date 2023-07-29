@@ -16,8 +16,8 @@
   <widget class="QStackedWidget" name="stackedWidget">
    <property name="geometry">
     <rect>
-     <x>540</x>
-     <y>130</y>
+     <x>460</x>
+     <y>180</y>
      <width>261</width>
      <height>331</height>
     </rect>
@@ -108,6 +108,19 @@
       </item>
      </layout>
     </widget>
+    <widget class="QPushButton" name="confirm_blank">
+     <property name="geometry">
+      <rect>
+       <x>160</x>
+       <y>300</y>
+       <width>93</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>确定</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="mul">
     <widget class="QWidget" name="layoutWidget_3">
@@ -150,11 +163,11 @@
       </item>
      </layout>
     </widget>
-    <widget class="QPushButton" name="confirm">
+    <widget class="QPushButton" name="confirm_mul">
      <property name="geometry">
       <rect>
-       <x>80</x>
-       <y>290</y>
+       <x>160</x>
+       <y>300</y>
        <width>93</width>
        <height>28</height>
       </rect>
@@ -169,7 +182,7 @@
    <property name="geometry">
     <rect>
      <x>60</x>
-     <y>130</y>
+     <y>170</y>
      <width>351</width>
      <height>291</height>
     </rect>
@@ -186,7 +199,7 @@ p, li { white-space: pre-wrap; }
    <property name="geometry">
     <rect>
      <x>220</x>
-     <y>430</y>
+     <y>470</y>
      <width>195</width>
      <height>30</height>
     </rect>
@@ -211,8 +224,8 @@ p, li { white-space: pre-wrap; }
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>60</x>
-     <y>90</y>
+     <x>260</x>
+     <y>130</y>
      <width>147</width>
      <height>30</height>
     </rect>
@@ -234,11 +247,11 @@ p, li { white-space: pre-wrap; }
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>210</x>
-     <y>50</y>
+     <x>240</x>
+     <y>30</y>
      <width>215</width>
      <height>70</height>
     </rect>
@@ -285,6 +298,19 @@ p, li { white-space: pre-wrap; }
      </layout>
     </item>
    </layout>
+  </widget>
+  <widget class="QPushButton" name="start">
+   <property name="geometry">
+    <rect>
+     <x>470</x>
+     <y>50</y>
+     <width>121</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>开始做题</string>
+   </property>
   </widget>
  </widget>
  <resources>
