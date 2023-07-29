@@ -330,6 +330,23 @@ def add_into_group(users, g_name):  # 此处users为名字字符串数组
     s.close()
 
 
+def search_for_groups(gname, name):  # 搜索组用，除去了当前用户已经在的组
+    s = create_session()
+    gname = gname.strip()
+    groups = s.query(Groups).filter(Groups.name.like('%' + gname + '%')).all()
+    names = []
+    uid = s.query(Stus).filter(Stus.name == name).first().uid
+    temps = []
+    for i in groups:
+        inGroups = s.query(Stu_group).filter(Stu_group.uid == uid).all()
+        for j in inGroups:
+            temps.append(j.gid)
+        if not i.gid in temps:
+            names.append(i.name)
+    return names
+    s.close()
+
+
 def search_students(gname, name):  # 去除了已经在表里的人
     """
 
@@ -390,50 +407,29 @@ def search_groups(page):  # 用户查找组时
     return gnames
 
 
-def user_add_into_group(gnames, name):  # 用户主动申请加入
+def user_add_into_group(gnames, name):  # 用户主动申请加入一串组,此时保证用户都不在这些组里
     """
 
     :param name:
     :param gnames:
     :return:
     """
-    print(gnames)
-    print(name)
     s = create_session()
     # 如果已经在组里，加入失败
-    uid = s.query(Stus).filter(Stus.name == name).first().uid
-    print('add')
-    groups = s.query(Groups).filter(Groups.name == gnames).all()
-    print('t')
-    gids = []
-    for i in groups:
-        gids.append(i.gid)
-    print(gids)
-    ingids = []
-    in_groups = s.query(Stu_group).filter(Stu_group.uid == uid).all()
-    for i in in_groups:
-        ingids.append(i.gid)
-    print(ingids)
-    repeat = []
+    groups = s.query(Groups).filter(Groups.name.in_(gnames)).all()
     stu = s.query(Stus).filter(Stus.name == name).first()
-    for i in gids:
-        if i in ingids:
-            repeat.append(s.query(Groups).filter(Groups.gid == i).first().name)
-        else:
-            # 加入成功
-            stu.groups.append(s.query(Groups).filter(Groups.gid == i).first())  # 关联的是整个而不是一个值
-
+    for i in groups:
+        stu.groups.append(i)  # 关联的是整个而不是一个值
+        print(i.name)
     for group in groups:
         qgroups = group.qgroups  # 当前group的qgroups
         # 这个学生目前的qgroups中不存在的才加入
         for j in qgroups:
-            if j in stu.qgroups:
-                continue
-            stu.qgroups.append(j)  # 学生加入权限
+            print(j.name)
+            if not j in stu.qgroups:
+                stu.qgroups.append(j)  # 学生加入权限
     s.commit()
     s.close()
-    print('success')
-    return repeat
 
 
 # 任务三 上传 单个问题 或 一个文件的问题
@@ -556,6 +552,121 @@ def scope_questions(ques_name, chapters_name, mytype, user_name):  # 关键词�
     s.commit()
     s.close()
     return q  # 返回值为满足要求的Questions条目
+
+
+# ************************************************************************************************************** #
+# 根据关键词搜索问题
+def scope_questions_title(ques_name, chapters_name, mytype, user_name):  # 关键词，章节，题型
+    """
+
+    :param ques_name:
+    :param chapters_name:
+    :param mytype:
+    :param user_name:
+    :return:
+    """
+    s = create_session()
+    # 搜索范围包括questions中的public或上传者为本人的，和qgroup中的
+    uid = s.query(Stus).filter(Stus.name == user_name).first().uid
+    qgroups = s.query(Stus).filter(Stus.name == user_name).first().qgroups
+    q = s.query(Questions).filter(or_(Questions.uid == uid, Questions.public == True,
+                                      Questions.qgroups.in_(qgroups))) \
+        .filter(Questions.chapter.in_(chapters_name)).filter(Questions.type == mytype).filter(
+        Questions.title.find(ques_name)).all()
+    # ************************************** #
+    title = []
+    for i in q:
+        title.append(i.title)
+    # ************************************** #
+    # 目前仅支持关键词为title子串
+    s.commit()
+    s.close()
+    return title  # 返回值为满足要求的Questions条目
+
+
+def scope_questions_answer(ques_name, chapters_name, mytype, user_name):  # 关键词，章节，题型
+    """
+
+    :param ques_name:
+    :param chapters_name:
+    :param mytype:
+    :param user_name:
+    :return:
+    """
+    s = create_session()
+    # 搜索范围包括questions中的public或上传者为本人的，和qgroup中的
+    uid = s.query(Stus).filter(Stus.name == user_name).first().uid
+    qgroups = s.query(Stus).filter(Stus.name == user_name).first().qgroups
+    q = s.query(Questions).filter(or_(Questions.uid == uid, Questions.public == True,
+                                      Questions.qgroups.in_(qgroups))) \
+        .filter(Questions.chapter.in_(chapters_name)).filter(Questions.type == mytype).filter(
+        Questions.title.find(ques_name)).all()
+    # ************************************** #
+    answer = []
+    for i in q:
+        answer.append(i.answer)
+    # ************************************** #
+    # 目前仅支持关键词为title子串
+    s.commit()
+    s.close()
+    return answer  # 返回值为满足要求的Questions条目
+
+
+def scope_questions_type(ques_name, chapters_name, mytype, user_name):  # 关键词，章节，题型
+    """
+
+    :param ques_name:
+    :param chapters_name:
+    :param mytype:
+    :param user_name:
+    :return:
+    """
+    s = create_session()
+    # 搜索范围包括questions中的public或上传者为本人的，和qgroup中的
+    uid = s.query(Stus).filter(Stus.name == user_name).first().uid
+    qgroups = s.query(Stus).filter(Stus.name == user_name).first().qgroups
+    q = s.query(Questions).filter(or_(Questions.uid == uid, Questions.public == True,
+                                      Questions.qgroups.in_(qgroups))) \
+        .filter(Questions.chapter.in_(chapters_name)).filter(Questions.type == mytype).filter(
+        Questions.title.find(ques_name)).all()
+    # ************************************** #
+    mytype = []
+    for i in q:
+        mytype.append(i.type)
+    # ************************************** #
+    # 目前仅支持关键词为title子串
+    s.commit()
+    s.close()
+    return mytype  # 返回值为满足要求的Questions条目
+
+
+def scope_questions_qid(ques_name, chapters_name, mytype, user_name):  # 关键词，章节，题型
+    """
+
+    :param ques_name:
+    :param chapters_name:
+    :param mytype:
+    :param user_name:
+    :return:
+    """
+    s = create_session()
+    # 搜索范围包括questions中的public或上传者为本人的，和qgroup中的
+    uid = s.query(Stus).filter(Stus.name == user_name).first().uid
+    qgroups = s.query(Stus).filter(Stus.name == user_name).first().qgroups
+    q = s.query(Questions).filter(or_(Questions.uid == uid, Questions.public == True,
+                                      Questions.qgroups.in_(qgroups))) \
+        .filter(Questions.chapter.in_(chapters_name)).filter(Questions.type == mytype).filter(
+        Questions.title.find(ques_name)).all()
+    # ************************************** #
+    qid = []
+    for i in q:
+        qid.append(i.qid)
+    # ************************************** #
+    # 目前仅支持关键词为title子串
+    s.commit()
+    s.close()
+    return qid  # 返回值为满足要求的Questions条目
+# ************************************************************************************************************** #
 
 
 # 问题共享功能
@@ -760,7 +871,7 @@ def personalized_recommendation(qnum, chapters_name, choose, gap, user_name):
 def get_question(qid):
     s = create_session()
     ques = s.query(Questions).filter(Questions.qid == qid).first()
-    lis = [ques.title, ques.type, ques.answer1, ques.answer2, ques.answer3, ques.answer4]
+    lis = [ques.title, ques.type, ques.answer,ques.answerA, ques.answerB, ques.answerC, ques.answerD]
     s.commit()
     s.close()
     return lis
