@@ -87,7 +87,7 @@ class Questions(Base):  # 有哪些问题
     answerC = sqlalchemy.Column(sqlalchemy.String(100))
     answerD = sqlalchemy.Column(sqlalchemy.String(100))
     # 填空题答案
-    gap = sqlalchemy.Column(sqlalchemy.String(20))
+    gap = sqlalchemy.Column(sqlalchemy.String(1000))
     public = sqlalchemy.Column(sqlalchemy.Boolean)  # 是否是所有人可见
     total = sqlalchemy.Column(sqlalchemy.Integer)
     right = sqlalchemy.Column(sqlalchemy.Integer)
@@ -482,11 +482,11 @@ def initial_data():
     :param name:
     :param path:
     """
-    s = create_session()
-    for i in range(1, 9):
-        s.add(Chapters(name='Chapter_' + str(i)))
-    s.commit()
-    s.close()
+    # s = create_session()
+    # for i in range(1, 9):
+    #     s.add(Chapters(name='Chapter_' + str(i)))
+    # s.commit()
+    # s.close()
     f = openpyxl.load_workbook("D:\\Users\\23673\\Desktop\\summer_python\\try.xlsx")  # 改成本地的地址
     names = f.sheetnames  # 所有sheet
     for sheet_name in names:  # 每一页
@@ -515,7 +515,7 @@ def initial_data():
             if "D" in answer_:
                 gap = D
                 answer[3] = '1'
-            if i % 2 == 0:  # 选择
+            if i % 2 == 0 or len(answer_) > 2:  # 选择
                 # title, answer, chapter, my_type, answer1, answer2, answer3, answer4, gap, public, creater
                 load_one_question(title, ''.join(answer), chapters[int(i / 150) + 1], 0, A, B, C, D, '', public=True,
                                   creater='RRRR')
@@ -988,9 +988,14 @@ def get_accurate_rate(user_name):  # 查record，每章做题数，每章正确�
 
 if __name__ == '__main__':
     pass
-    # Base.metadata.create_all(engine)#一键在数据库生成所有的类
+    Base.metadata.create_all(engine)  # 一键在数据库生成所有的类
     # Base.metadata.delete_all(engine)#一键清除S
     # load_one_question('title212', 'answ', 'Chapter 1', 1, 'answer1', 'answer2', 'answer3', 'answer4', 'tab', True,'RRRR')
+    # s = create_session()
+    # new = Stus(uid=21371321, name="RRRR")
+    # s.add(new)
+    # s.commit()
+    # s.close()
     initial_data()
     # load_one_question(title='hhh',answer=)
     # user_add_into_group(['123', 'hhhhh'], 'stu9')  # 用户主动申请加入
