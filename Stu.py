@@ -824,6 +824,8 @@ def do_question(qid, user_name, answer, gap):  # 题目id;是否正确
     ques = s.query(Questions).filter(Questions.uid == uid).first()
     ques.totol = ques.total + 1
     right = (mytype == 0 or mytype == 2) and answer == myanswer or mytype == 1 and gap == mygap
+    if right == 1:
+        ques.right = ques.right + 1
     new = Records(uid=uid, qid=qid, right=right, rate=0)
     s.add(new)
     # 更新正确率并返回
@@ -859,7 +861,7 @@ def personalized_recommendation(qnum, chapters_name, choose, gap, user_name):
         for j in range(i + 1, len(ques)):
             a = s.query(Records).filter(Records.uid == uid, Records.qid == ques[i]).all().rate
             b = s.query(Records).filter(Records.uid == uid, Records.qid == ques[j]).all().rate
-            if a < b:
+            if a > b:
                 ques[i], ques[j] = ques[j], ques[i]
     # 用户做过的题里已经足够生成qnum大小的题组了
     if qnum >= len(ques):
@@ -885,9 +887,7 @@ def personalized_recommendation(qnum, chapters_name, choose, gap, user_name):
                 return ques
             if q.qid not in ques:
                 ques.append(q.qid)
-
-
-# 返回问题id
+    # 返回问题id
 
 
 # 返回值是Records行
