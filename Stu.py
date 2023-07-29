@@ -917,3 +917,10 @@ if __name__ == '__main__':
                       'RRRR')
     # load_one_question(title='hhh',answer=)
     # user_add_into_group(['123', 'hhhhh'], 'stu9')  # 用户主动申请加入
+
+
+def getMotto(name):
+
+    s  = create_session()
+    motto = s.query(Stus).filter(Stus.name == name).first().quote
+    return motto
