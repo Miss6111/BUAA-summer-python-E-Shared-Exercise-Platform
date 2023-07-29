@@ -516,7 +516,7 @@ if __name__ == '__main__':
         orgUi.waddp.show()
         print('add people to group')
     def graph_show():
-        new_window = Graph.MainWindow()
+        new_window = Graph.MainWindow(user)
         new_window.exec_()
 
 

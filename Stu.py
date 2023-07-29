@@ -963,6 +963,8 @@ def getMotto(name):
     motto = s.query(Stus).filter(Stus.name == name).first().quote
     return motto
 
+def get_accurate_rate(user):#查record，每章做题数，每章错误率[[],[],[]]
+    return None
 
 if __name__ == '__main__':
     pass
@@ -972,3 +974,5 @@ if __name__ == '__main__':
     initial_data()
     # load_one_question(title='hhh',answer=)
     # user_add_into_group(['123', 'hhhhh'], 'stu9')  # 用户主动申请加入
+
+
