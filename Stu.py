@@ -3,6 +3,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 import sqlalchemy.orm.session  # 数据库操作核心
+from sqlalchemy import desc
 from sqlalchemy.ext.declarative import declarative_base  # 父类
 from sqlalchemy import or_
 from datetime import datetime
@@ -136,6 +137,7 @@ class Records(Base):
     right = sqlalchemy.Column(sqlalchemy.Boolean, primary_key=True)
     time = sqlalchemy.Column(DateTime, default=datetime.now)
     rate = sqlalchemy.Column(sqlalchemy.BIGINT, primary_key=True)
+    never = sqlalchemy.Column(sqlalchemy.Boolean, primary_key=True)  # 当本题已经连续作对三次则不再推荐
 
 
 def create_session():  # session用来操作数据库
@@ -836,6 +838,12 @@ def do_question(qid, user_name, answer, gap):  # 题目id;是否正确
         if j.right == 1:
             true += 1
     s.query(Records).filter(Records.uid == uid, Records.qid == qid).all().rate = true / total
+    # 最近三次都做对则never为True，否则为False
+    recent = s.query(Records).filter(Records.uid == uid, Records.qid == qid).order_by(desc(Records.time)).all()
+    if len(recent) >= 3 and recent[0].right == 1 and recent[1].right == 1 and recent[3].right == 1:
+        s.query(Records).filter(Records.uid == uid, Records.qid == qid).all().never = 1
+    else:
+        s.query(Records).filter(Records.uid == uid, Records.qid == qid).all().never = 0
     s.commit()
     s.close()
     lis = [right, myanswer, mygap, true / total, ques.right / ques.total]
@@ -849,7 +857,7 @@ def personalized_recommendation(qnum, chapters_name, choose, gap, user_name):
     s = create_session()
     uid = s.query(Stus).filter(Stus.name == user_name).first().uid
     # 筛选出Records中 该人 该章节 该提醒 的所有错题记录
-    records = s.query(Records).filter(Records.uid == uid) \
+    records = s.query(Records).filter(Records.uid == uid).filter(Records.never == 0) \
         .filter(Questions.chapter.in_(chapters_name)) \
         .filter(Questions.type == 1 - choose, Questions.type == gap).all()
     ques = []
