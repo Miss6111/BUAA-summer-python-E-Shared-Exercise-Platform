@@ -666,6 +666,8 @@ def scope_questions_qid(ques_name, chapters_name, mytype, user_name):  # 关键�
     s.commit()
     s.close()
     return qid  # 返回值为满足要求的Questions条目
+
+
 # ************************************************************************************************************** #
 
 
@@ -844,8 +846,6 @@ def personalized_recommendation(qnum, chapters_name, choose, gap, user_name):
     # eg.(12,[2,3,4],1,0,168) means 根据168用户的错题记录，生成2、3、4、5章节的12道选择题组
     s = create_session()
     uid = s.query(Stus).filter(Stus.name == user_name).first().uid
-    s.commit()
-    s.close()
     # 筛选出Records中 该人 该章节 该提醒 的所有错题记录
     records = s.query(Records).filter(Records.uid == uid) \
         .filter(Questions.chapter.in_(chapters_name)) \
@@ -861,8 +861,33 @@ def personalized_recommendation(qnum, chapters_name, choose, gap, user_name):
             b = s.query(Records).filter(Records.uid == uid, Records.qid == ques[j]).all().rate
             if a < b:
                 ques[i], ques[j] = ques[j], ques[i]
-    return ques[0:qnum]
-    # 返回问题id
+    # 用户做过的题里已经足够生成qnum大小的题组了
+    if qnum >= len(ques):
+        s.commit()
+        s.close()
+        return ques[0:qnum]
+
+    # 在用户没做过Questions里选出出错率比较高的补齐
+    else:
+        qgroups = s.query(Stus).filter(Stus.name == user_name).first().qgroups
+        todo = s.query(Questions).filter(or_(Questions.uid == uid, Questions.public == True,
+                                             Questions.qgroups.in_(qgroups))) \
+            .filter(Questions.chapter.in_(chapters_name)).filter(Questions.type == 1 - choose,
+                                                                 Questions.type == gap).all()
+        for i in range(len(todo)):
+            for j in range(i + 1, len(todo)):
+                if todo[i].right / todo[i].total > todo[j].right / todo[j].total:
+                    todo[i], todo[j] = todo[j], todo[i]
+        for q in todo:
+            if len(ques) == qnum:
+                s.commit()
+                s.close()
+                return ques
+            if q.qid not in ques:
+                ques.append(q.qid)
+
+
+# 返回问题id
 
 
 # 返回值是Records行
@@ -871,7 +896,7 @@ def personalized_recommendation(qnum, chapters_name, choose, gap, user_name):
 def get_question(qid):
     s = create_session()
     ques = s.query(Questions).filter(Questions.qid == qid).first()
-    lis = [ques.title, ques.type, ques.answer,ques.answerA, ques.answerB, ques.answerC, ques.answerD]
+    lis = [ques.title, ques.type, ques.answer, ques.answerA, ques.answerB, ques.answerC, ques.answerD]
     s.commit()
     s.close()
     return lis
