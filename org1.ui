@@ -6,7 +6,11 @@
    <rect>
     <x>0</x>
     <y>0</y>
+<<<<<<< HEAD
     <width>1044</width>
+=======
+    <width>1318</width>
+>>>>>>> 8f1e1412565f3474417d4abfdd6fbde2593c4452
     <height>617</height>
    </rect>
   </property>
@@ -114,6 +118,7 @@ background-color: rgb(255, 170, 0);</string>
    <widget class="QStackedWidget" name="stackedWidget">
     <property name="geometry">
      <rect>
+<<<<<<< HEAD
       <x>60</x>
       <y>80</y>
       <width>981</width>
@@ -122,6 +127,16 @@ background-color: rgb(255, 170, 0);</string>
     </property>
     <property name="currentIndex">
      <number>12</number>
+=======
+      <x>70</x>
+      <y>70</y>
+      <width>1161</width>
+      <height>791</height>
+     </rect>
+    </property>
+    <property name="currentIndex">
+     <number>5</number>
+>>>>>>> 8f1e1412565f3474417d4abfdd6fbde2593c4452
     </property>
     <widget class="QWidget" name="my_ad">
      <widget class="QWidget" name="wad" native="true">
@@ -1019,8 +1034,13 @@ border-top-right-radius:30px;
      <widget class="QPushButton" name="pushButton_8">
       <property name="geometry">
        <rect>
+<<<<<<< HEAD
         <x>850</x>
         <y>110</y>
+=======
+        <x>800</x>
+        <y>30</y>
+>>>>>>> 8f1e1412565f3474417d4abfdd6fbde2593c4452
         <width>75</width>
         <height>41</height>
        </rect>
@@ -1029,7 +1049,11 @@ border-top-right-radius:30px;
        <string notr="true">background-color: rgb(255, 203, 151);</string>
       </property>
       <property name="text">
+<<<<<<< HEAD
        <string>上传文件</string>
+=======
+       <string>上传问题</string>
+>>>>>>> 8f1e1412565f3474417d4abfdd6fbde2593c4452
       </property>
      </widget>
     </widget>
@@ -1154,7 +1178,7 @@ font: 12pt &quot;Agency FB&quot;;
           </rect>
          </property>
          <property name="text">
-          <string>PushButton</string>
+          <string/>
          </property>
         </widget>
         <widget class="QPushButton" name="question1">
@@ -1167,7 +1191,7 @@ font: 12pt &quot;Agency FB&quot;;
           </rect>
          </property>
          <property name="text">
-          <string>PushButton</string>
+          <string/>
          </property>
         </widget>
         <widget class="QPushButton" name="question2">
@@ -1180,7 +1204,7 @@ font: 12pt &quot;Agency FB&quot;;
           </rect>
          </property>
          <property name="text">
-          <string>PushButton</string>
+          <string/>
          </property>
         </widget>
         <widget class="QPushButton" name="question3">
@@ -1193,7 +1217,7 @@ font: 12pt &quot;Agency FB&quot;;
           </rect>
          </property>
          <property name="text">
-          <string>PushButton</string>
+          <string/>
          </property>
         </widget>
         <widget class="QLabel" name="label_26">
@@ -1692,7 +1716,7 @@ background-color: rgb(255, 203, 151);</string>
        <widget class="QWidget" name="layoutWidget">
         <property name="geometry">
          <rect>
-          <x>600</x>
+          <x>430</x>
           <y>330</y>
           <width>195</width>
           <height>30</height>
@@ -1788,8 +1812,8 @@ p, li { white-space: pre-wrap; }
        <widget class="QPushButton" name="submit1">
         <property name="geometry">
          <rect>
-          <x>660</x>
-          <y>250</y>
+          <x>480</x>
+          <y>290</y>
           <width>93</width>
           <height>23</height>
          </rect>
@@ -1816,7 +1840,7 @@ p, li { white-space: pre-wrap; }
        <widget class="QWidget" name="layoutWidget_3">
         <property name="geometry">
          <rect>
-          <x>620</x>
+          <x>440</x>
           <y>340</y>
           <width>195</width>
           <height>30</height>
@@ -1912,8 +1936,8 @@ p, li { white-space: pre-wrap; }
        <widget class="QPushButton" name="submit">
         <property name="geometry">
          <rect>
-          <x>680</x>
-          <y>260</y>
+          <x>490</x>
+          <y>300</y>
           <width>93</width>
           <height>23</height>
          </rect>
@@ -2034,6 +2058,22 @@ p, li { white-space: pre-wrap; }
         </property>
        </widget>
       </widget>
+     </widget>
+     <widget class="QPushButton" name="pushButton_9">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>0</y>
+        <width>75</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 203, 151);</string>
+      </property>
+      <property name="text">
+       <string>查看收藏</string>
+      </property>
      </widget>
     </widget>
     <widget class="QWidget" name="log"/>
