@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1037</width>
+    <width>1044</width>
     <height>617</height>
    </rect>
   </property>
@@ -29,22 +29,6 @@ background-color: rgb(255, 170, 0);</string>
     </property>
     <property name="text">
      <string/>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>10</y>
-      <width>75</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(255, 203, 151);</string>
-    </property>
-    <property name="text">
-     <string>上传问题</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_2">
@@ -130,14 +114,14 @@ background-color: rgb(255, 170, 0);</string>
    <widget class="QStackedWidget" name="stackedWidget">
     <property name="geometry">
      <rect>
-      <x>70</x>
-      <y>70</y>
+      <x>60</x>
+      <y>80</y>
       <width>981</width>
-      <height>791</height>
+      <height>781</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>4</number>
+     <number>12</number>
     </property>
     <widget class="QWidget" name="my_ad">
      <widget class="QWidget" name="wad" native="true">
@@ -1032,6 +1016,22 @@ border-top-right-radius:30px;
        </rect>
       </property>
      </widget>
+     <widget class="QPushButton" name="pushButton_8">
+      <property name="geometry">
+       <rect>
+        <x>850</x>
+        <y>110</y>
+        <width>75</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 203, 151);</string>
+      </property>
+      <property name="text">
+       <string>上传文件</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="search">
      <widget class="QFrame" name="fsearch">
@@ -1195,6 +1195,46 @@ font: 12pt &quot;Agency FB&quot;;
          <property name="text">
           <string>PushButton</string>
          </property>
+        </widget>
+        <widget class="QLabel" name="label_26">
+         <property name="geometry">
+          <rect>
+           <x>400</x>
+           <y>10</y>
+           <width>91</width>
+           <height>41</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Agency FB</family>
+           <pointsize>18</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>范围</string>
+         </property>
+        </widget>
+        <widget class="QComboBox" name="lineEdit_type_4">
+         <property name="geometry">
+          <rect>
+           <x>620</x>
+           <y>10</y>
+           <width>191</width>
+           <height>51</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Agency FB</family>
+           <pointsize>14</pointsize>
+          </font>
+         </property>
+         <item>
+          <property name="text">
+           <string>全部问题</string>
+          </property>
+         </item>
         </widget>
        </widget>
        <widget class="QPushButton" name="pushButton_10">
@@ -1633,7 +1673,7 @@ background-color: rgb(255, 203, 151);</string>
        </rect>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="page">
        <widget class="QPushButton" name="star">
@@ -1996,17 +2036,414 @@ p, li { white-space: pre-wrap; }
       </widget>
      </widget>
     </widget>
-    <widget class="QWidget" name="log">
-     <widget class="QWidget" name="abilityWidget" native="true">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
+    <widget class="QWidget" name="log"/>
+    <widget class="QWidget" name="share_2">
+     <widget class="QPushButton" name="creategroup">
       <property name="geometry">
        <rect>
-        <x>-1</x>
-        <y>-21</y>
-        <width>951</width>
-        <height>491</height>
+        <x>210</x>
+        <y>10</y>
+        <width>211</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 203, 151);</string>
+      </property>
+      <property name="text">
+       <string>创建问题组</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="sharegroup">
+      <property name="geometry">
+       <rect>
+        <x>210</x>
+        <y>140</y>
+        <width>211</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 203, 151);</string>
+      </property>
+      <property name="text">
+       <string>分享问题组</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_15">
+      <property name="geometry">
+       <rect>
+        <x>610</x>
+        <y>220</y>
+        <width>211</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 203, 151);</string>
+      </property>
+      <property name="text">
+       <string>设置问题组权限</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="add">
+      <property name="geometry">
+       <rect>
+        <x>210</x>
+        <y>320</y>
+        <width>211</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 203, 151);</string>
+      </property>
+      <property name="text">
+       <string>添加问题</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="creategroup_3">
+      <property name="geometry">
+       <rect>
+        <x>610</x>
+        <y>30</y>
+        <width>211</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 203, 151);</string>
+      </property>
+      <property name="text">
+       <string>我的问题组</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="page_4">
+     <widget class="QLabel" name="label_7">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>90</y>
+        <width>331</width>
+        <height>131</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Agency FB</family>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>请输入您想创建的问题组名称</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit">
+      <property name="geometry">
+       <rect>
+        <x>390</x>
+        <y>140</y>
+        <width>241</width>
+        <height>41</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_9">
+      <property name="geometry">
+       <rect>
+        <x>780</x>
+        <y>220</y>
+        <width>151</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>确认创建</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_17">
+      <property name="geometry">
+       <rect>
+        <x>780</x>
+        <y>290</y>
+        <width>151</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>返回</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="page_5">
+     <widget class="QLabel" name="label_8">
+      <property name="geometry">
+       <rect>
+        <x>133</x>
+        <y>61</y>
+        <width>201</width>
+        <height>101</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>请选择您想分享的问题组</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_9">
+      <property name="geometry">
+       <rect>
+        <x>130</x>
+        <y>140</y>
+        <width>201</width>
+        <height>101</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>请选择您想分享至的用户组</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="comboBox">
+      <property name="geometry">
+       <rect>
+        <x>400</x>
+        <y>90</y>
+        <width>191</width>
+        <height>41</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="comboBox_2">
+      <property name="geometry">
+       <rect>
+        <x>400</x>
+        <y>170</y>
+        <width>191</width>
+        <height>41</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_10">
+      <property name="geometry">
+       <rect>
+        <x>130</x>
+        <y>220</y>
+        <width>201</width>
+        <height>101</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>请选择您想分享至的用户</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit_5">
+      <property name="geometry">
+       <rect>
+        <x>400</x>
+        <y>250</y>
+        <width>191</width>
+        <height>31</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_13">
+      <property name="geometry">
+       <rect>
+        <x>730</x>
+        <y>302</y>
+        <width>151</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>确定</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_33">
+      <property name="geometry">
+       <rect>
+        <x>730</x>
+        <y>372</y>
+        <width>151</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>返回</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="page_6">
+     <widget class="QLabel" name="label_11">
+      <property name="geometry">
+       <rect>
+        <x>140</x>
+        <y>90</y>
+        <width>251</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>您想改变权限的问题组:</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_5">
+      <property name="geometry">
+       <rect>
+        <x>380</x>
+        <y>160</y>
+        <width>181</width>
+        <height>121</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>设置为公开</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_6">
+      <property name="geometry">
+       <rect>
+        <x>640</x>
+        <y>180</y>
+        <width>141</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>仅自己可见</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="comboBox_3">
+      <property name="geometry">
+       <rect>
+        <x>410</x>
+        <y>100</y>
+        <width>261</width>
+        <height>41</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_14">
+      <property name="geometry">
+       <rect>
+        <x>740</x>
+        <y>330</y>
+        <width>141</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>确定</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_34">
+      <property name="geometry">
+       <rect>
+        <x>740</x>
+        <y>400</y>
+        <width>141</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>返回</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="page_7">
+     <widget class="QLabel" name="label_12">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>100</y>
+        <width>261</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>选择问题组</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="comboBox_4">
+      <property name="geometry">
+       <rect>
+        <x>260</x>
+        <y>100</y>
+        <width>151</width>
+        <height>41</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_13">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>230</y>
+        <width>151</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>选择要加入的问题</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit_6">
+      <property name="geometry">
+       <rect>
+        <x>170</x>
+        <y>230</y>
+        <width>201</width>
+        <height>51</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_16">
+      <property name="geometry">
+       <rect>
+        <x>390</x>
+        <y>230</y>
+        <width>101</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>搜索</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_35">
+      <property name="geometry">
+       <rect>
+        <x>640</x>
+        <y>370</y>
+        <width>101</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>返回</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="page_15">
+     <widget class="QListWidget" name="qgroup_list">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>90</y>
+        <width>441</width>
+        <height>321</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="page_16">
+     <widget class="QListWidget" name="ques_list">
+      <property name="geometry">
+       <rect>
+        <x>170</x>
+        <y>30</y>
+        <width>481</width>
+        <height>391</height>
        </rect>
       </property>
      </widget>
@@ -2015,7 +2452,39 @@ p, li { white-space: pre-wrap; }
    <widget class="QPushButton" name="personability">
     <property name="geometry">
      <rect>
+      <x>580</x>
+      <y>10</y>
+      <width>151</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 203, 151);</string>
+    </property>
+    <property name="text">
+     <string>个人能力图</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="share">
+    <property name="geometry">
+     <rect>
       <x>470</x>
+      <y>10</y>
+      <width>91</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 203, 151);</string>
+    </property>
+    <property name="text">
+     <string>问题组</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
       <y>10</y>
       <width>75</width>
       <height>41</height>
@@ -2025,7 +2494,7 @@ p, li { white-space: pre-wrap; }
      <string notr="true">background-color: rgb(255, 203, 151);</string>
     </property>
     <property name="text">
-     <string>个人能力</string>
+     <string>上传问题</string>
     </property>
    </widget>
   </widget>

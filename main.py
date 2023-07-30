@@ -8,7 +8,8 @@ import Graph
 # 按 双击 Shift 在所有地方搜索类、文件、工具窗口、操作和设置。
 import org1
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QMessageBox, QInputDialog, QFileDialog
+from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QMessageBox, QInputDialog, QFileDialog, QListWidget, \
+    QListWidgetItem, QPushButton
 import list_window, wrong_window
 from PyQt5 import QtCore, QtGui, QtWidgets
 
@@ -151,13 +152,16 @@ if __name__ == '__main__':
     group_list.hide()
     search_group_list = list_window.CheckableListWidget()
     search_group_list.hide()
+    search_question_list = list_window.CheckableListWidget()
+    search_question_list.hide()
 
     orgUi = org1.Ui_MainWindow()
     orgUi.setupUi(win)
     orgUi.stackedWidget.setCurrentIndex(1)
+
     page = 1
 
-    user = 'manager'
+    user = 'fmy'
     password = ""
     # if os.path.exists('temp'):
     #     with open('temp', "rt") as file:
@@ -172,7 +176,6 @@ if __name__ == '__main__':
 
 
     def change_widget_1():  # 上传问题
-        orgUi.stackedWidget.setCurrentIndex(2)
 
         orgUi.answer_load_A.hide()
         orgUi.A_load.hide()
@@ -200,6 +203,9 @@ if __name__ == '__main__':
         orgUi.pushButton_11.hide()
         orgUi.pushButton_12.hide()
         orgUi.widget_ques.hide()
+        qgroups = Stu.search_qgroups(user)
+        for i in range(len(qgroups)):
+            orgUi.lineEdit_type_4.addItem(qgroups[i])
         # orgUi.widget_btn.hide()
         # orgUi.widget_ques.hide()
 
@@ -286,7 +292,7 @@ if __name__ == '__main__':
         orgUi.pushButton_12.clicked.connect(lambda: change_widget_12())
 
 
-    def change_widget_12():  # 搜索按键ques_name,chapters_name,mytype,user
+    def change_widget_12():  # 搜索按键range ques_name,chapters_name,mytype,user
         user = 'manager'
         if os.path.exists('temp'):
             with open('temp', "rt") as file:
@@ -294,6 +300,7 @@ if __name__ == '__main__':
         ques_name = orgUi.lineEdit_key.text()
         chapters_name = orgUi.lineEdit_chapter_2.currentText()
         mytype = orgUi.lineEdit_type_2.currentText()
+        range = orgUi.lineEdit_type_4.currentTexy()
         x = 0
         if mytype == '填空':
             x = 1
@@ -450,6 +457,7 @@ if __name__ == '__main__':
         orgUi.answer1.setText("")
         orgUi.answer1.setStyleSheet("background-color: rgb(255, 255, 255);")
 
+
     def change_widget_front():
         t = orgUi.label_2.text()
         qid = int(t) - 1
@@ -466,6 +474,7 @@ if __name__ == '__main__':
         orgUi.D.setStyleSheet("background-color: rgb(255, 255, 255);")
         orgUi.answer1.setText("")
         orgUi.answer1.setStyleSheet("background-color: rgb(255, 255, 255);")
+
 
     def change_widget_a(text, answer, mytype, qid):
         orgUi.A.setText("A!")
@@ -621,8 +630,153 @@ if __name__ == '__main__':
     orgUi.B_load.stateChanged.connect(handleCheckboxB)
     orgUi.C_load.stateChanged.connect(handleCheckboxC)
     orgUi.D_load.stateChanged.connect(handleCheckboxD)
-    # orgUi.pushButton_8.clicked.connect(upload_file)
     orgUi.pushButton_8.clicked.connect(admin_action.upload)
 
+
+    # share
+    def change_widget_share():
+        orgUi.stackedWidget.setCurrentIndex(7)
+
+
+    # share
+    orgUi.share.clicked.connect(change_widget_share)
+
+
+    def create_qgroup():
+
+        s = Stu.create_own_ques_group(orgUi.lineEdit.text(), user)
+        if s:
+            QMessageBox.information(win, "", f"创建成功")
+        else:
+            QMessageBox.information(win, "", f"当前组名已存在")
+
+
+    def choose_qgroup():
+        # orgUi.pushButton_19.hide()
+        # orgUi.pushButton_18.hide()
+        qgroup_list = list_window.CheckableListWidget()
+        text = orgUi.groupline.text()
+        itemlist = Stu.search_for_groups(text, user)
+        if len(itemlist) == 0:
+            QMessageBox.information(search_group_list, "警告", f"您已加入当前小组或没有当前小组")
+        else:
+            qgroup_list.initializeList(itemlist)
+            search_group_list.show()
+
+
+    def change1():
+        orgUi.stackedWidget.setCurrentIndex(8)
+
+
+    def change2():
+        _translate = QtCore.QCoreApplication.translate
+        orgUi.stackedWidget.setCurrentIndex(9)
+        qgroups = Stu.search_qgroups(user)
+        print('qgroups = :')
+        print(qgroups)
+        for i in range(len(qgroups)):
+            orgUi.comboBox.addItem(qgroups[i])
+        groups = Stu.search_groups(1)
+        for i in range(len(groups)):
+            orgUi.comboBox_2.addItem(groups[i])
+
+
+    def share():
+        Stu.share_qgroup_with_group(orgUi.comboBox.currentText(), orgUi.comboBox_2.currentText())
+        QMessageBox.information(win, "", f"分享成功")
+
+
+    def change3():
+        orgUi.stackedWidget.setCurrentIndex(10)
+        qgroups = Stu.search_qgroups(user)
+        for i in range(len(qgroups)):
+            orgUi.comboBox_3.addItem(qgroups[i])
+
+
+    def changecan():
+        i = 0
+        j = 0
+        if (orgUi.checkBox_5.checkState()):
+            i = i + 1
+            j = 1
+        if (orgUi.checkBox_6.checkState()):
+            i = i + 1
+            j = 2
+        if i == 0 | i > 1:
+            QMessageBox.information(win, "警告", f"权限矛盾")
+        elif j == 1:
+            Stu.set_qgroup_public(orgUi.comboBox_3.currentText())
+            pass
+        elif j == 2:
+            Stu.set_qgroup_private(orgUi.comboBox_3.currentText())
+            pass
+
+
+    def change4():
+        orgUi.stackedWidget.setCurrentIndex(11)
+        qgroups = Stu.search_qgroups(user)
+        for i in range(len(qgroups)):
+            orgUi.comboBox_4.addItem(qgroups[i])
+
+
+    def search1():
+        ques = Stu.search_ques(orgUi.lineEdit_6.text())
+        search_question_list.initializeList(ques)
+        search_question_list.show()
+
+
+    def confirm1():
+        selected_items = search_question_list.list_widget.selectedItems()
+        selected_names = [item.text() for item in selected_items]
+        QMessageBox.information(search_question_list, "选中的项", f"选中的项: {selected_names}")
+        Stu.add_ques_into_group(orgUi.comboBox_4.currentText(), selected_names)
+        search_question_list.close()
+        QMessageBox.information(search_question_list, " ", f"加入成功")
+
+    def chakanwenti(n):
+        print(n)
+    def show_all_questions(name):
+
+        orgUi.stackedWidget.setCurrentIndex(13)
+        orgUi.ques_list.clear()
+        ques = Stu.ques_in_qgroup(name)#qid,title
+        print(len(ques))
+        for i in range(len(ques)):
+            itemBtn = QListWidgetItem()
+            btn = QPushButton("序号"+ques[i][0]+":"+ques[i][1])
+            btn.clicked.connect(lambda :chakanwenti(ques[i]))
+            btn.setFixedWidth(200)
+            orgUi.ques_list.insertItem(orgUi.ques_list.count(), itemBtn)
+            orgUi.ques_list.setItemWidget(itemBtn, btn)
+        orgUi.ques_list.show()
+
+    def change5():
+        orgUi.stackedWidget.setCurrentIndex(12)
+        orgUi.qgroup_list.clear()
+        qgroups = Stu.search_qgroups(user)
+        for i in range(len(qgroups)):
+            itemBtn = QListWidgetItem()
+            btn = QPushButton(qgroups[i])
+            btn.clicked.connect(lambda :show_all_questions(qgroups[i]))
+            btn.setFixedWidth(450)
+            orgUi.qgroup_list.insertItem(orgUi.qgroup_list.count(), itemBtn)
+            orgUi.qgroup_list.setItemWidget(itemBtn, btn)
+        orgUi.qgroup_list.show()
+
+    orgUi.pushButton_16.clicked.connect(search1)
+    orgUi.creategroup.clicked.connect(change1)
+    orgUi.sharegroup.clicked.connect(change2)
+    orgUi.pushButton_15.clicked.connect(change3)
+    orgUi.add.clicked.connect(change4)
+
+    orgUi.pushButton_9.clicked.connect(create_qgroup)
+    orgUi.pushButton_13.clicked.connect(share)
+    orgUi.pushButton_14.clicked.connect(changecan)
+    #    orgUi.pushButton_17.clicked.connect(change_widget_share)
+    search_question_list.confirm_button.clicked.connect(confirm1)
+    orgUi.creategroup_3.clicked.connect(change5)
+    orgUi.pushButton_17.clicked.connect(change_widget_share)
+    orgUi.pushButton_35.clicked.connect(change_widget_share)
     win.show()
     sys.exit(app.exec_())
+

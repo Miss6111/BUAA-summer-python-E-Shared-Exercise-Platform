@@ -11,7 +11,7 @@ from datetime import datetime
 from sqlalchemy import DateTime
 
 Base = sqlalchemy.orm.declarative_base()
-DB_connect = 'mysql+mysqldb://root:86901260@localhost/myDB_1'
+DB_connect = 'mysql+mysqldb://root:222333dyh@localhost/Test'
 engine = create_engine(DB_connect, echo=False)
 
 
@@ -125,9 +125,10 @@ class Groups(Base):  # 用户小组
 
 class QGroups(Base):  # 问题小组，由每个用户主动创建
     __tablename__ = 'qgroups'
-    gid = sqlalchemy.Column(sqlalchemy.BIGINT, primary_key=True)
+    gid = sqlalchemy.Column(sqlalchemy.BIGINT, primary_key=True, autoincrement=True)
     uid = sqlalchemy.Column(sqlalchemy.Integer)  # 创造者
     name = sqlalchemy.Column(sqlalchemy.String(20), primary_key=True)
+    public = sqlalchemy.Column(sqlalchemy.Boolean)  # 是否公开
 
 
 # 做题记录
@@ -488,14 +489,14 @@ def initial_data():
     :param name:
     :param path:
     """
-    s = create_session()
-    new = Stus(uid=21371321, name="manager")  # 此人为管理员，作为初始题目的上传者
-    s.add(new)
-    for i in range(1, 9):
-        s.add(Chapters(name='Chapter_' + str(i), ques=[]))
-    s.commit()
-    s.close()
-    f = openpyxl.load_workbook("D:\\Users\\23673\\Desktop\\summer_python\\try.xlsx")  # 改成本地的地址
+    # s = create_session()
+    # new = Stus(uid=21371321, name="fmy")  # 此人为管理员，作为初始题目的上传者
+    # s.add(new)
+    # for i in range(1, 9):
+    #     s.add(Chapters(name='Chapter_' + str(i), ques=[]))
+    # s.commit()
+    # s.close()
+    f = openpyxl.load_workbook("C:\\Users\\dyh\\Desktop\\qu.xlsx")  # 改成本地的地址
     names = f.sheetnames  # 所有sheet
     for sheet_name in names:  # 每一页
         sheet = f[sheet_name]
@@ -526,12 +527,12 @@ def initial_data():
             if i % 2 == 0 or len(answer_) > 2:  # 选择
                 if len(answer_) > 2:
                     load_one_question(title, ''.join(answer), chapters[int(i / 150) + 1], 2, A, B, C, D, '',
-                                      public=True, creater='manager')
+                                      public=True, creater='fmy')
                 # title, answer, chapter, my_type, answer1, answer2, answer3, answer4, gap, public, creater
                 else:
                     load_one_question(title, ''.join(answer), chapters[int(i / 150) + 1], 0, A, B, C, D, '',
                                       public=True,
-                                      creater='manager')
+                                      creater='fmy')
             else:  # 填空
                 load_one_question(title, '', chapters[int(i / 150) + 1], 1, A, B, C, D, gap, public=True,
                                   creater='manager')
@@ -741,6 +742,7 @@ def create_own_ques_group(name, user_name):  # 某个用户可以选择构造一
     s = create_session()
     uid = s.query(Stus).filter(Stus.name == user_name).first().uid
     new = QGroups(name=name, uid=uid)
+    # new = QGroups(name=name, uid=uid， public = False)
     s.add(new)
     s.commit()
     s.close()
@@ -762,7 +764,7 @@ def add_ques_into_group(name, questions):  # 传入问题编号/后续可以考�
     s.close()
 
 
-def share_question_with_groups(qgname, gname):  # 与特定的用户组分享特定的问题组
+def share_qgroup_with_group(qgname, gname):  # 与特定的用户组分享特定的问题组
     """
 
     :param qgname:
@@ -770,16 +772,21 @@ def share_question_with_groups(qgname, gname):  # 与特定的用户组分享特
     """
     s = create_session()
     gid = s.query(Groups).filter(Groups.name == gname).first().gid  # 得到这个用户组的gid
-    temp = s.query(Stu_group).filter(Stu_group.gid == gid).all()  # 得到用户组的所有用户的uid
-    ids = []
+    temp = s.query(Stu_group).filter(Stu_group.gid == gid).all()
+    ids = []  # 得到用户组的所有用户的uid
     for i in temp:
         ids.append(i.uid)
     stus = s.query(Stus).filter(Stus.uid.in_(ids)).all()  # 得到用户组所有用户
-    qgroup = s.query(QGroups).filter(QGroups.name == qgname).first()
-    s.query(Groups).filter(Groups.name == gname).first().qgroups.append(qgroup)
+
+    qgroup = s.query(QGroups).filter(QGroups.name == qgname).first()  # 得到这个问题组
+
+    group = s.query(Groups).filter(Groups.name == gname).first()
+    group.qgroups.append(qgroup)
+
     for i in stus:
-        if qgroup in i.qgroups == False:
+        if not qgroup in i.qgroups:
             i.qgroups.append(qgroup)  # 依次建立联系
+
     s.commit()
     s.close()
 
@@ -1019,6 +1026,7 @@ def get_question(qid):
 
 def getMotto(name):
     s = create_session()
+    print(name)
     motto = s.query(Stus).filter(Stus.name == name).first().quote
     return motto
 
@@ -1026,10 +1034,8 @@ def getMotto(name):
 def get_accurate_rate(user_name):  # 查record，每章做题数，每章正确率[[],[],[]]
     s = create_session()
     uid = s.query(Stus).filter(Stus.name == user_name).first().uid
-    chap_right = []
-    chap_total = []
-    chapters = s.query(Chapters).all()
-    for chapter in chapters:
+    ans = []
+    for chapter in ['Chapter_1','Chapter_2','Chapter_3','Chapter_4','Chapter_5','Chapter_6','Chapter_7']:
         records = s.query(Records).filter(Records.uid == uid).all()
         total, right = 0, 0
         for i in records:
@@ -1039,11 +1045,14 @@ def get_accurate_rate(user_name):  # 查record，每章做题数，每章正确�
                 total += 1
                 if i.right == 1:
                     right += 1
-        chap_total.append(total)
-        chap_right.append(right)
+        if not total == 0:
+            ans.append([total,right/total])
+        else:
+            ans.append([0,0])
+
     s.commit()
     s.close()
-    return [chap_total, chap_right]
+    return ans
 
 
 def star_questioin(user_name, qid):
@@ -1074,6 +1083,57 @@ def draft(ques_name):  # 关键词，章节，题型
     return lis
 
 
+def search_qgroups(user):
+    s = create_session()
+    uid = s.query(Stus).filter(Stus.name == user).first().uid
+    groups = s.query(QGroups).filter(QGroups.uid == uid).all()
+    names = []
+    for i in groups:
+        names.append(i.name)
+    s.close()
+    s.commit()
+    return names
+
+
+def set_qgroup_public(name):
+    s = create_session()
+    group = s.query(QGroups).filter(QGroups.name == name).first()
+    group.public = True
+    s.commit()
+    s.close()
+
+
+def set_qgroup_private(name):
+    s = create_session()
+    group = s.query(QGroups).filter(QGroups.name == name).first()
+    group.public = False
+    s.commit()
+    s.close()
+
+
+def search_ques(key):
+    s = create_session()
+    all = s.query(Questions).all()
+    name = []
+    for i in all:
+        if key in i.title:
+            name.append(i.title)
+    s.close()
+    return name
+
+
+def ques_in_qgroup(name):
+    s = create_session()
+    g = s.query(QGroups).filter(QGroups.name == name).first()
+    gid = g.gid
+    qids_ = s.query(Ques_qgroup).filter(Ques_qgroup.gid == gid).all()
+    qids = []
+    for i in qids_:
+        qids.append([i.qid, i.title])
+    s.close()
+    return qids
+
+
 if __name__ == '__main__':
     # print(get_question(1))
     # print(do_question(1, "RRRR", "", "1903年11月17日；英国"))
@@ -1087,9 +1147,12 @@ if __name__ == '__main__':
     # Chapter_3", "Chapter_4", "Chapter_5", "Chapter_6", "Chapter_7",
     #                          "Chapter_8"], 1,
     #                 "RRRR")
-    pass
-    Base.metadata.create_all(engine)  # 一键在数据库生成所有的类
-    print(draft("莱特"))
+
+    # Base.metadata.drop_all(engine)
+    # Base.metadata.create_all(engine)  # 一键在数据库生成所有的类
+    # create_new_user('fmy','',True)
+    create_new_group('group', 'fmy')
+    # print(draft("莱特"))
     # change_quote("yeah", "manager")
     # s = create_session()
     # questions = s.query(Questions).filter(Questions.uid == 21371321).all()
@@ -1115,7 +1178,7 @@ if __name__ == '__main__':
     # print(scope_questions("四次", ["Chapter_1", "Chapter_2"], 1, "manager"))
     # print(do_question(1, "manager", "0001", ""))
     ################################
-    # initial_data()
+    initial_data()
     # print(do_question(1, "manager", "0010", ""))
     # print(do_question(2, "manager", "", "1903年12月17日；美国"))
     # print(do_question(1, "manager", "0001", ""))
