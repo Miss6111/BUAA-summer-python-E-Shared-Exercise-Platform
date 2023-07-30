@@ -12,7 +12,7 @@ from sqlalchemy import DateTime
 
 Base = sqlalchemy.orm.declarative_base()
 DB_connect = 'mysql+mysqldb://root:86901260@localhost/myDB_1'
-engine = create_engine(DB_connect, echo=True)
+engine = create_engine(DB_connect, echo=False)
 
 
 # 评论表
@@ -1028,13 +1028,14 @@ def get_accurate_rate(user_name):  # 查record，每章做题数，每章正确�
     uid = s.query(Stus).filter(Stus.name == user_name).first().uid
     chap_right = []
     chap_total = []
-    for chapter in Chapters.name:
+    chapters = s.query(Chapters).all()
+    for chapter in chapters:
         records = s.query(Records).filter(Records.uid == uid).all()
         total, right = 0, 0
         for i in records:
             id = i.qid
             cha = s.query(Questions).filter(Questions.qid == id).first().chapter
-            if chapter == cha:
+            if chapter.name == cha:
                 total += 1
                 if i.right == 1:
                     right += 1
@@ -1067,12 +1068,10 @@ def draft(ques_name):  # 关键词，章节，题型
 
     s = create_session()
     q = s.query(Questions).filter(Questions.title.like('%' + ques_name + '%')).first()
-    question = []
-    for i in q:
-        question.append(i.qid)
+    lis = [q.qid, q.type, q.chapter]
     s.commit()
     s.close()
-    return question #[q.qid, q.type, q.chapter]
+    return lis
 
 
 if __name__ == '__main__':

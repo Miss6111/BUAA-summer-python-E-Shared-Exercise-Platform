@@ -6,8 +6,6 @@
       <change beforePath="$PROJECT_DIR$/Stu.py" beforeDir="false" afterPath="$PROJECT_DIR$/Stu.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/org1.py" beforeDir="false" afterPath="$PROJECT_DIR$/org1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/org1.ui" beforeDir="false" afterPath="$PROJECT_DIR$/org1.ui" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wrong_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/wrong_window.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,7 +52,7 @@
       <recent name="D:\Users\23673\Desktop\summer_python\BUAA-summer-python-E-Shared-Exercise-Platform" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.Stu">
+  <component name="RunManager" selected="Python.main">
     <configuration name="Graph" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="BUAA-summer-python-E-Shared-Exercise-Platform" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -162,8 +160,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.Stu" />
         <item itemvalue="Python.main" />
+        <item itemvalue="Python.Stu" />
         <item itemvalue="Python.wrong_window" />
         <item itemvalue="Python.Graph" />
         <item itemvalue="Python.login_window" />
@@ -201,16 +199,6 @@
           <option name="timeStamp" value="19" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Stu.py</url>
-          <line>875</line>
-          <option name="timeStamp" value="27" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Stu.py</url>
-          <line>577</line>
-          <option name="timeStamp" value="31" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/wrong_window.py</url>
           <line>124</line>
           <option name="timeStamp" value="45" />
@@ -224,11 +212,6 @@
           <url>file://$PROJECT_DIR$/Stu.py</url>
           <line>979</line>
           <option name="timeStamp" value="47" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Stu.py</url>
-          <line>607</line>
-          <option name="timeStamp" value="49" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

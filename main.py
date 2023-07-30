@@ -441,14 +441,14 @@ if __name__ == '__main__':
         t = str(qid)
         print(t)
         orgUi.label_2.setText(t)
-        change_widget_q(lis[0], lis[2], lis[1])
+        change_widget_q(lis[0], lis[2], lis[1], qid)
         orgUi.A.setStyleSheet("background-color: rgb(255, 255, 255);")
 
         orgUi.B.setStyleSheet("background-color: rgb(255, 255, 255);")
         orgUi.C.setStyleSheet("background-color: rgb(255, 255, 255);")
         orgUi.D.setStyleSheet("background-color: rgb(255, 255, 255);")
         orgUi.answer1.setText("")
-
+        orgUi.answer1.setStyleSheet("background-color: rgb(255, 255, 255);")
 
     def change_widget_front():
         t = orgUi.label_2.text()
@@ -458,14 +458,14 @@ if __name__ == '__main__':
         t = str(qid)
         print(t)
         orgUi.label_2.setText(t)
-        change_widget_q(lis[0], lis[2], lis[1])
+        change_widget_q(lis[0], lis[2], lis[1], qid)
         orgUi.A.setStyleSheet("background-color: rgb(255, 255, 255);")
 
         orgUi.B.setStyleSheet("background-color: rgb(255, 255, 255);")
         orgUi.C.setStyleSheet("background-color: rgb(255, 255, 255);")
         orgUi.D.setStyleSheet("background-color: rgb(255, 255, 255);")
         orgUi.answer1.setText("")
-
+        orgUi.answer1.setStyleSheet("background-color: rgb(255, 255, 255);")
 
     def change_widget_a(text, answer, mytype, qid):
         orgUi.A.setText("A!")
@@ -492,6 +492,7 @@ if __name__ == '__main__':
 
 
     def change_widget_submit(given, answer):  # 按下按钮
+        given = orgUi.answer1.text()
         if given != answer:
             orgUi.answer1.setStyleSheet("background-color: rgb(255, 43, 15);")
         orgUi.label_5.setText(answer)
