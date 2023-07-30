@@ -768,7 +768,7 @@ if __name__ == '__main__':
     orgUi.sharegroup.clicked.connect(change2)
     orgUi.pushButton_15.clicked.connect(change3)
     orgUi.add.clicked.connect(change4)
-
+ ##jljl
     orgUi.pushButton_9.clicked.connect(create_qgroup)
     orgUi.pushButton_13.clicked.connect(share)
     orgUi.pushButton_14.clicked.connect(changecan)
