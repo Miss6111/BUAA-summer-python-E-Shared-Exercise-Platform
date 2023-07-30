@@ -7,7 +7,6 @@ import pyqtgraph as pg
 # y轴是掌握程度，每个章节一条线
 # 导入所需模块
 from PyQt5.QtWidgets import QApplication, QDialog
-from PyQt5.QtChart import QChart, QChartView, QLineSeries, QValueAxis, QScatterSeries
 from PyQt5.QtCore import Qt, QMargins
 from PyQt5.QtGui import QPainter, QFont, QPen
 from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QLabel
@@ -15,7 +14,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QLa
 
 # 定义学生错误问题数据的数据结构
 class MainWindow(QDialog):
-    def __init__(self,user):
+    def __init__(self, user):
         super().__init__()
 
         self.setWindowTitle("Graph")
@@ -78,7 +77,7 @@ class MainWindow(QDialog):
         line_series7 = QScatterSeries()
         line_series7.setPen(pen)
 
-        accurate_rate = Stu.get_accurate_rate(user)#每个章节的做题数,正确率[[],[]]
+        accurate_rate = Stu.get_accurate_rate(user)  # 每个章节的做题数,正确率[[],[]]
 
         # 创建散点图系列对象，并添加数据点
 
@@ -111,7 +110,6 @@ class MainWindow(QDialog):
 
         line_series7.setMarkerShape(QScatterSeries.MarkerShapeCircle)  # 设置点的形状为圆形
         line_series7.setMarkerSize(10)  # 设置点的大小为 10
-
 
         chart.addSeries(line_series)
         chart.addSeries(line_series2)  # 加入
@@ -148,8 +146,6 @@ class MainWindow(QDialog):
         line_series4.attachAxis(axis_y)
         line_series5.attachAxis(axis_y)
         line_series6.attachAxis(axis_y)
-
-
 
         chart_view = QChartView(chart)
 

@@ -87,7 +87,7 @@ class Questions(Base):  # 有哪些问题
     answerC = sqlalchemy.Column(sqlalchemy.String(100))
     answerD = sqlalchemy.Column(sqlalchemy.String(100))
     # 填空题答案
-    gap = sqlalchemy.Column(sqlalchemy.String(1000))
+    gap = sqlalchemy.Column(sqlalchemy.String(500))
     public = sqlalchemy.Column(sqlalchemy.Boolean)  # 是否是所有人可见
     total = sqlalchemy.Column(sqlalchemy.Integer)
     right = sqlalchemy.Column(sqlalchemy.Integer)
@@ -465,9 +465,12 @@ def load_one_question(title, answer, chapter, my_type, answer1, answer2, answer3
     """
     s = create_session()
     c = s.query(Chapters).filter(Chapters.name == chapter).first()
-    q = Questions(title=title, answer=answer, type=my_type, answerA=answer1, answerB=answer2, answerC=answer3,
+    qid = len(s.query(Questions).all())
+    q = Questions(qid=qid, title=title, answer=answer, type=my_type, answerA=answer1, answerB=answer2, answerC=answer3,
                   answerD=answer4, gap=gap, public=public, uid=s.query(Stus).filter(Stus.name == creater).first().uid,
                   total=0, right=0, chapter=chapter, name=title[:10])
+    print(gap)
+    print(len(gap))
     s.add(q)
     s.commit()
     c.ques.append(q)
@@ -482,11 +485,13 @@ def initial_data():
     :param name:
     :param path:
     """
-    # s = create_session()
-    # for i in range(1, 9):
-    #     s.add(Chapters(name='Chapter_' + str(i)))
-    # s.commit()
-    # s.close()
+    s = create_session()
+    new = Stus(uid=21371321, name="manager")  # 此人为管理员，作为初始题目的上传者
+    s.add(new)
+    for i in range(1, 9):
+        s.add(Chapters(name='Chapter_' + str(i),ques=[]))
+    s.commit()
+    s.close()
     f = openpyxl.load_workbook("D:\\Users\\23673\\Desktop\\summer_python\\try.xlsx")  # 改成本地的地址
     names = f.sheetnames  # 所有sheet
     for sheet_name in names:  # 每一页
@@ -518,10 +523,10 @@ def initial_data():
             if i % 2 == 0 or len(answer_) > 2:  # 选择
                 # title, answer, chapter, my_type, answer1, answer2, answer3, answer4, gap, public, creater
                 load_one_question(title, ''.join(answer), chapters[int(i / 150) + 1], 0, A, B, C, D, '', public=True,
-                                  creater='RRRR')
+                                  creater='manager')
             else:  # 填空
                 load_one_question(title, '', chapters[int(i / 150) + 1], 1, A, B, C, D, gap, public=True,
-                                  creater='RRRR')
+                                  creater='manager')
 
 
 def load_files(path, name):  # 需要规定文件格式？？再想
@@ -593,11 +598,19 @@ def scope_questions(ques_name, chapters_name, mytype, user_name):  # 关键词�
     s = create_session()
     # 搜索范围包括questions中的public或上传者为本人的，和qgroup中的
     uid = s.query(Stus).filter(Stus.name == user_name).first().uid
-    qgroups = s.query(Stus).filter(Stus.name == user_name).first().qgroups
-    q = s.query(Questions).filter(or_(Questions.uid == uid, Questions.public == True,
-                                      Questions.qgroups.in_(qgroups))) \
-        .filter(Questions.chapter.in_(chapters_name)).filter(Questions.type == mytype).filter(
-        Questions.title.find(ques_name)).all()
+    stu = s.query(Stus).filter(Stus.name == user_name).first()
+    qgroupids = [i.gid for i in stu.qgroups]
+    q = s.query(Questions).filter(Questions.chapter.in_(chapters_name)).filter(Questions.type == mytype).filter(
+        Questions.title.like('%' + ques_name + '%')).all()
+    ques = []
+    for i in q:
+        flag = False
+        for j in i.qgroups:
+            if j.gid in qgroupids:
+                flag = True
+                break
+        if i.uid == uid or i.public == True or flag == True:
+            ques.append(i)
     # 目前仅支持关键词为title子串
     s.commit()
     s.close()
@@ -874,27 +887,42 @@ def do_question(qid, user_name, answer, gap):  # 题目id;是否正确
     ques = s.query(Questions).filter(Questions.uid == uid).first()
     ques.totol = ques.total + 1
     right = (mytype == 0 or mytype == 2) and answer == myanswer or mytype == 1 and gap == mygap
+    print(right)
+    print(mytype)
+    print(myanswer)
+    print(answer)
+    print(mygap)
+    print(gap)
+    print(ques.total)
     if right == 1:
         ques.right = ques.right + 1
-    new = Records(uid=uid, qid=qid, right=right, rate=0)
+    new = Records(uid=uid, qid=qid, right=right, rate=0, never=0)
     s.add(new)
+    s.commit()
     # 更新正确率并返回
     records = s.query(Records).filter(Records.uid == uid, Records.qid == qid).all()
+    print(len(records))
     total, true = 0, 0
     for j in records:
         total += 1
         if j.right == 1:
             true += 1
-    s.query(Records).filter(Records.uid == uid, Records.qid == qid).all().rate = true / total
+    these = s.query(Records).filter(Records.uid == uid, Records.qid == qid).all()
+    for i in these:
+        i.rate = true / total
     # 最近三次都做对则never为True，否则为False
     recent = s.query(Records).filter(Records.uid == uid, Records.qid == qid).order_by(desc(Records.time)).all()
     if len(recent) >= 3 and recent[0].right == 1 and recent[1].right == 1 and recent[3].right == 1:
-        s.query(Records).filter(Records.uid == uid, Records.qid == qid).all().never = 1
+        nevers = s.query(Records).filter(Records.uid == uid, Records.qid == qid).all()
+        for i in nevers:
+            i.never = 1
     else:
-        s.query(Records).filter(Records.uid == uid, Records.qid == qid).all().never = 0
+        nevers = s.query(Records).filter(Records.uid == uid, Records.qid == qid).all()
+        for i in nevers:
+            i.never = 0
+    lis = [right, myanswer, mygap, true / total, ques.right / ques.total]
     s.commit()
     s.close()
-    lis = [right, myanswer, mygap, true / total, ques.right / ques.total]
     return lis
     # 返回值为 是否正确（1为正确，0为错误） 选择题标准答案 填空题标准答案 本题本人正确率 本题整体正确率
 
@@ -952,7 +980,12 @@ def personalized_recommendation(qnum, chapters_name, choose, gap, user_name):
 def get_question(qid):
     s = create_session()
     ques = s.query(Questions).filter(Questions.qid == qid).first()
-    lis = [ques.title, ques.type, ques.answer, ques.answerA, ques.answerB, ques.answerC, ques.answerD]
+    if ques.type == 1:
+        lis = [ques.title, ques.type,
+               ques.gap, ques.answerA, ques.answerB, ques.answerC, ques.answerD]
+    else:
+        lis = [ques.title, ques.type,
+               ques.answer, ques.answerA, ques.answerB, ques.answerC, ques.answerD]
     s.commit()
     s.close()
     return lis
@@ -987,15 +1020,35 @@ def get_accurate_rate(user_name):  # 查record，每章做题数，每章正确�
 
 
 if __name__ == '__main__':
+    # print(get_question(1))
+    # print(do_question(1, "RRRR", "", "1903年11月17日；英国"))
+    # print(get_question(2))
+    # print(do_question(2, "RRRR", "1000", ""))
+    # print(get_question(3))
+    # print(do_question(3, "RRRR", "",  '2008年11月28日'))
+    # print(get_question(4))
+    # print(do_question(4, "RRRR", "0100", ''))
+    # scope_questions("空中客车", ["Chapter_1", "Chapter_2", "
+    # Chapter_3", "Chapter_4", "Chapter_5", "Chapter_6", "Chapter_7",
+    #                          "Chapter_8"], 1,
+    #                 "RRRR")
     pass
     Base.metadata.create_all(engine)  # 一键在数据库生成所有的类
-    # Base.metadata.delete_all(engine)#一键清除S
-    # load_one_question('title212', 'answ', 'Chapter 1', 1, 'answer1', 'answer2', 'answer3', 'answer4', 'tab', True,'RRRR')
+    # Base.metadata.drop_all(engine)#一键清除S
+    ###########################
     # s = create_session()
-    # new = Stus(uid=21371321, name="RRRR")
+    # new = Stus(uid=21371321, name="manager")  # 此人为管理员，作为初始题目的上传者
     # s.add(new)
+    # for i in range(1, 9):
+    #     s.add(Chapters(name='Chapter_' + str(i), ques=[]))
     # s.commit()
     # s.close()
-    initial_data()
+    # load_one_question('2008年09月28日，欧洲空中客车的A-320飞机在中国_____ 的总装公司投产。', '0001',
+    #                   'Chapter_1', 1, '北京', '西安', '上海', '天津', '', True, 'manager')
+    # print(get_question(1))
+    scope_questions("2008", "Chapter 1", 1, "lyj")
+    # do_question(0, "lyj", "0001", "")
+    ################################
+    # initial_data()
     # load_one_question(title='hhh',answer=)
     # user_add_into_group(['123', 'hhhhh'], 'stu9')  # 用户主动申请加入
