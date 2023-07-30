@@ -860,13 +860,10 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-<<<<<<< HEAD
         self.stackedWidget.setCurrentIndex(12)
         self.stackedWidget_2.setCurrentIndex(2)
-=======
         self.stackedWidget.setCurrentIndex(5)
         self.stackedWidget_2.setCurrentIndex(1)
->>>>>>> 8f1e1412565f3474417d4abfdd6fbde2593c4452
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
