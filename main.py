@@ -26,6 +26,7 @@ def init_global():
     global selection
     selection = ['0', '0', '0', '0']
 
+
 def modify_selection(i):
     global selection
     if selection[i] == '0':
@@ -47,8 +48,10 @@ class norm_action():
     def change_motto(self):
         text, ok = QInputDialog.getText(win, '改谏言', '请输入新谏言:')
         if ok:
-            Stu.change_quote(text,user)
+            Stu.change_quote(text, user)
             orgUi.label_motto.setText(text)
+
+
 class search_action():
     def search_for_group(self):  # 调出选择组界面
         text = orgUi.groupline.text()
@@ -128,11 +131,11 @@ class admin_action():
         gname = orgUi.waddpgn.text()
         Stu.add_into_group(selected_names, gname)  # todo backend
         user_list.close()
+
     def upload(self):
         window = upload_file.MainWindow()
         path = window.getPath()
-        Stu.load_file(path,user)
-
+        Stu.load_file(path, user)
 
 
 # 按间距中的绿色按钮以运行脚本。
@@ -207,7 +210,7 @@ if __name__ == '__main__':
         t = str(1)
         print(t)
         orgUi.label_2.setText(t)
-        change_widget_q(lis[0], lis[2],lis[1])
+        change_widget_q(lis[0], lis[2], lis[1])
 
 
     def change_widget_4():  # 错误日志
@@ -269,10 +272,6 @@ if __name__ == '__main__':
 
 
     def change_widget_10():  # 搜索问题
-        user = 'fmy'
-        if os.path.exists('temp'):
-            with open('temp', "rt") as file:
-                user = file.readline()
         orgUi.pushButton_10.hide()
         orgUi.searchGroup.hide()
         orgUi.groupline.hide()
@@ -284,6 +283,14 @@ if __name__ == '__main__':
         orgUi.lineEdit_key.show()
         orgUi.lineEdit_type_2.show()
         orgUi.pushButton_12.show()
+        orgUi.pushButton_12.clicked.connect(lambda: change_widget_12())
+
+
+    def change_widget_12():  # 搜索按键ques_name,chapters_name,mytype,user
+        user = 'manager'
+        if os.path.exists('temp'):
+            with open('temp', "rt") as file:
+                user = file.readline()
         ques_name = orgUi.lineEdit_key.text()
         chapters_name = orgUi.lineEdit_chapter_2.currentText()
         mytype = orgUi.lineEdit_type_2.currentText()
@@ -292,11 +299,7 @@ if __name__ == '__main__':
             x = 1
         else:
             x = 0
-        lis = [ques_name,chapters_name,x,user]
-        orgUi.pushButton_12.clicked.connect(lambda: change_widget_12(lis))
-
-
-    def change_widget_12(lis):  # 搜索按键ques_name,chapters_name,mytype,user
+        lis = [ques_name, chapters_name, x, user]
         orgUi.widget_ques.show()
         orgUi.label_type.hide()
         orgUi.label_key.hide()
@@ -305,23 +308,35 @@ if __name__ == '__main__':
         orgUi.lineEdit_key.hide()
         orgUi.lineEdit_type_2.hide()
         orgUi.pushButton_12.hide()
-        q = []
-        ans = []
-        typ = []
-        qid = []
-        q = Stu.scope_questions_title(lis[0], lis[1], lis[2], lis[3])
-        ans = Stu.scope_questions_answer(lis[0], lis[1], lis[2], lis[3])
-        typ = Stu.scope_questions_type(lis[0], lis[1], lis[2], lis[3])
-        qid = Stu.scope_questions_qid(lis[0], lis[1], lis[2], lis[3])
-        orgUi.question0.setText(q[0])
+        q = ["", "", "", ""]
+        ans = ["", "", "", ""]
+        typ = [0, 0, 0, 0]
+        qid = ["", "", "", ""]
+        q = Stu.scope_questions_title(ques_name, [chapters_name], x, user)
+        ans = Stu.scope_questions_answer(ques_name, [chapters_name], x, user)
+        typ = Stu.scope_questions_type(ques_name, [chapters_name], x, user)
+        qid = Stu.scope_questions_qid(ques_name, [chapters_name], x, user)
+        if q[0] != "":
+            orgUi.question0.setText(q[0])
+            orgUi.question0.clicked.connect(lambda: change_widget_q(q[0], ans[0], typ[0], qid[0]))
+        else:
+            orgUi.question0.hide()
+        if q[1] != "":
+            orgUi.question1.setText(q[1])
+            orgUi.question1.clicked.connect(lambda: change_widget_q(q[1], ans[1], typ[1], qid[1]))
+        else:
+            orgUi.question1.hide()
+        if q[2] != "":
+            orgUi.question2.setText(q[2])
+            orgUi.question2.clicked.connect(lambda: change_widget_q(q[2], ans[2], typ[2], qid[2]))
+        else:
+            orgUi.question2.hide()
+        if q[3] != "":
+            orgUi.question3.setText(q[3])
+            orgUi.question3.clicked.connect(lambda: change_widget_q(q[3], ans[3], typ[3], qid[3]))
+        else:
+            orgUi.question3.hide()
 
-        orgUi.question0.clicked.connect(lambda:change_widget_q(q[0], ans[0], typ[0],qid[0]))
-        orgUi.question1.setText(q[1])
-        orgUi.question1.clicked.connect(lambda:change_widget_q(q[1], ans[1], typ[1],qid[1]))
-        orgUi.question2.setText(q[2])
-        orgUi.question2.clicked.connect(lambda:change_widget_q(q[2], ans[2], typ[2],qid[2]))
-        orgUi.question3.setText(q[3])
-        orgUi.question3.clicked.connect(lambda:change_widget_q(q[3], ans[3], typ[3],qid[3]))
 
     def change_widget_q(text, answer, mytype, qid):
         print("qqqqqqq")
@@ -337,22 +352,24 @@ if __name__ == '__main__':
         b1 = 0
         c1 = 0
         d1 = 0
-        ans = list(answer)
-        if ans[0] == "1":
-            a1 = 1
-        if ans[1] == "1":
-            b1 = 1
-        if ans[2] == "1":
-            c1 = 1
-        if ans[3] == "1":
-            d1 = 1
+        print(answer)
+        if mytype == 0:
+            ans = list(answer)
+            if ans[0] == "1":
+                a1 = 1
+            if ans[1] == "1":
+                b1 = 1
+            if ans[2] == "1":
+                c1 = 1
+            if ans[3] == "1":
+                d1 = 1
         if mytype == 1:
             orgUi.page_2.show()
             orgUi.page.hide()
             orgUi.page_3.hide()
             orgUi.textBrowser_3.setText(text)
             given = orgUi.answer1.text()
-            orgUi.submit.clicked.connect(lambda:change_widget_submit(given,answer))
+            orgUi.submit.clicked.connect(lambda: change_widget_submit(given, answer))
         else:
             orgUi.page.show()
             orgUi.page_2.hide()
@@ -366,7 +383,7 @@ if __name__ == '__main__':
             orgUi.B.clicked.connect(lambda: change_widget_b(text, answer, mytype, qid))
             if orgUi.B.text() == "B!":
                 b = 1
-                print(b,end="b")
+                print(b, end="b")
 
             orgUi.C.clicked.connect(lambda: change_widget_c(text, answer, mytype, qid))
             if orgUi.C.text() == "C!":
@@ -376,16 +393,17 @@ if __name__ == '__main__':
             if orgUi.D.text() == "D!":
                 d = 1
 
-            orgUi.submit1.clicked.connect(lambda: change_widget_submit1(a,b,c,d,a1,b1,c1,d1))
+            orgUi.submit1.clicked.connect(lambda: change_widget_submit1(a, b, c, d, a1, b1, c1, d1))
 
-    def change_widget_submit1(a,b,c,d,a1,b1,c1,d1):
+
+    def change_widget_submit1(a, b, c, d, a1, b1, c1, d1):
         print("enter")
         if a == a1 and b == b1 and c == c1 and d == d1:
             right = 1
         else:
             right = 0
         print("********")
-        print (right)
+        print(right)
         print("********")
         if right == 0:
             if a1 == 1 and a1 == 1:
@@ -416,8 +434,8 @@ if __name__ == '__main__':
 
 
     def change_widget_next():
-        t =orgUi.label_2.text()
-        qid = int(t)+1
+        t = orgUi.label_2.text()
+        qid = int(t) + 1
         lis = Stu.get_question(qid)
 
         t = str(qid)
@@ -430,6 +448,8 @@ if __name__ == '__main__':
         orgUi.C.setStyleSheet("background-color: rgb(255, 255, 255);")
         orgUi.D.setStyleSheet("background-color: rgb(255, 255, 255);")
         orgUi.answer1.setText("")
+
+
     def change_widget_front():
         t = orgUi.label_2.text()
         qid = int(t) - 1
@@ -446,30 +466,36 @@ if __name__ == '__main__':
         orgUi.D.setStyleSheet("background-color: rgb(255, 255, 255);")
         orgUi.answer1.setText("")
 
+
     def change_widget_a(text, answer, mytype, qid):
-            orgUi.A.setText("A!")
-            orgUi.A.setStyleSheet("background-color: rgb(255, 203, 151);")
-            change_widget_q(text, answer, mytype, qid)
+        orgUi.A.setText("A!")
+        orgUi.A.setStyleSheet("background-color: rgb(255, 203, 151);")
+        change_widget_q(text, answer, mytype, qid)
+
 
     def change_widget_b(text, answer, mytype, qid):
-            orgUi.B.setText("B!")
-            orgUi.B.setStyleSheet("background-color: rgb(255, 203, 151);")
-            change_widget_q(text, answer, mytype, qid)
+        orgUi.B.setText("B!")
+        orgUi.B.setStyleSheet("background-color: rgb(255, 203, 151);")
+        change_widget_q(text, answer, mytype, qid)
+
 
     def change_widget_c(text, answer, mytype, qid):
-            orgUi.C.setText("C!")
-            orgUi.C.setStyleSheet("background-color: rgb(255, 203, 151);")
-            change_widget_q(text, answer, mytype, qid)
+        orgUi.C.setText("C!")
+        orgUi.C.setStyleSheet("background-color: rgb(255, 203, 151);")
+        change_widget_q(text, answer, mytype, qid)
+
 
     def change_widget_d(text, answer, mytype, qid):
-            orgUi.D.setText("D!")
-            orgUi.D.setStyleSheet("background-color: rgb(255, 203, 151);")
-            change_widget_q(text, answer, mytype, qid)
+        orgUi.D.setText("D!")
+        orgUi.D.setStyleSheet("background-color: rgb(255, 203, 151);")
+        change_widget_q(text, answer, mytype, qid)
 
-    def change_widget_submit(given,answer):  # 按下按钮
+
+    def change_widget_submit(given, answer):  # 按下按钮
         if given != answer:
             orgUi.answer1.setStyleSheet("background-color: rgb(255, 43, 15);")
         orgUi.label_5.setText(answer)
+
 
     def change_widget_star(given):
         orgUi.label_5.setText(given)
@@ -511,6 +537,8 @@ if __name__ == '__main__':
     def add_people_to_group():
         orgUi.waddp.show()
         print('add people to group')
+
+
     def graph_show():
         new_window = Graph.MainWindow(user)
         new_window.exec_()
@@ -545,6 +573,7 @@ if __name__ == '__main__':
     orgUi.waddpcg.clicked.connect(admin_action.chose_group)
     group_list.confirm_button.clicked.connect(admin_action.confirm_glist)
 
+
     def Modify_type():
         if orgUi.type_choose.currentText() == '填空':
             orgUi.answer_load_A.hide()
@@ -567,6 +596,7 @@ if __name__ == '__main__':
             orgUi.D_load.show()
             orgUi.answer_load.hide()
 
+
     orgUi.type_choose.currentIndexChanged.connect(Modify_type)
 
 
@@ -585,13 +615,13 @@ if __name__ == '__main__':
     def handleCheckboxD():
         modify_selection(3)
 
+
     orgUi.A_load.stateChanged.connect(handleCheckboxA)
     orgUi.B_load.stateChanged.connect(handleCheckboxB)
     orgUi.C_load.stateChanged.connect(handleCheckboxC)
     orgUi.D_load.stateChanged.connect(handleCheckboxD)
-    #orgUi.pushButton_8.clicked.connect(upload_file)
+    # orgUi.pushButton_8.clicked.connect(upload_file)
     orgUi.pushButton_8.clicked.connect(admin_action.upload)
-
 
     win.show()
     sys.exit(app.exec_())

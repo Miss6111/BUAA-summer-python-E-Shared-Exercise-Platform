@@ -529,8 +529,9 @@ def initial_data():
                                       public=True, creater='manager')
                 # title, answer, chapter, my_type, answer1, answer2, answer3, answer4, gap, public, creater
                 else:
-                    load_one_question(title, ''.join(answer), chapters[int(i / 150) + 1], 0, A, B, C, D, '', public=True,
-                                  creater='manager')
+                    load_one_question(title, ''.join(answer), chapters[int(i / 150) + 1], 0, A, B, C, D, '',
+                                      public=True,
+                                      creater='manager')
             else:  # 填空
                 load_one_question(title, '', chapters[int(i / 150) + 1], 1, A, B, C, D, gap, public=True,
                                   creater='manager')
@@ -559,37 +560,6 @@ def load_files(path, name):  # 需要规定文件格式？？再想
             # 默认是公开的
             load_one_question(title, answer, chapter, mytype, answer1, answer2, answer3, answer4, public=True,
                               creater=name)
-
-
-# def select_questions(chapters_name, mytype, user_name):  # 选择哪些chapters,填空,选择,权限
-#     """
-#
-#     :param chapters_name:
-#     :param type:
-#     :return:
-#     """
-#     # 自己创造的题+public的题+所属用户小组拥有的题
-#     # s = create_session()
-#     # q = s.query(Questions).filter(or_(Questions.chapter.in_(chapters_name), Questions.public == True)).filter(
-#     #     Questions.type == mytype).all()
-#     # groups = s.query(Stus).filter(Stus.name == user_name).first().groups
-#     # gids = []  # 用户在的所有组
-#     # for i in groups:
-#     #     gids.append(i.gid)
-#     #
-#     # questions = []
-#     # for i in q:  # 遍历每个问题
-#     #     qgids = []  # 问题属于的问题组
-#     #     for j in i.qgroups:
-#     #         qgids.append(j.gid)
-#     #     if len(s.query(Ggroup_group).filter(Ggroup_group.gid.in_(gids)).filter(
-#     #             Ggroup_group.qgid.in_(qgids)).all()) != 0:
-#     #         questions.append(i)
-#     #
-#     # s.close()
-#     # # 返回值是所有符合要求的问题
-#     # return questions
-#     pass
 
 
 # 根据关键词搜索问题
@@ -625,7 +595,7 @@ def scope_questions(ques_name, chapters_name, mytype, user_name):  # 关键词�
 
 
 # ************************************************************************************************************** #
-# 根据关键词搜索问题
+# 根据关键词搜索问题 ["Chapter_1","Chapter_2"]
 def scope_questions_title(ques_name, chapters_name, mytype, user_name):  # 关键词，章节，题型
     """
 
@@ -635,12 +605,14 @@ def scope_questions_title(ques_name, chapters_name, mytype, user_name):  # 关�
     :param user_name:
     :return:
     """
+    print([ques_name, chapters_name, mytype, user_name])
     s = create_session()
     # 搜索范围包括questions中的public或上传者为本人的，和qgroup中的
     uid = s.query(Stus).filter(Stus.name == user_name).first().uid
     stu = s.query(Stus).filter(Stus.name == user_name).first()
     qgroupids = [i.gid for i in stu.qgroups]
-    q = s.query(Questions).filter(Questions.chapter.in_(chapters_name)).filter(Questions.type == mytype).filter(
+    q = s.query(Questions).filter(Questions.chapter.in_(chapters_name)).filter(
+        or_(Questions.type == mytype, Questions.type == 2 - mytype)).filter(
         Questions.title.like('%' + ques_name + '%')).all()
     ques = []
     for i in q:
@@ -651,6 +623,7 @@ def scope_questions_title(ques_name, chapters_name, mytype, user_name):  # 关�
                 break
         if i.uid == uid or i.public == True or flag == True:
             ques.append(i.title)
+            print([i.type, i.chapter])
     # 目前仅支持关键词为title子串
     s.commit()
     s.close()
@@ -671,7 +644,8 @@ def scope_questions_answer(ques_name, chapters_name, mytype, user_name):  # 关�
     uid = s.query(Stus).filter(Stus.name == user_name).first().uid
     stu = s.query(Stus).filter(Stus.name == user_name).first()
     qgroupids = [i.gid for i in stu.qgroups]
-    q = s.query(Questions).filter(Questions.chapter.in_(chapters_name)).filter(Questions.type == mytype).filter(
+    q = s.query(Questions).filter(Questions.chapter.in_(chapters_name)).filter(
+        or_(Questions.type == mytype, Questions.type == 2 - mytype)).filter(
         Questions.title.like('%' + ques_name + '%')).all()
     ques = []
     for i in q:
@@ -702,7 +676,8 @@ def scope_questions_type(ques_name, chapters_name, mytype, user_name):  # 关键
     uid = s.query(Stus).filter(Stus.name == user_name).first().uid
     stu = s.query(Stus).filter(Stus.name == user_name).first()
     qgroupids = [i.gid for i in stu.qgroups]
-    q = s.query(Questions).filter(Questions.chapter.in_(chapters_name)).filter(Questions.type == mytype).filter(
+    q = s.query(Questions).filter(Questions.chapter.in_(chapters_name)).filter(
+        or_(Questions.type == mytype, Questions.type == 2 - mytype)).filter(
         Questions.title.like('%' + ques_name + '%')).all()
     ques = []
     for i in q:
@@ -733,7 +708,8 @@ def scope_questions_qid(ques_name, chapters_name, mytype, user_name):  # 关键�
     uid = s.query(Stus).filter(Stus.name == user_name).first().uid
     stu = s.query(Stus).filter(Stus.name == user_name).first()
     qgroupids = [i.gid for i in stu.qgroups]
-    q = s.query(Questions).filter(Questions.chapter.in_(chapters_name)).filter(Questions.type == mytype).filter(
+    q = s.query(Questions).filter(Questions.chapter.in_(chapters_name)).filter(
+        or_(Questions.type == mytype, Questions.type == 2 - mytype)).filter(
         Questions.title.like('%' + ques_name + '%')).all()
     ques = []
     for i in q:
@@ -1069,6 +1045,36 @@ def get_accurate_rate(user_name):  # 查record，每章做题数，每章正确�
     return [chap_total, chap_right]
 
 
+def star_questioin(user_name, qid):
+    s = create_session()
+    stu = s.query(Stus).filter(Stus.name == user_name).first()
+    question = s.query(Questions).filter(Questions.qid == qid).first()
+    stu.starquestions.append(question)
+    s.commit()
+    s.close()
+
+
+def get_starquestion(user_name):
+    s = create_session()
+    stu = s.query(Stus).filter(Stus.name == user_name).first()
+    ques = []
+    for i in stu.starquestions:
+        ques.append(i.qid)
+    return ques
+
+
+def draft(ques_name):  # 关键词，章节，题型
+
+    s = create_session()
+    q = s.query(Questions).filter(Questions.title.like('%' + ques_name + '%')).first()
+    question = []
+    for i in q:
+        question.append(i.qid)
+    s.commit()
+    s.close()
+    return question #[q.qid, q.type, q.chapter]
+
+
 if __name__ == '__main__':
     # print(get_question(1))
     # print(do_question(1, "RRRR", "", "1903年11月17日；英国"))
@@ -1084,6 +1090,7 @@ if __name__ == '__main__':
     #                 "RRRR")
     pass
     Base.metadata.create_all(engine)  # 一键在数据库生成所有的类
+    print(draft("莱特"))
     # change_quote("yeah", "manager")
     # s = create_session()
     # questions = s.query(Questions).filter(Questions.uid == 21371321).all()
@@ -1109,7 +1116,7 @@ if __name__ == '__main__':
     # print(scope_questions("四次", ["Chapter_1", "Chapter_2"], 1, "manager"))
     # print(do_question(1, "manager", "0001", ""))
     ################################
-    initial_data()
+    # initial_data()
     # print(do_question(1, "manager", "0010", ""))
     # print(do_question(2, "manager", "", "1903年12月17日；美国"))
     # print(do_question(1, "manager", "0001", ""))

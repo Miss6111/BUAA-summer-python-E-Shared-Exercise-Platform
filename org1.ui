@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1003</width>
-    <height>834</height>
+    <width>1037</width>
+    <height>617</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -137,7 +137,7 @@ background-color: rgb(255, 170, 0);</string>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>4</number>
     </property>
     <widget class="QWidget" name="my_ad">
      <widget class="QWidget" name="wad" native="true">
@@ -1136,7 +1136,7 @@ font: 12pt &quot;Agency FB&quot;;
         <property name="geometry">
          <rect>
           <x>-270</x>
-          <y>240</y>
+          <y>0</y>
           <width>921</width>
           <height>491</height>
          </rect>
@@ -1444,8 +1444,8 @@ background-color: rgb(255, 203, 151);</string>
       <widget class="QPushButton" name="atg">
        <property name="geometry">
         <rect>
-         <x>680</x>
-         <y>30</y>
+         <x>60</x>
+         <y>370</y>
          <width>161</width>
          <height>71</height>
         </rect>
@@ -1539,6 +1539,74 @@ background-color: rgb(255, 203, 151);</string>
         <string/>
        </property>
       </widget>
+      <widget class="QLabel" name="label_3">
+       <property name="geometry">
+        <rect>
+         <x>130</x>
+         <y>110</y>
+         <width>81</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>个人谏言：</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_motto">
+       <property name="geometry">
+        <rect>
+         <x>210</x>
+         <y>110</y>
+         <width>441</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>hello world！</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="password_change">
+       <property name="geometry">
+        <rect>
+         <x>240</x>
+         <y>370</y>
+         <width>161</width>
+         <height>71</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>17</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color:rgb(255, 170, 0)</string>
+       </property>
+       <property name="text">
+        <string>改密码</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="motto_change">
+       <property name="geometry">
+        <rect>
+         <x>430</x>
+         <y>370</y>
+         <width>161</width>
+         <height>71</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>17</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color:rgb(255, 170, 0)</string>
+       </property>
+       <property name="text">
+        <string>改谏言</string>
+       </property>
+      </widget>
      </widget>
     </widget>
     <widget class="QWidget" name="problems">
@@ -1560,12 +1628,12 @@ background-color: rgb(255, 203, 151);</string>
        <rect>
         <x>40</x>
         <y>60</y>
-        <width>811</width>
+        <width>1011</width>
         <height>381</height>
        </rect>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="page">
        <widget class="QPushButton" name="star">

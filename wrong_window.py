@@ -12,7 +12,35 @@ import sqlalchemy.orm.session  # 数据库操作核心
 from sqlalchemy import Column
 from sqlalchemy.ext.declarative import declarative_base  # 父类
 
+class ResultDialog(QDialog):
+    def __init__(self, ans, me, all):
+        super().__init__(None)
+        self.setWindowTitle('结果窗口')
 
+        layout = QVBoxLayout()
+        txt = ''
+        if ans:
+            txt = '正确'
+        else:
+            txt = '错误'
+        self.label_correct = QLabel(txt, self)
+        txt2 = '您的正确率是: ' + str(me) + '%'
+        self.label_correct_rate = QLabel(txt2, self)
+        txt3 = '所有用户的正确率是: '+ str(all) + '%'
+        self.label_all_correct_rate = QLabel(txt3, self)
+
+        self.progress_bar = QProgressBar(self)
+        self.progress_bar.setValue(me)
+        self.all_progress_bar = QProgressBar(self)
+        self.all_progress_bar.setValue(all)
+
+        layout.addWidget(self.label_correct)
+        layout.addWidget(self.label_correct_rate)
+        layout.addWidget(self.progress_bar)
+        layout.addWidget(self.label_all_correct_rate)
+        layout.addWidget(self.all_progress_bar)
+
+        self.setLayout(layout)
 class WrongWindow(QWidget):
     def __init__(self):
         super(QWidget, self).__init__()
@@ -23,7 +51,8 @@ class WrongWindow(QWidget):
         if os.path.exists('temp'):
             with open('temp', "rt") as file:
                 user = file.readline()
-        self.username = 'manager' # todo test
+        self.username = user
+        #  todo test self.username = 'manager'
 
         self.num = 10
         self.chap = []
@@ -98,7 +127,6 @@ class WrongWindow(QWidget):
         else:
             self.show_exercise(self.ques[self.cur])
 
-
     def show_exercise(self, qid):
         #  todo backend
         lis = Stu.get_question(qid)
@@ -147,45 +175,43 @@ class WrongWindow(QWidget):
     def select_do_question_a(self):
         lis = Stu.do_question(self.ques[self.cur], self.username, '1000', '')
         answer = lis[0] == 1
-        text = ''
-        if answer:
-            text = '正确'
-        else:
-            text = '错误'
-        reply = QMessageBox.about(self, '', text)
+        myrate = lis[3]
+        allrate = lis[4]
+        result = ResultDialog(answer,myrate,allrate)
+        result_dialog.exec_()
+        # text = ''
+        # if answer:
+        #     text = '正确'
+        # else:
+        #     text = '错误'
+        # reply = QMessageBox.about(self, '', text)
         self.next()
 
     def select_do_question_b(self):
         lis = Stu.do_question(self.ques[self.cur], self.username, '0100', '')
         answer = lis[0] == 1
-        text = ''
-        if answer:
-            text = '正确'
-        else:
-            text = '错误'
-        reply = QMessageBox.about(self, '', text)
+        myrate = lis[3]
+        allrate = lis[4]
+        result = ResultDialog(answer, myrate, allrate)
+        result_dialog.exec_()
         self.next()
 
     def select_do_question_c(self):
         lis = Stu.do_question(self.ques[self.cur], self.username, '0010', '')
         answer = lis[0] == 1
-        text = ''
-        if answer:
-            text = '正确'
-        else:
-            text = '错误'
-        reply = QMessageBox.about(self, '', text)
+        myrate = lis[3]
+        allrate = lis[4]
+        result = ResultDialog(answer, myrate, allrate)
+        result_dialog.exec_()
         self.next()
 
     def select_do_question_d(self):
         lis = Stu.do_question(self.ques[self.cur], self.username, '0001', '')
         answer = lis[0] == 1
-        text = ''
-        if answer:
-            text = '正确'
-        else:
-            text = '错误'
-        reply = QMessageBox.about(self, '', text)
+        myrate = lis[3]
+        allrate = lis[4]
+        result = ResultDialog(answer, myrate, allrate)
+        result_dialog.exec_()
         self.next()
 
     def blank_do_question(self):
@@ -193,12 +219,10 @@ class WrongWindow(QWidget):
         myans = line0
         lis = Stu.do_question(self.ques[self.cur], self.username, 0, myans)
         answer = lis[0] == 1
-        text = ''
-        if answer:
-            text = '正确'
-        else:
-            text = '错误'
-        reply = QMessageBox.about(self, '', text)
+        myrate = lis[3]
+        allrate = lis[4]
+        result = ResultDialog(answer, myrate, allrate)
+        result_dialog.exec_()
         self.next()
 
     def mul_do_question(self):
@@ -213,14 +237,12 @@ class WrongWindow(QWidget):
                 myans = myans + '1'
             else:
                 myans = myans + '0'
-        lis = Stu.do_question(self.ques[self.cur], self.username,myans, '')
+        lis = Stu.do_question(self.ques[self.cur], self.username, myans, '')
         answer = lis[0] == 1
-        text = ''
-        if answer:
-            text = '正确'
-        else:
-            text = '错误'
-        reply = QMessageBox.about(self, '', text)
+        myrate = lis[3]
+        allrate = lis[4]
+        result = ResultDialog(answer, myrate, allrate)
+        result_dialog.exec_()
         self.next()
 
     def button_init(self):

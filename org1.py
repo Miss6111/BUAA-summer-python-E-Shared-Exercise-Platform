@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1048, 834)
+        MainWindow.resize(1500, 1000)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.label = QtWidgets.QLabel(self.centralwidget)
@@ -405,7 +405,7 @@ class Ui_MainWindow(object):
         self.confirm_button.setObjectName("confirm_button")
         self.widget_ques = QtWidgets.QWidget(self.fsearch_2)
         self.widget_ques.setEnabled(True)
-        self.widget_ques.setGeometry(QtCore.QRect(-270, 240, 921, 491))
+        self.widget_ques.setGeometry(QtCore.QRect(-270, 0, 921, 491))
         self.widget_ques.setStyleSheet("")
         self.widget_ques.setObjectName("widget_ques")
         self.question0 = QtWidgets.QPushButton(self.widget_ques)
@@ -573,7 +573,7 @@ class Ui_MainWindow(object):
         self.label_2.setGeometry(QtCore.QRect(130, 150, 591, 211))
         self.label_2.setObjectName("label_2")
         self.stackedWidget_2 = QtWidgets.QStackedWidget(self.problems)
-        self.stackedWidget_2.setGeometry(QtCore.QRect(40, 60, 811, 381))
+        self.stackedWidget_2.setGeometry(QtCore.QRect(40, 60, 1061, 381))
         self.stackedWidget_2.setObjectName("stackedWidget_2")
         self.page = QtWidgets.QWidget()
         self.page.setObjectName("page")
