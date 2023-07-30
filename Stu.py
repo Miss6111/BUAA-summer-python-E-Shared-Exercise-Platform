@@ -1,4 +1,5 @@
 import openpyxl
+import sympy
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -467,7 +468,8 @@ def load_one_question(title, answer, chapter, my_type, answer1, answer2, answer3
     s = create_session()
     c = s.query(Chapters).filter(Chapters.name == chapter).first()
     qid = len(s.query(Questions).all())
-    q = Questions(qid=qid, title=title, answer=answer, type=my_type, answerA=answer1, answerB=answer2, answerC=answer3,
+    q = Questions(qid=qid + 1, title=title, answer=answer, type=my_type, answerA=answer1, answerB=answer2,
+                  answerC=answer3,
                   answerD=answer4, gap=gap, public=public, uid=s.query(Stus).filter(Stus.name == creater).first().uid,
                   total=0, right=0, chapter=chapter, name=title[:10])
     print(gap)
@@ -601,7 +603,7 @@ def scope_questions(ques_name, chapters_name, mytype, user_name):  # 关键词�
     uid = s.query(Stus).filter(Stus.name == user_name).first().uid
     stu = s.query(Stus).filter(Stus.name == user_name).first()
     qgroupids = [i.gid for i in stu.qgroups]
-    q = s.query(Questions).filter(Questions.chapter in chapters_name).filter(Questions.type == mytype).filter(
+    q = s.query(Questions).filter(Questions.chapter.in_(chapters_name)).filter(Questions.type == mytype).filter(
         Questions.title.like('%' + ques_name + '%')).all()
     ques = []
     for i in q:
@@ -956,28 +958,42 @@ def personalized_recommendation(qnum, chapters_name, choose, gap, user_name):
             ques.append(id)
     for i in range(len(ques)):
         for j in range(i + 1, len(ques)):
-            a = s.query(Records).filter(Records.uid == uid, Records.qid == ques[i]).all().rate
-            b = s.query(Records).filter(Records.uid == uid, Records.qid == ques[j]).all().rate
+            a = s.query(Records).filter(Records.uid == uid).filter(Records.qid == ques[i]).first().rate
+            b = s.query(Records).filter(Records.uid == uid).filter(Records.qid == ques[j]).first().rate
             if a > b:
                 ques[i], ques[j] = ques[j], ques[i]
     # 用户做过的题里已经足够生成qnum大小的题组了
-    if qnum >= len(ques):
+    if qnum <= len(ques):
         s.commit()
         s.close()
         return ques[0:qnum]
 
     # 在用户没做过Questions里选出出错率比较高的补齐
     else:
-        qgroups = s.query(Stus).filter(Stus.name == user_name).first().qgroups
-        todo = s.query(Questions).filter(or_(Questions.uid == uid, Questions.public == True,
-                                             Questions.qgroups.in_(qgroups))) \
-            .filter(Questions.chapter.in_(chapters_name)).filter(Questions.type == 1 - choose,
-                                                                 Questions.type == gap).all()
-        for i in range(len(todo)):
-            for j in range(i + 1, len(todo)):
-                if todo[i].right / todo[i].total > todo[j].right / todo[j].total:
-                    todo[i], todo[j] = todo[j], todo[i]
-        for q in todo:
+        stu = s.query(Stus).filter(Stus.name == user_name).first()
+        qgroupids = [i.gid for i in stu.qgroups]
+        # todo = s.query(Questions).filter(Questions.chapter in chapters_name).filter(Questions.type == 1 - choose,
+        #                                                                               Questions.type == gap).all()
+        todo1 = s.query(Questions).filter(Questions.chapter.in_(chapters_name)).filter(
+            or_(Questions.type == 1 - choose, Questions.type == gap)).all()
+        todo2 = []
+        for i in todo1:
+            flag = False
+            for j in i.qgroups:
+                if j.gid in qgroupids:
+                    flag = True
+                    break
+            if i.uid == uid or i.public == True or flag == True:
+                todo2.append(i)
+        # 排序
+        for i in range(len(todo2)):
+            for j in range(i + 1, len(todo2)):
+                if todo2[i].total == 0 and todo2[j].total != 0:
+                    todo2[i], todo2[j] = todo2[j], todo2[i]
+                elif todo2[i].total != 0 and todo2[j].total != 0:
+                    if todo2[i].right / todo2[i].total > todo2[j].right / todo2[j].total:
+                        todo2[i], todo2[j] = todo2[j], todo2[i]
+        for q in todo2:
             if len(ques) == qnum:
                 s.commit()
                 s.close()
@@ -986,6 +1002,23 @@ def personalized_recommendation(qnum, chapters_name, choose, gap, user_name):
                 ques.append(q.qid)
     # 返回问题id
 
+
+# s = create_session()
+#     # 搜索范围包括questions中的public或上传者为本人的，和qgroup中的
+#     uid = s.query(Stus).filter(Stus.name == user_name).first().uid
+#     stu = s.query(Stus).filter(Stus.name == user_name).first()
+#     qgroupids = [i.gid for i in stu.qgroups]
+#     q = s.query(Questions).filter(Questions.chapter in chapters_name).filter(Questions.type == mytype).filter(
+#         Questions.title.like('%' + ques_name + '%')).all()
+#     ques = []
+#     for i in q:
+#         flag = False
+#         for j in i.qgroups:
+#             if j.gid in qgroupids:
+#                 flag = True
+#                 break
+#         if i.uid == uid or i.public == True or flag == True:
+#             ques.append(i)
 
 # 返回值是Records行
 
@@ -1047,7 +1080,13 @@ if __name__ == '__main__':
     #                 "RRRR")
     pass
     Base.metadata.create_all(engine)  # 一键在数据库生成所有的类
-    print(personalized_recommendation(5, ["Chapter_1"], 1, 1, "manager"))
+    # s = create_session()
+    # questions = s.query(Questions).filter(Questions.uid == 21371321).all()
+    # for i in questions:
+    #     print(i.qid)
+    # s.commit()
+    # s.close()
+    print(personalized_recommendation(5, ["Chapter_1", "Chapter_2"], 1, 1, "manager"))
     # Base.metadata.drop_all(engine)#一键清除S
     ###########################
     # 单题测试
@@ -1061,7 +1100,8 @@ if __name__ == '__main__':
     # load_one_question('2008年09月28日，欧洲空中客车的A-320飞机在中国_____ 的总装公司投产。', '0001',
     #                   'Chapter_1', 1, '北京', '西安', '上海', '天津', '', True, 'manager')
     # print(get_question(1))
-    # print(scope_questions("2008", ["Chapter_1"], 1, "manager"))
+    # print(get_question(3))
+    # print(scope_questions("四次", ["Chapter_1", "Chapter_2"], 1, "manager"))
     # print(do_question(1, "manager", "0001", ""))
     ################################
     # initial_data()
