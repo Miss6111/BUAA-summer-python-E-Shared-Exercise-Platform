@@ -157,11 +157,26 @@ if __name__ == '__main__':
 
     orgUi = org1.Ui_MainWindow()
     orgUi.setupUi(win)
+
+    orgUi.scrollArea.hide()
+    orgUi.scrollArea_3.hide()
+    orgUi.load.hide()
+    orgUi.load_2.hide()
+    orgUi.comment.show()
+    orgUi.comment_2.show()
+    orgUi.textEdit_comment.hide()
+    orgUi.textEdit_comment_2.hide()
+    orgUi.scrollArea2.hide()
+    orgUi.scrollArea3.hide()
+    orgUi.scrollArea5.hide()
+    orgUi.scrollArea2_3.hide()
+    orgUi.scrollArea3_3.hide()
+    orgUi.scrollArea5_3.hide()
     orgUi.stackedWidget.setCurrentIndex(1)
 
     page = 1
 
-    user = 'fmy'
+    user = 'manager'
     password = ""
     # if os.path.exists('temp'):
     #     with open('temp', "rt") as file:
@@ -216,7 +231,7 @@ if __name__ == '__main__':
         t = str(1)
         print(t)
         orgUi.label_2.setText(t)
-        change_widget_q(lis[0], lis[2], lis[1])
+        change_widget_q(lis[0], lis[2], lis[1],1)
 
 
     def change_widget_4():  # 错误日志
@@ -248,7 +263,7 @@ if __name__ == '__main__':
 
     def change_widget_7():  # 上传
 
-        user = 'fmy'
+        user = 'manager'
         if os.path.exists('temp'):
             with open('temp', "rt") as file:
                 user = file.readline()
@@ -292,7 +307,7 @@ if __name__ == '__main__':
         orgUi.pushButton_12.clicked.connect(lambda: change_widget_12())
 
 
-    def change_widget_12():  # 搜索按键range ques_name,chapters_name,mytype,user
+    def change_widget_12():  # 搜索按键ques_name,chapters_name,mytype,user
         user = 'manager'
         if os.path.exists('temp'):
             with open('temp', "rt") as file:
@@ -325,17 +340,17 @@ if __name__ == '__main__':
         qid = Stu.scope_questions_qid(ques_name, [chapters_name], x, user)
         if q[0] != "":
             orgUi.question0.setText(q[0])
-            orgUi.question0.clicked.connect(lambda: change_widget_q(q[0], ans[0], typ[0], qid[0]))
+            orgUi.question0.clicked.connect(lambda: change_widget_q(q[0], ans[0], typ[0], qid[0],0))
         else:
             orgUi.question0.hide()
         if q[1] != "":
             orgUi.question1.setText(q[1])
-            orgUi.question1.clicked.connect(lambda: change_widget_q(q[1], ans[1], typ[1], qid[1]))
+            orgUi.question1.clicked.connect(lambda: change_widget_q(q[1], ans[1], typ[1], qid[1],0))
         else:
             orgUi.question1.hide()
         if q[2] != "":
             orgUi.question2.setText(q[2])
-            orgUi.question2.clicked.connect(lambda: change_widget_q(q[2], ans[2], typ[2], qid[2]))
+            orgUi.question2.clicked.connect(lambda: change_widget_q(q[2], ans[2], typ[2], qid[2],0))
         else:
             orgUi.question2.hide()
         if q[3] != "":
@@ -345,17 +360,23 @@ if __name__ == '__main__':
             orgUi.question3.hide()
 
 
-    def change_widget_q(text, answer, mytype, qid):
+    def change_widget_q(text, answer, mytype, qid,flag):
+        ans = ''
+        lis = Stu.get_question(qid)
         user = 'manager'
         if os.path.exists('temp'):
             with open('temp', "rt") as file:
                 user = file.readline()
         print("qqqqqqq")
         orgUi.stackedWidget.setCurrentIndex(5)
-        t = str(qid)
-        print(t)
-        ans = ''
-        orgUi.label_2.setText(t)
+        if flag == 0:
+            t = str(qid)
+            print(qid)
+            orgUi.label_2.setText(t)
+        else:
+            t = orgUi.label_2.text()
+            qid = int(t)
+            print(qid)
         a = 0
         b = 0
         c = 0
@@ -381,20 +402,24 @@ if __name__ == '__main__':
             orgUi.page.show()
             orgUi.page_2.hide()
             orgUi.page_3.hide()
+            orgUi.A.setText(lis[3])
+            orgUi.B.setText(lis[4])
+            orgUi.C.setText(lis[5])
+            orgUi.D.setText(lis[6])
             orgUi.textBrowser_2.setText(text)
             orgUi.A.clicked.connect(lambda: change_widget_a(text, answer, mytype, qid))
             if orgUi.A.text() == "A!":
-                myans[0] ='1'
+                myans[0] = '1'
                 print(a, end="a")
 
             orgUi.B.clicked.connect(lambda: change_widget_b(text, answer, mytype, qid))
             if orgUi.B.text() == "B!":
-                myans[1] ='1'
+                myans[1] = '1'
                 print(b, end="b")
 
             orgUi.C.clicked.connect(lambda: change_widget_c(text, answer, mytype, qid))
             if orgUi.C.text() == "C!":
-                myans[2] ='1'
+                myans[2] = '1'
 
             orgUi.D.clicked.connect(lambda: change_widget_d(text, answer, mytype, qid))
             if orgUi.D.text() == "D!":
@@ -405,35 +430,40 @@ if __name__ == '__main__':
 
 
     def change_widget_submit1(qid, user, ans, answer):
+        liss = Stu.get_question(qid)
+        orgUi.A.setText(liss[3])
+        orgUi.B.setText(liss[4])
+        orgUi.C.setText(liss[5])
+        orgUi.D.setText(liss[6])
         print("enter")
         lis = Stu.do_question(qid, user, ans, ans)
         right = lis[0]
-        answers = list[answer]
+        answers = list(answer)
         if right == False:
             if answers[0] == '1':
                 orgUi.A.setStyleSheet("background-color: rgb(69, 188, 55);")  # green
             else:
                 orgUi.A.setStyleSheet("background-color: rgb(255, 43, 15);")  # red
-            if answers[0] == '1':
+            if answers[1] == '1':
                 orgUi.B.setStyleSheet("background-color: rgb(69, 188, 55);")
             else:
                 orgUi.B.setStyleSheet("background-color: rgb(255, 43, 15);")
-            if answers[0] == '1':
+            if answers[2] == '1':
                 orgUi.C.setStyleSheet("background-color: rgb(69, 188, 55);")
             else:
                 orgUi.C.setStyleSheet("background-color: rgb(255, 43, 15);")
-            if answers[0] == '1':
+            if answers[3] == '1':
                 orgUi.D.setStyleSheet("background-color: rgb(69, 188, 55);")
             else:
                 orgUi.D.setStyleSheet("background-color: rgb(255, 43, 15);")
         else:
             if answers[0] == '1':
                 orgUi.A.setStyleSheet("background-color: rgb(69, 188, 55);")
-            if answers[0] == '1':
+            if answers[1] == '1':
                 orgUi.B.setStyleSheet("background-color: rgb(69, 188, 55);")
-            if answers[0] == '1':
+            if answers[2] == '1':
                 orgUi.C.setStyleSheet("background-color: rgb(69, 188, 55);")
-            if answers[0] == '1':
+            if answers[3] == '1':
                 orgUi.D.setStyleSheet("background-color: rgb(69, 188, 55);")
 
     def change_widget_submit(qid, user, ans, answer):  # 按下按钮
@@ -452,16 +482,17 @@ if __name__ == '__main__':
         lis = Stu.get_question(qid)
 
         t = str(qid)
-        print(t)
         orgUi.label_2.setText(t)
-        change_widget_q(lis[0], lis[2], lis[1], qid)
         orgUi.A.setStyleSheet("background-color: rgb(255, 255, 255);")
 
         orgUi.B.setStyleSheet("background-color: rgb(255, 255, 255);")
         orgUi.C.setStyleSheet("background-color: rgb(255, 255, 255);")
         orgUi.D.setStyleSheet("background-color: rgb(255, 255, 255);")
+        orgUi.label_5.setText("")
         orgUi.answer1.setText("")
+
         orgUi.answer1.setStyleSheet("background-color: rgb(255, 255, 255);")
+        change_widget_q(lis[0], lis[2], lis[1], qid,1)
 
 
     def change_widget_front():
@@ -472,53 +503,192 @@ if __name__ == '__main__':
         t = str(qid)
         print(t)
         orgUi.label_2.setText(t)
-        change_widget_q(lis[0], lis[2], lis[1], qid)
         orgUi.A.setStyleSheet("background-color: rgb(255, 255, 255);")
 
         orgUi.B.setStyleSheet("background-color: rgb(255, 255, 255);")
         orgUi.C.setStyleSheet("background-color: rgb(255, 255, 255);")
         orgUi.D.setStyleSheet("background-color: rgb(255, 255, 255);")
         orgUi.answer1.setText("")
+        orgUi.label_5.setText("")
+
         orgUi.answer1.setStyleSheet("background-color: rgb(255, 255, 255);")
+        change_widget_q(lis[0], lis[2], lis[1], qid,1)
 
 
-    def change_widget_a(text, answer, mytype, qid):
+    def change_widget_a():
         orgUi.A.setText("A!")
         orgUi.A.setStyleSheet("background-color: rgb(255, 203, 151);")
-        change_widget_q(text, answer, mytype, qid)
 
-
-    def change_widget_b(text, answer, mytype, qid):
+    def change_widget_b():
         orgUi.B.setText("B!")
         orgUi.B.setStyleSheet("background-color: rgb(255, 203, 151);")
-        change_widget_q(text, answer, mytype, qid)
 
-
-    def change_widget_c(text, answer, mytype, qid):
+    def change_widget_c():
         orgUi.C.setText("C!")
         orgUi.C.setStyleSheet("background-color: rgb(255, 203, 151);")
-        change_widget_q(text, answer, mytype, qid)
 
-
-    def change_widget_d(text, answer, mytype, qid):
+    def change_widget_d():
         orgUi.D.setText("D!")
         orgUi.D.setStyleSheet("background-color: rgb(255, 203, 151);")
-        change_widget_q(text, answer, mytype, qid)
 
 
+    def change_widget_comment_next():
+        s = orgUi.notice.text()
+        notice = int(s)
+        if notice != 1:
+            print(notice)
+            exec('orgUi.scrollArea' + s + ".hide()")
+        notice += 1
+        s = str(notice)
+        if notice < 6:
+            orgUi.notice.setText(s)
+            exec('orgUi.scrollArea' + s + ".show()")
+
+    def change_widget_comment_next_2():
+        s = orgUi.notice_2.text()
+        notice = int(s)
+        if notice != 1:
+            exec('orgUi.scrollArea' + s + "_3" + ".hide()")
+        notice += 1
+        s = str(notice)
+        if notice < 6:
+            orgUi.notice_2.setText(s)
+            exec('orgUi.scrollArea' + s + "_3" + ".show()")
+        else:
+            orgUi.notice_2.setText("1")
+
+    def change_widget_comment():
+        s = orgUi.notice.setText("1")
+        orgUi.scrollArea.show()
+        orgUi.scrollArea2.hide()
+        orgUi.scrollArea3.hide()
+        orgUi.scrollArea4.hide()
+        orgUi.scrollArea5.hide()
+        orgUi.load.show()
+        orgUi.comment_next.show()
+        orgUi.textEdit_comment.show()
+
+    def change_widget_comment_2():
+        s = orgUi.notice_2.setText("1")
+        orgUi.scrollArea_3.show()
+        orgUi.scrollArea2_3.hide()
+        orgUi.scrollArea3_3.hide()
+        orgUi.scrollArea4_3.hide()
+        orgUi.scrollArea5_3.hide()
+        orgUi.load_2.show()
+        orgUi.comment_next_2.show()
+        orgUi.textEdit_comment_2.show()
+
+    def change_widget_load():
+        comment = orgUi.textEdit_comment.toPlainText()
+        x = orgUi.comment1.toPlainText()
+
+        user = 'manager'
+        if os.path.exists('temp'):
+            with open('temp', "rt") as file:
+                user = file.readline()
+
+        text = ''.join([user,':',comment])
+
+        for i in range(1,31):
+            exec("x" + "=" + "orgUi.comment" + str(i) + ".toPlainText()")
+            print(x)
+            if x == "":
+                exec('orgUi.comment' + str(i) + ".setText(text)")
+                break
+            else:
+                x = ""
+                continue
+            #orgUi.comment1.setText(text)
+
+    def change_widget_load_2():
+        comment = orgUi.textEdit_comment_2.toPlainText()
+        x = orgUi.comment1_7.toPlainText()
+
+        user = 'manager'
+        if os.path.exists('temp'):
+            with open('temp', "rt") as file:
+                user = file.readline()
+
+        text = ''.join([user,':',comment])
+
+        for i in range(1,31):
+            exec("x" + "=" + "orgUi.comment" + str(i) + "_7" + ".toPlainText()")
+            print(x)
+            if x == "":
+                exec('orgUi.comment' + str(i) + "_7" + ".setText(text)")
+                break
+            else:
+                x = ""
+                continue
+            #orgUi.comment1.setText(text)
+
+    def change_widget_star():
+        user = 'manager'
+        if os.path.exists('temp'):
+            with open('temp', "rt") as file:
+                user = file.readline()
+        qid = orgUi.label_2.text()
+        Stu.star_questioin(user, qid)
 
 
+    def change_widget_9(i):#只显示收藏题
+        user = 'manager'
+        if os.path.exists('temp'):
+            with open('temp', "rt") as file:
+                user = file.readline()
+        qid = Stu.get_starquestion(user)
+        lis = Stu.get_question(qid[i])
+        change_widget_q(lis[0], lis[2], lis[1], qid[i], 1)
+        orgUi.pushButton_30.clicked.connect(lambda:change_widget_next_star(qid, i))
+        orgUi.pushButton_36.clicked.connect(lambda:change_widget_front_star(qid, i))
 
-    def change_widget_star(given):
-        orgUi.label_5.setText(given)
+    def change_widget_next_star(qid,i):
+        i = i+1
+        x = qid[i]
+        t = str(x)
+        orgUi.label_2.setText(t)
+        orgUi.A.setStyleSheet("background-color: rgb(255, 255, 255);")
 
+        orgUi.B.setStyleSheet("background-color: rgb(255, 255, 255);")
+        orgUi.C.setStyleSheet("background-color: rgb(255, 255, 255);")
+        orgUi.D.setStyleSheet("background-color: rgb(255, 255, 255);")
+        orgUi.label_5.setText("")
+        orgUi.answer1.setText("")
+        lis = Stu.get_question(x)
+        orgUi.answer1.setStyleSheet("background-color: rgb(255, 255, 255);")
+        change_widget_q(lis[0], lis[2], lis[1], x, 1)
+        change_widget_9(i)
 
-    def change_widget_star2(given):
-        orgUi.label_5.setText(given)
+    def change_widget_front_star(qid,i):
+        i = i - 1
+        x = qid[i]
+        t = str(x)
+        orgUi.label_2.setText(t)
+        orgUi.A.setStyleSheet("background-color: rgb(255, 255, 255);")
+
+        orgUi.B.setStyleSheet("background-color: rgb(255, 255, 255);")
+        orgUi.C.setStyleSheet("background-color: rgb(255, 255, 255);")
+        orgUi.D.setStyleSheet("background-color: rgb(255, 255, 255);")
+        orgUi.label_5.setText("")
+        orgUi.answer1.setText("")
+        lis = Stu.get_question(x)
+        orgUi.answer1.setStyleSheet("background-color: rgb(255, 255, 255);")
+        change_widget_q(lis[0], lis[2], lis[1], x, 1)
+        change_widget_9(i)
+
+    def change_widget_star2():
+        user = 'manager'
+        if os.path.exists('temp'):
+            with open('temp', "rt") as file:
+                user = file.readline()
+        qid = orgUi.label_2.text()
+        Stu.star_questioin(user, qid)
+
 
 
     def change_widget_btn(text):  # 按下按钮
-        user = 'fmy'
+        user = 'manager'
         if os.path.exists('temp'):
             with open('temp', "rt") as file:
                 user = file.readline()
@@ -564,13 +734,21 @@ if __name__ == '__main__':
     orgUi.pushButton_5.clicked.connect(change_widget_5)
     orgUi.pushButton_6.clicked.connect(change_widget_6)
     orgUi.pushButton_7.clicked.connect(change_widget_7)
-    # orgUi.pushButton_9.clicked.connect(change_widget_9)
+    orgUi.pushButton_star.clicked.connect(change_widget_9(0))
     orgUi.pushButton_10.clicked.connect(change_widget_10)
     orgUi.pushButton_12.clicked.connect(change_widget_12)
     orgUi.pushButton_29.clicked.connect(change_widget_front)
     orgUi.pushButton_30.clicked.connect(change_widget_next)
     orgUi.pushButton_36.clicked.connect(change_widget_front)
     orgUi.pushButton_37.clicked.connect(change_widget_next)
+    orgUi.comment.clicked.connect(change_widget_comment)
+    orgUi.load.clicked.connect(change_widget_load)
+    orgUi.comment_next.clicked.connect(change_widget_comment_next)
+    orgUi.comment_2.clicked.connect(change_widget_comment_2)
+    orgUi.load_2.clicked.connect(change_widget_load_2)
+    orgUi.comment_next_2.clicked.connect(change_widget_comment_next_2)
+    orgUi.star.clicked.connect(change_widget_star)
+    orgUi.star2.clicked.connect(change_widget_star)
     # my window admin
     orgUi.atg.clicked.connect(change_widget_2)
     orgUi.apb.clicked.connect(admin_action.add_people_to_group)
@@ -781,4 +959,3 @@ if __name__ == '__main__':
     orgUi.pushButton_35.clicked.connect(change_widget_share)
     win.show()
     sys.exit(app.exec_())
-
