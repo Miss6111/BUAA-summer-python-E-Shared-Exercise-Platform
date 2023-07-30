@@ -4,6 +4,10 @@
     <list default="true" id="1455466a-4ed5-4a03-b453-4e49028404ca" name="变更" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Stu.py" beforeDir="false" afterPath="$PROJECT_DIR$/Stu.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exercise2.py" beforeDir="false" afterPath="$PROJECT_DIR$/exercise2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exercise2.ui" beforeDir="false" afterPath="$PROJECT_DIR$/exercise2.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wrong_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/wrong_window.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -12,6 +16,17 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$USER_HOME$/AppData/Local/Programs/Python/Python310/Lib/site-packages/sqlalchemy/orm/relationships.py" root0="SKIP_INSPECTION" />
+    <setting file="file://$USER_HOME$/AppData/Local/Programs/Python/Python310/Lib/site-packages/sqlalchemy/sql/operators.py" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/Stu.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/exercise2.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/exercise2.ui" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/login_widget.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/login_window.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/main.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/wrong_window.py" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -28,7 +43,12 @@
     &quot;last_opened_file_path&quot;: &quot;D:/Users/23673/Desktop/summer_python/BUAA-summer-python-E-Shared-Exercise-Platform&quot;
   }
 }</component>
-  <component name="RunManager" selected="Python.Stu">
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Users\23673\Desktop\summer_python\BUAA-summer-python-E-Shared-Exercise-Platform" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.main">
     <configuration name="Graph" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="BUAA-summer-python-E-Shared-Exercise-Platform" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -113,10 +133,32 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="wrong_window" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="BUAA-summer-python-E-Shared-Exercise-Platform" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/wrong_window.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.Stu" />
         <item itemvalue="Python.main" />
+        <item itemvalue="Python.Stu" />
+        <item itemvalue="Python.wrong_window" />
         <item itemvalue="Python.Graph" />
         <item itemvalue="Python.login_window" />
       </list>
@@ -154,28 +196,33 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Stu.py</url>
-          <line>1026</line>
-          <option name="timeStamp" value="23" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Stu.py</url>
-          <line>1083</line>
+          <line>1088</line>
           <option name="timeStamp" value="26" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Stu.py</url>
-          <line>895</line>
+          <line>899</line>
           <option name="timeStamp" value="27" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Stu.py</url>
-          <line>972</line>
-          <option name="timeStamp" value="30" />
+          <line>607</line>
+          <option name="timeStamp" value="31" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/wrong_window.py</url>
+          <line>95</line>
+          <option name="timeStamp" value="45" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/wrong_window.py</url>
+          <line>93</line>
+          <option name="timeStamp" value="46" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Stu.py</url>
-          <line>603</line>
-          <option name="timeStamp" value="31" />
+          <line>1003</line>
+          <option name="timeStamp" value="47" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

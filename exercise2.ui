@@ -79,30 +79,9 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
-       <widget class="QLineEdit" name="lineEdit_2">
-        <property name="placeholderText">
-         <string>空1</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="lineEdit_3">
-        <property name="placeholderText">
-         <string>空2</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="lineEdit_4">
-        <property name="placeholderText">
-         <string>空3</string>
-        </property>
-       </widget>
-      </item>
-      <item>
        <widget class="QLineEdit" name="lineEdit">
         <property name="placeholderText">
-         <string>空4</string>
+         <string>答案</string>
         </property>
        </widget>
       </item>

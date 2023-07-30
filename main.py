@@ -154,13 +154,14 @@ if __name__ == '__main__':
     orgUi.stackedWidget.setCurrentIndex(1)
     page = 1
 
-    user = 'fmy'
-    if os.path.exists('temp'):
-        with open('temp', "rt") as file:
-            user = file.readline()
-    if os.path.exists('pass'):
-        with open('pass', "rt") as file:
-            password = file.readline()
+    user = 'manager'
+    password = ""
+    # if os.path.exists('temp'):
+    #     with open('temp', "rt") as file:
+    #         user = file.readline()
+    # if os.path.exists('pass'):
+    #     with open('pass', "rt") as file:
+    #         password = file.readline()
 
     orgUi.label_motto.setText(Stu.getMotto(user))
     orgUi.password_change.clicked.connect(norm_action.change_password)
@@ -215,11 +216,6 @@ if __name__ == '__main__':
 
 
     def change_widget_5():  # 我的
-        # todo 确定是用户还是管理员
-        user = 'fmy'
-        if os.path.exists('temp'):
-            with open('temp', "rt") as file:
-                user = file.readline()
         # flag = Stu.check_super()  # admin todo backend
         flag = False  # admin
         if flag:

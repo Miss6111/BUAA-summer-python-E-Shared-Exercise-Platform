@@ -524,8 +524,12 @@ def initial_data():
                 gap = D
                 answer[3] = '1'
             if i % 2 == 0 or len(answer_) > 2:  # 选择
+                if len(answer_) > 2:
+                    load_one_question(title, ''.join(answer), chapters[int(i / 150) + 1], 2, A, B, C, D, '',
+                                      public=True, creater='manager')
                 # title, answer, chapter, my_type, answer1, answer2, answer3, answer4, gap, public, creater
-                load_one_question(title, ''.join(answer), chapters[int(i / 150) + 1], 0, A, B, C, D, '', public=True,
+                else:
+                    load_one_question(title, ''.join(answer), chapters[int(i / 150) + 1], 0, A, B, C, D, '', public=True,
                                   creater='manager')
             else:  # 填空
                 load_one_question(title, '', chapters[int(i / 150) + 1], 1, A, B, C, D, gap, public=True,
@@ -1080,13 +1084,14 @@ if __name__ == '__main__':
     #                 "RRRR")
     pass
     Base.metadata.create_all(engine)  # 一键在数据库生成所有的类
+    # change_quote("yeah", "manager")
     # s = create_session()
     # questions = s.query(Questions).filter(Questions.uid == 21371321).all()
     # for i in questions:
     #     print(i.qid)
     # s.commit()
     # s.close()
-    print(personalized_recommendation(5, ["Chapter_1", "Chapter_2"], 1, 1, "manager"))
+    # print(personalized_recommendation(5, ["Chapter_1", "Chapter_2"], 1, 1, "manager"))
     # Base.metadata.drop_all(engine)#一键清除S
     ###########################
     # 单题测试
@@ -1104,7 +1109,7 @@ if __name__ == '__main__':
     # print(scope_questions("四次", ["Chapter_1", "Chapter_2"], 1, "manager"))
     # print(do_question(1, "manager", "0001", ""))
     ################################
-    # initial_data()
+    initial_data()
     # print(do_question(1, "manager", "0010", ""))
     # print(do_question(2, "manager", "", "1903年12月17日；美国"))
     # print(do_question(1, "manager", "0001", ""))

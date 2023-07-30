@@ -23,7 +23,7 @@ class WrongWindow(QWidget):
         if os.path.exists('temp'):
             with open('temp', "rt") as file:
                 user = file.readline()
-        self.username = user
+        self.username = 'manager' # todo test
 
         self.num = 10
         self.chap = []
@@ -55,7 +55,8 @@ class WrongWindow(QWidget):
         selected_items = self.chap_list.list_widget.selectedItems()
         selected_names = [item.text() for item in selected_items]
         for i in selected_names:
-            self.chap.append(i)
+            txt = 'Chapter_' + i
+            self.chap.append(txt)
         reply = QMessageBox.about(self, '章节选择', '选择成功')
         self.chap_list.close()
 
@@ -91,7 +92,12 @@ class WrongWindow(QWidget):
     def startexercise(self):
         self.cur = 0
         self.ques = Stu.personalized_recommendation(self.num, self.chap, self.choose, self.gap, self.username)
-        self.show_exercise(self.ques[self.cur])
+        # print(self.ques)
+        if len(self.ques) == 0:
+            reply = QMessageBox.about(self, '做题', '暂无推荐题目')
+        else:
+            self.show_exercise(self.ques[self.cur])
+
 
     def show_exercise(self, qid):
         #  todo backend
@@ -102,20 +108,21 @@ class WrongWindow(QWidget):
         if lis[1] == 0:
             self.Ui.etype.setText('选择题')
             self.Ui.stackedWidget.setCurrentIndex(0)
-            self.Ui.pushButton.setText(lis[2])
-            self.Ui.pushButton_2.setText(lis[3])
-            self.Ui.pushButton_3.setText(lis[4])
-            self.Ui.pushButton_4.setText(lis[5])
+            # print('lis[2] is ' + lis[2])
+            self.Ui.pushButton.setText(lis[3])
+            self.Ui.pushButton_2.setText(lis[4])
+            self.Ui.pushButton_3.setText(lis[5])
+            self.Ui.pushButton_4.setText(lis[6])
         elif lis[1] == 1:
             self.Ui.etype.setText('填空题')
             self.Ui.stackedWidget.setCurrentIndex(1)
         else:
             self.Ui.etype.setText('多选题')
             self.Ui.stackedWidget.setCurrentIndex(2)
-            self.Ui.checkBox.setText(lis[2])
-            self.Ui.checkBox_3.setText(lis[3])
-            self.Ui.checkBox_4.setText(lis[4])
-            self.Ui.checkBox_5.setText(lis[5])
+            self.Ui.checkBox.setText(lis[3])
+            self.Ui.checkBox_3.setText(lis[4])
+            self.Ui.checkBox_4.setText(lis[5])
+            self.Ui.checkBox_5.setText(lis[6])
 
     def fresh(self):
         self.Ui.exercise.setText('')
@@ -140,56 +147,58 @@ class WrongWindow(QWidget):
     def select_do_question_a(self):
         lis = Stu.do_question(self.ques[self.cur], self.username, '1000', '')
         answer = lis[0] == 1
+        text = ''
         if answer:
             text = '正确'
         else:
             text = '错误'
-        reply = QMessageBox.about(self, '', 'text')
+        reply = QMessageBox.about(self, '', text)
         self.next()
 
     def select_do_question_b(self):
         lis = Stu.do_question(self.ques[self.cur], self.username, '0100', '')
         answer = lis[0] == 1
+        text = ''
         if answer:
             text = '正确'
         else:
             text = '错误'
-        reply = QMessageBox.about(self, '', 'text')
+        reply = QMessageBox.about(self, '', text)
         self.next()
 
     def select_do_question_c(self):
         lis = Stu.do_question(self.ques[self.cur], self.username, '0010', '')
         answer = lis[0] == 1
+        text = ''
         if answer:
             text = '正确'
         else:
             text = '错误'
-        reply = QMessageBox.about(self, '', 'text')
+        reply = QMessageBox.about(self, '', text)
         self.next()
 
     def select_do_question_d(self):
         lis = Stu.do_question(self.ques[self.cur], self.username, '0001', '')
         answer = lis[0] == 1
+        text = ''
         if answer:
             text = '正确'
         else:
             text = '错误'
-        reply = QMessageBox.about(self, '', 'text')
+        reply = QMessageBox.about(self, '', text)
         self.next()
 
     def blank_do_question(self):
         line0 = self.Ui.lineEdit.text()
-        line1 = self.Ui.lineEdit_2.text()
-        line2 = self.Ui.lineEdit_3.text()
-        line3 = self.Ui.lineEdit_4.text()
-        myans = line0 + '+' + line1 + '+' + line2 + '+' + line3
+        myans = line0
         lis = Stu.do_question(self.ques[self.cur], self.username, 0, myans)
         answer = lis[0] == 1
+        text = ''
         if answer:
             text = '正确'
         else:
             text = '错误'
-        reply = QMessageBox.about(self, '', 'text')
+        reply = QMessageBox.about(self, '', text)
         self.next()
 
     def mul_do_question(self):
@@ -206,11 +215,12 @@ class WrongWindow(QWidget):
                 myans = myans + '0'
         lis = Stu.do_question(self.ques[self.cur], self.username,myans, '')
         answer = lis[0] == 1
+        text = ''
         if answer:
             text = '正确'
         else:
             text = '错误'
-        reply = QMessageBox.about(self, '', 'text')
+        reply = QMessageBox.about(self, '', text)
         self.next()
 
     def button_init(self):
