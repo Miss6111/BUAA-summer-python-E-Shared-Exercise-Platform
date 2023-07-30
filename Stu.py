@@ -136,6 +136,7 @@ class Records(Base):
     qid = sqlalchemy.Column(sqlalchemy.BIGINT, primary_key=True)
     right = sqlalchemy.Column(sqlalchemy.Boolean, primary_key=True)
     time = sqlalchemy.Column(DateTime, default=datetime.now)
+    rank = sqlalchemy.Column(sqlalchemy.BIGINT, primary_key=True)
     rate = sqlalchemy.Column(sqlalchemy.BIGINT, primary_key=True)
     never = sqlalchemy.Column(sqlalchemy.Boolean, primary_key=True)  # 当本题已经连续作对三次则不再推荐
 
@@ -489,7 +490,7 @@ def initial_data():
     new = Stus(uid=21371321, name="manager")  # 此人为管理员，作为初始题目的上传者
     s.add(new)
     for i in range(1, 9):
-        s.add(Chapters(name='Chapter_' + str(i),ques=[]))
+        s.add(Chapters(name='Chapter_' + str(i), ques=[]))
     s.commit()
     s.close()
     f = openpyxl.load_workbook("D:\\Users\\23673\\Desktop\\summer_python\\try.xlsx")  # 改成本地的地址
@@ -600,7 +601,7 @@ def scope_questions(ques_name, chapters_name, mytype, user_name):  # 关键词�
     uid = s.query(Stus).filter(Stus.name == user_name).first().uid
     stu = s.query(Stus).filter(Stus.name == user_name).first()
     qgroupids = [i.gid for i in stu.qgroups]
-    q = s.query(Questions).filter(Questions.chapter.in_(chapters_name)).filter(Questions.type == mytype).filter(
+    q = s.query(Questions).filter(Questions.chapter in chapters_name).filter(Questions.type == mytype).filter(
         Questions.title.like('%' + ques_name + '%')).all()
     ques = []
     for i in q:
@@ -614,7 +615,7 @@ def scope_questions(ques_name, chapters_name, mytype, user_name):  # 关键词�
     # 目前仅支持关键词为title子串
     s.commit()
     s.close()
-    return q  # 返回值为满足要求的Questions条目
+    return ques  # 返回值为满足要求的qid
 
 
 # ************************************************************************************************************** #
@@ -631,20 +632,23 @@ def scope_questions_title(ques_name, chapters_name, mytype, user_name):  # 关�
     s = create_session()
     # 搜索范围包括questions中的public或上传者为本人的，和qgroup中的
     uid = s.query(Stus).filter(Stus.name == user_name).first().uid
-    qgroups = s.query(Stus).filter(Stus.name == user_name).first().qgroups
-    q = s.query(Questions).filter(or_(Questions.uid == uid, Questions.public == True,
-                                      Questions.qgroups.in_(qgroups))) \
-        .filter(Questions.chapter.in_(chapters_name)).filter(Questions.type == mytype).filter(
-        Questions.title.find(ques_name)).all()
-    # ************************************** #
-    title = []
+    stu = s.query(Stus).filter(Stus.name == user_name).first()
+    qgroupids = [i.gid for i in stu.qgroups]
+    q = s.query(Questions).filter(Questions.chapter.in_(chapters_name)).filter(Questions.type == mytype).filter(
+        Questions.title.like('%' + ques_name + '%')).all()
+    ques = []
     for i in q:
-        title.append(i.title)
-    # ************************************** #
+        flag = False
+        for j in i.qgroups:
+            if j.gid in qgroupids:
+                flag = True
+                break
+        if i.uid == uid or i.public == True or flag == True:
+            ques.append(i.title)
     # 目前仅支持关键词为title子串
     s.commit()
     s.close()
-    return title  # 返回值为满足要求的Questions条目
+    return ques  # 返回值为满足要求的qid
 
 
 def scope_questions_answer(ques_name, chapters_name, mytype, user_name):  # 关键词，章节，题型
@@ -659,20 +663,23 @@ def scope_questions_answer(ques_name, chapters_name, mytype, user_name):  # 关�
     s = create_session()
     # 搜索范围包括questions中的public或上传者为本人的，和qgroup中的
     uid = s.query(Stus).filter(Stus.name == user_name).first().uid
-    qgroups = s.query(Stus).filter(Stus.name == user_name).first().qgroups
-    q = s.query(Questions).filter(or_(Questions.uid == uid, Questions.public == True,
-                                      Questions.qgroups.in_(qgroups))) \
-        .filter(Questions.chapter.in_(chapters_name)).filter(Questions.type == mytype).filter(
-        Questions.title.find(ques_name)).all()
-    # ************************************** #
-    answer = []
+    stu = s.query(Stus).filter(Stus.name == user_name).first()
+    qgroupids = [i.gid for i in stu.qgroups]
+    q = s.query(Questions).filter(Questions.chapter.in_(chapters_name)).filter(Questions.type == mytype).filter(
+        Questions.title.like('%' + ques_name + '%')).all()
+    ques = []
     for i in q:
-        answer.append(i.answer)
-    # ************************************** #
+        flag = False
+        for j in i.qgroups:
+            if j.gid in qgroupids:
+                flag = True
+                break
+        if i.uid == uid or i.public == True or flag == True:
+            ques.append(i.answer)
     # 目前仅支持关键词为title子串
     s.commit()
     s.close()
-    return answer  # 返回值为满足要求的Questions条目
+    return ques  # 返回值为满足要求的qid
 
 
 def scope_questions_type(ques_name, chapters_name, mytype, user_name):  # 关键词，章节，题型
@@ -687,20 +694,23 @@ def scope_questions_type(ques_name, chapters_name, mytype, user_name):  # 关键
     s = create_session()
     # 搜索范围包括questions中的public或上传者为本人的，和qgroup中的
     uid = s.query(Stus).filter(Stus.name == user_name).first().uid
-    qgroups = s.query(Stus).filter(Stus.name == user_name).first().qgroups
-    q = s.query(Questions).filter(or_(Questions.uid == uid, Questions.public == True,
-                                      Questions.qgroups.in_(qgroups))) \
-        .filter(Questions.chapter.in_(chapters_name)).filter(Questions.type == mytype).filter(
-        Questions.title.find(ques_name)).all()
-    # ************************************** #
-    mytype = []
+    stu = s.query(Stus).filter(Stus.name == user_name).first()
+    qgroupids = [i.gid for i in stu.qgroups]
+    q = s.query(Questions).filter(Questions.chapter.in_(chapters_name)).filter(Questions.type == mytype).filter(
+        Questions.title.like('%' + ques_name + '%')).all()
+    ques = []
     for i in q:
-        mytype.append(i.type)
-    # ************************************** #
+        flag = False
+        for j in i.qgroups:
+            if j.gid in qgroupids:
+                flag = True
+                break
+        if i.uid == uid or i.public == True or flag == True:
+            ques.append(i.type)
     # 目前仅支持关键词为title子串
     s.commit()
     s.close()
-    return mytype  # 返回值为满足要求的Questions条目
+    return ques  # 返回值为满足要求的qid
 
 
 def scope_questions_qid(ques_name, chapters_name, mytype, user_name):  # 关键词，章节，题型
@@ -715,20 +725,23 @@ def scope_questions_qid(ques_name, chapters_name, mytype, user_name):  # 关键�
     s = create_session()
     # 搜索范围包括questions中的public或上传者为本人的，和qgroup中的
     uid = s.query(Stus).filter(Stus.name == user_name).first().uid
-    qgroups = s.query(Stus).filter(Stus.name == user_name).first().qgroups
-    q = s.query(Questions).filter(or_(Questions.uid == uid, Questions.public == True,
-                                      Questions.qgroups.in_(qgroups))) \
-        .filter(Questions.chapter.in_(chapters_name)).filter(Questions.type == mytype).filter(
-        Questions.title.find(ques_name)).all()
-    # ************************************** #
-    qid = []
+    stu = s.query(Stus).filter(Stus.name == user_name).first()
+    qgroupids = [i.gid for i in stu.qgroups]
+    q = s.query(Questions).filter(Questions.chapter.in_(chapters_name)).filter(Questions.type == mytype).filter(
+        Questions.title.like('%' + ques_name + '%')).all()
+    ques = []
     for i in q:
-        qid.append(i.qid)
-    # ************************************** #
+        flag = False
+        for j in i.qgroups:
+            if j.gid in qgroupids:
+                flag = True
+                break
+        if i.uid == uid or i.public == True or flag == True:
+            ques.append(i.qid)
     # 目前仅支持关键词为title子串
     s.commit()
     s.close()
-    return qid  # 返回值为满足要求的Questions条目
+    return ques  # 返回值为满足要求的qid
 
 
 # ************************************************************************************************************** #
@@ -885,28 +898,27 @@ def do_question(qid, user_name, answer, gap):  # 题目id;是否正确
     myanswer = s.query(Questions).filter(Questions.uid == uid).first().answer
     mygap = s.query(Questions).filter(Questions.uid == uid).first().gap
     ques = s.query(Questions).filter(Questions.uid == uid).first()
-    ques.totol = ques.total + 1
+    ques.total = ques.total + 1
     right = (mytype == 0 or mytype == 2) and answer == myanswer or mytype == 1 and gap == mygap
-    print(right)
-    print(mytype)
-    print(myanswer)
-    print(answer)
-    print(mygap)
-    print(gap)
-    print(ques.total)
+    print([mytype, myanswer, mygap])
+    print([right, answer, gap])
     if right == 1:
         ques.right = ques.right + 1
-    new = Records(uid=uid, qid=qid, right=right, rate=0, never=0)
+    records = s.query(Records).filter(Records.uid == uid, Records.qid == qid).all()
+    last = 0
+    for i in records:
+        if i.rank > last:
+            last = i.rank
+    new = Records(uid=uid, qid=qid, right=right, rate=0, never=0, rank=last + 1)
     s.add(new)
     s.commit()
     # 更新正确率并返回
     records = s.query(Records).filter(Records.uid == uid, Records.qid == qid).all()
-    print(len(records))
-    total, true = 0, 0
+    true = 0
     for j in records:
-        total += 1
         if j.right == 1:
             true += 1
+    total = last + 1
     these = s.query(Records).filter(Records.uid == uid, Records.qid == qid).all()
     for i in these:
         i.rate = true / total
@@ -921,6 +933,7 @@ def do_question(qid, user_name, answer, gap):  # 题目id;是否正确
         for i in nevers:
             i.never = 0
     lis = [right, myanswer, mygap, true / total, ques.right / ques.total]
+    print([ques.right, ques.total])
     s.commit()
     s.close()
     return lis
@@ -933,13 +946,13 @@ def personalized_recommendation(qnum, chapters_name, choose, gap, user_name):
     s = create_session()
     uid = s.query(Stus).filter(Stus.name == user_name).first().uid
     # 筛选出Records中 该人 该章节 该提醒 的所有错题记录
-    records = s.query(Records).filter(Records.uid == uid).filter(Records.never == 0) \
-        .filter(Questions.chapter.in_(chapters_name)) \
-        .filter(Questions.type == 1 - choose, Questions.type == gap).all()
+    records = s.query(Records).filter(Records.uid == uid).filter(Records.never == 0).all()
     ques = []
     for i in records:
         id = i.qid
-        if id not in ques:
+        question = s.query(Questions).filter(Questions.qid == id).first()
+        if (id not in ques) and question.chapter in chapters_name \
+                and (question.type == 1 - choose or question.type == gap):
             ques.append(id)
     for i in range(len(ques)):
         for j in range(i + 1, len(ques)):
@@ -1034,8 +1047,10 @@ if __name__ == '__main__':
     #                 "RRRR")
     pass
     Base.metadata.create_all(engine)  # 一键在数据库生成所有的类
+    print(personalized_recommendation(5, ["Chapter_1"], 1, 1, "manager"))
     # Base.metadata.drop_all(engine)#一键清除S
     ###########################
+    # 单题测试
     # s = create_session()
     # new = Stus(uid=21371321, name="manager")  # 此人为管理员，作为初始题目的上传者
     # s.add(new)
@@ -1046,9 +1061,12 @@ if __name__ == '__main__':
     # load_one_question('2008年09月28日，欧洲空中客车的A-320飞机在中国_____ 的总装公司投产。', '0001',
     #                   'Chapter_1', 1, '北京', '西安', '上海', '天津', '', True, 'manager')
     # print(get_question(1))
-    scope_questions("2008", "Chapter 1", 1, "lyj")
-    # do_question(0, "lyj", "0001", "")
+    # print(scope_questions("2008", ["Chapter_1"], 1, "manager"))
+    # print(do_question(1, "manager", "0001", ""))
     ################################
     # initial_data()
+    # print(do_question(1, "manager", "0010", ""))
+    # print(do_question(2, "manager", "", "1903年12月17日；美国"))
+    # print(do_question(1, "manager", "0001", ""))
     # load_one_question(title='hhh',answer=)
     # user_add_into_group(['123', 'hhhhh'], 'stu9')  # 用户主动申请加入
