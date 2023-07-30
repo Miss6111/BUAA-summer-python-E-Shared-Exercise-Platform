@@ -339,10 +339,15 @@ if __name__ == '__main__':
 
 
     def change_widget_q(text, answer, mytype, qid):
+        user = 'manager'
+        if os.path.exists('temp'):
+            with open('temp', "rt") as file:
+                user = file.readline()
         print("qqqqqqq")
         orgUi.stackedWidget.setCurrentIndex(5)
         t = str(qid)
         print(t)
+        ans = ''
         orgUi.label_2.setText(t)
         a = 0
         b = 0
@@ -353,23 +358,18 @@ if __name__ == '__main__':
         c1 = 0
         d1 = 0
         print(answer)
-        if mytype == 0:
-            ans = list(answer)
-            if ans[0] == "1":
-                a1 = 1
-            if ans[1] == "1":
-                b1 = 1
-            if ans[2] == "1":
-                c1 = 1
-            if ans[3] == "1":
-                d1 = 1
+        myans = ['0','0','0','0']
+        myans[0] = '0'
+        myans[1] = '0'
+        myans[2] = '0'
+        myans[3] = '0'
         if mytype == 1:
             orgUi.page_2.show()
             orgUi.page.hide()
             orgUi.page_3.hide()
             orgUi.textBrowser_3.setText(text)
-            given = orgUi.answer1.text()
-            orgUi.submit.clicked.connect(lambda: change_widget_submit(given, answer))
+            ans = orgUi.answer1.text()
+            orgUi.submit.clicked.connect(lambda: change_widget_submit(qid, user, ans, answer))
         else:
             orgUi.page.show()
             orgUi.page_2.hide()
@@ -377,61 +377,67 @@ if __name__ == '__main__':
             orgUi.textBrowser_2.setText(text)
             orgUi.A.clicked.connect(lambda: change_widget_a(text, answer, mytype, qid))
             if orgUi.A.text() == "A!":
-                a = 1
+                myans[0] ='1'
                 print(a, end="a")
 
             orgUi.B.clicked.connect(lambda: change_widget_b(text, answer, mytype, qid))
             if orgUi.B.text() == "B!":
-                b = 1
+                myans[1] ='1'
                 print(b, end="b")
 
             orgUi.C.clicked.connect(lambda: change_widget_c(text, answer, mytype, qid))
             if orgUi.C.text() == "C!":
-                c = 1
+                myans[2] ='1'
 
             orgUi.D.clicked.connect(lambda: change_widget_d(text, answer, mytype, qid))
             if orgUi.D.text() == "D!":
-                d = 1
+                myans[3] ='1'
 
-            orgUi.submit1.clicked.connect(lambda: change_widget_submit1(a, b, c, d, a1, b1, c1, d1))
+            ans = ''.join(myans)
+            orgUi.submit1.clicked.connect(lambda: change_widget_submit1(qid, user, ans, answer))
 
 
-    def change_widget_submit1(a, b, c, d, a1, b1, c1, d1):
+    def change_widget_submit1(qid, user, ans, answer):
         print("enter")
-        if a == a1 and b == b1 and c == c1 and d == d1:
-            right = 1
-        else:
-            right = 0
-        print("********")
-        print(right)
-        print("********")
-        if right == 0:
-            if a1 == 1 and a1 == 1:
+        lis = Stu.do_question(qid, user, ans, ans)
+        right = lis[0]
+        answers = list[answer]
+        if right == False:
+            if answers[0] == '1':
                 orgUi.A.setStyleSheet("background-color: rgb(69, 188, 55);")  # green
             else:
                 orgUi.A.setStyleSheet("background-color: rgb(255, 43, 15);")  # red
-            if b1 == 1:
+            if answers[0] == '1':
                 orgUi.B.setStyleSheet("background-color: rgb(69, 188, 55);")
             else:
                 orgUi.B.setStyleSheet("background-color: rgb(255, 43, 15);")
-            if c1 == 1:
+            if answers[0] == '1':
                 orgUi.C.setStyleSheet("background-color: rgb(69, 188, 55);")
             else:
                 orgUi.C.setStyleSheet("background-color: rgb(255, 43, 15);")
-            if d1 == 1:
+            if answers[0] == '1':
                 orgUi.D.setStyleSheet("background-color: rgb(69, 188, 55);")
             else:
                 orgUi.D.setStyleSheet("background-color: rgb(255, 43, 15);")
         else:
-            if a1 == 1:
+            if answers[0] == '1':
                 orgUi.A.setStyleSheet("background-color: rgb(69, 188, 55);")
-            if b1 == 1:
+            if answers[0] == '1':
                 orgUi.B.setStyleSheet("background-color: rgb(69, 188, 55);")
-            if c1 == 1:
+            if answers[0] == '1':
                 orgUi.C.setStyleSheet("background-color: rgb(69, 188, 55);")
-            if d1 == 1:
+            if answers[0] == '1':
                 orgUi.D.setStyleSheet("background-color: rgb(69, 188, 55);")
 
+    def change_widget_submit(qid, user, ans, answer):  # 按下按钮
+        ans = orgUi.answer1.text()
+        lis = Stu.do_question(qid, user, ans, ans)
+        right = lis[0]
+        if right == False:
+            orgUi.answer1.setStyleSheet("background-color: rgb(255, 43, 15);")
+        else:
+            orgUi.answer1.setStyleSheet("background-color: rgb(69, 188, 55);")
+        orgUi.label_5.setText(lis[2])
 
     def change_widget_next():
         t = orgUi.label_2.text()
@@ -491,11 +497,7 @@ if __name__ == '__main__':
         change_widget_q(text, answer, mytype, qid)
 
 
-    def change_widget_submit(given, answer):  # 按下按钮
-        given = orgUi.answer1.text()
-        if given != answer:
-            orgUi.answer1.setStyleSheet("background-color: rgb(255, 43, 15);")
-        orgUi.label_5.setText(answer)
+
 
 
     def change_widget_star(given):
