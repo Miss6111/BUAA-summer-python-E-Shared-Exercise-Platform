@@ -1655,7 +1655,7 @@ background-color: rgb(255, 203, 151);</string>
        <rect>
         <x>40</x>
         <y>20</y>
-        <width>1211</width>
+        <width>1161</width>
         <height>681</height>
        </rect>
       </property>
@@ -2330,8 +2330,8 @@ background-color: rgb(255, 170, 127);</string>
        <widget class="QPushButton" name="comment">
         <property name="geometry">
          <rect>
-          <x>680</x>
-          <y>10</y>
+          <x>520</x>
+          <y>20</y>
           <width>93</width>
           <height>28</height>
          </rect>
@@ -3019,33 +3019,17 @@ background-color: rgb(255, 170, 127);</string>
          <string>下一页</string>
         </property>
        </widget>
-       <widget class="QLabel" name="label_2">
-        <property name="geometry">
-         <rect>
-          <x>70</x>
-          <y>340</y>
-          <width>201</width>
-          <height>71</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">font: 20pt &quot;Agency FB&quot;;</string>
-        </property>
-        <property name="text">
-         <string>查看问题</string>
-        </property>
-       </widget>
        <widget class="QPushButton" name="comment_2">
         <property name="geometry">
          <rect>
-          <x>700</x>
-          <y>10</y>
+          <x>520</x>
+          <y>20</y>
           <width>93</width>
           <height>28</height>
          </rect>
         </property>
         <property name="text">
-         <string>收藏</string>
+         <string>评论区</string>
         </property>
        </widget>
        <widget class="QPushButton" name="load_2">
@@ -3185,6 +3169,22 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="text">
        <string> 收藏集</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_2">
+      <property name="geometry">
+       <rect>
+        <x>130</x>
+        <y>360</y>
+        <width>111</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 12pt &quot;Agency FB&quot;;</string>
+      </property>
+      <property name="text">
+       <string>查看问题</string>
       </property>
      </widget>
     </widget>

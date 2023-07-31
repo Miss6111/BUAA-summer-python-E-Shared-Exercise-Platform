@@ -177,14 +177,14 @@ if __name__ == '__main__':
 
     page = 1
 
-    user = 'fmy'
+    user = 'manager'
     password = ""
-    # if os.path.exists('temp'):
-    #     with open('temp', "rt") as file:
-    #         user = file.readline()
-    # if os.path.exists('pass'):
-    #     with open('pass', "rt") as file:
-    #         password = file.readline()
+    if os.path.exists('temp'):
+        with open('temp', "rt") as file:
+            user = file.readline()
+    if os.path.exists('pass'):
+        with open('pass', "rt") as file:
+            password = file.readline()
 
     orgUi.label_motto.setText(Stu.getMotto(user))
     orgUi.password_change.clicked.connect(norm_action.change_password)
@@ -281,10 +281,7 @@ if __name__ == '__main__':
 
     def change_widget_7():  # 上传
 
-        user = 'fmy'
-        if os.path.exists('temp'):
-            with open('temp', "rt") as file:
-                user = file.readline()
+        
         title = orgUi.textEdit_title.toPlainText()
         if orgUi.type_choose.currentText() == "填空":
             type_l = 1
@@ -326,10 +323,6 @@ if __name__ == '__main__':
 
 
     def change_widget_12():  # 搜索按键ques_name,chapters_name,mytype,user
-        user = 'fmy'
-        if os.path.exists('temp'):
-            with open('temp', "rt") as file:
-                user = file.readline()
         ques_name = orgUi.lineEdit_key.text()
         chapters_name = orgUi.lineEdit_chapter_2.currentText()
         mytype = orgUi.lineEdit_type_2.currentText()
@@ -356,6 +349,7 @@ if __name__ == '__main__':
         ans = Stu.scope_questions_answer(ques_name, [chapters_name], x, user)
         typ = Stu.scope_questions_type(ques_name, [chapters_name], x, user)
         qid = Stu.scope_questions_qid(ques_name, [chapters_name], x, user)
+        print(q)
         if q[0] != "":
             orgUi.question0.setText(q[0])
             orgUi.question0.clicked.connect(lambda: change_widget_q(q[0], ans[0], typ[0], qid[0],0))
@@ -381,10 +375,6 @@ if __name__ == '__main__':
     def change_widget_q(text, answer, mytype, qid,flag):
         ans = ''
         lis = Stu.get_question(qid)
-        user = 'fmy'
-        if os.path.exists('temp'):
-            with open('temp', "rt") as file:
-                user = file.readline()
         print("qqqqqqq")
         orgUi.stackedWidget.setCurrentIndex(5)
         if flag == 0:
@@ -596,7 +586,8 @@ if __name__ == '__main__':
         length = len(lis)
         for i in range(0, length):
             x = i + 1
-            exec("orgUi.comment" + str(x) + ".setText(lis[" + str(i) + "])")
+            text = ''.join([lis[i][0],':',lis[i][1]])
+            exec("orgUi.comment" + str(x) + ".setText(text)")
 
     def change_widget_comment_2():
         orgUi.notice_2.setText("1")
@@ -613,23 +604,21 @@ if __name__ == '__main__':
         length = len(lis)
         for i in range(0, length):
             x = i + 1
-            exec("orgUi.comment" + str(x) + "_7.setText(lis[" + str(i) + "])")
+            text = ''.join([lis[i][0],':',lis[i][1]])
+            exec("orgUi.comment" + str(x) + "_7" + ".setText(text)")
 
     def change_widget_load():
         content = orgUi.textEdit_comment.toPlainText()
 
         qid = int(orgUi.label_2.text())
-        user = "fmy"
-        if os.path.exists('temp'):
-            with open('temp', "rt") as file:
-                user = file.readline()
         Stu.send_comments(qid, content, user)
         lis = Stu.show_some_comments(qid)
-        #text = ''.join([user,':',ccontent])
+        #text = ''.join([user,':',ccontent])*********66
         length = len(lis)
         for i in range(0,length):
             x = i+1
-            exec("orgUi.comment" + str(x) + "_7.setText(lis[" + str(i) + "])")
+            text = ''.join([lis[i][0],':',lis[i][1]])
+            exec("orgUi.comment" + str(x) + ".setText(text)")
 #            orgUi.comment1.setText(lis[0])
 #            exec("x" + "=" + "orgUi.comment" + str(i) + ".toPlainText()")
 #            print(x)
@@ -645,17 +634,14 @@ if __name__ == '__main__':
         content = orgUi.textEdit_comment_2.toPlainText()
 
         qid = int(orgUi.label_2.text())
-        user = "fmy"
-        if os.path.exists('temp'):
-            with open('temp', "rt") as file:
-                user = file.readline()
         Stu.send_comments(qid, content, user)
         lis = Stu.show_some_comments(qid)
         # text = ''.join([user,':',content])
         length = len(lis)
         for i in range(0, length):
             x = i + 1
-            exec("orgUi.comment" + str(x) + "_7.setText(lis[" + str(i) + "])")
+            text = ''.join([lis[i][0],':',lis[i][1]])
+            exec("orgUi.comment" + str(x) + "_7" + ".setText(text)")
 #            orgUi.comment1_7.setText(lis[0])
 #        comment = orgUi.textEdit_comment_2.toPlainText()
 #        x = orgUi.comment1_7.toPlainText()
@@ -679,19 +665,11 @@ if __name__ == '__main__':
             #orgUi.comment1.setText(text)
 
     def change_widget_star():
-        user = 'fmy'
-        if os.path.exists('temp'):
-            with open('temp', "rt") as file:
-                user = file.readline()
         qid = orgUi.label_2.text()
         Stu.star_questioin(user, qid)
 
 
     def change_widget_9(i):#只显示收藏题
-        user = 'fmy'
-        if os.path.exists('temp'):
-            with open('temp', "rt") as file:
-                user = file.readline()
         qid = Stu.get_starquestion(user)
         if qid != None:
             lis = Stu.get_question(qid[i])
@@ -734,20 +712,12 @@ if __name__ == '__main__':
         change_widget_9(i)
 
     def change_widget_star2():
-        user = 'fmy'
-        if os.path.exists('temp'):
-            with open('temp', "rt") as file:
-                user = file.readline()
         qid = orgUi.label_2.text()
         Stu.star_questioin(user, qid)
 
 
 
     def change_widget_btn(text):  # 按下按钮
-        user = 'fmy'
-        if os.path.exists('temp'):
-            with open('temp', "rt") as file:
-                user = file.readline()
         Stu.user_add_into_group(text, user)
 
 

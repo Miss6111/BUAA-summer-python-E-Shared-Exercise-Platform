@@ -101,9 +101,9 @@ class Stus(Base):
     name = sqlalchemy.Column(sqlalchemy.String(50))
 
     password = sqlalchemy.Column(sqlalchemy.String(50))
-    # 用户组信息
+    # 学习小组，学习小组由管理员建立，用户可以通过学习小组的名字加入学习小组
     groups = sqlalchemy.orm.relationship("Groups", secondary="stu_group", backref="Stus", cascade='all')
-    # 问题组信息，即那些问题组对当前用户开放
+    # 共享问题组信息，当用户加入一个学习小组，该用户就可以看到学习小组中成员在小组内共享的所有问题组，qgroups就保存了用户可见的所有问题组
     qgroups = sqlalchemy.orm.relationship("QGroups", secondary="stu_qgroup", backref="Stus", cascade='all')
     # 收藏的问题
     starquestions = sqlalchemy.orm.relationship("Questions", secondary="star_stu", backref="Stus", cascade='all')
@@ -488,14 +488,14 @@ def initial_data():
     :param name:
     :param path:
     """
-    # s = create_session()
-    # new = Stus(uid=21371321, name="fmy")  # 此人为管理员，作为初始题目的上传者
-    # s.add(new)
-    # for i in range(1, 9):
-    #     s.add(Chapters(name='Chapter_' + str(i), ques=[]))
-    # s.commit()
-    # s.close()
-    f = openpyxl.load_workbook("C:\\Users\\dyh\\Desktop\\qu.xlsx")  # 改成本地的地址
+    s = create_session()
+    new = Stus(uid=21371321, name="fmy")  # 此人为管理员，作为初始题目的上传者
+    s.add(new)
+    for i in range(1, 9):
+        s.add(Chapters(name='Chapter_' + str(i), ques=[]))
+    s.commit()
+    s.close()
+    f = openpyxl.load_workbook("D:\\Users\\23673\\Desktop\\summer_python\\try.xlsx")  # 改成本地的地址
     names = f.sheetnames  # 所有sheet
     for sheet_name in names:  # 每一页
         sheet = f[sheet_name]
@@ -534,7 +534,7 @@ def initial_data():
                                       creater='fmy')
             else:  # 填空
                 load_one_question(title, '', chapters[int(i / 150) + 1], 1, A, B, C, D, gap, public=True,
-                                  creater='manager')
+                                  creater='fmy')
 
 
 def load_files(path, name):  # 需要规定文件格式？？再想
@@ -592,6 +592,7 @@ def scope_questions(ques_name, chapters_name, mytype, user_name):  # 关键词�
     # 目前仅支持关键词为title子串
     s.commit()
     s.close()
+    print(ques)
     return ques  # 返回值为满足要求的qid
 
 
@@ -815,27 +816,27 @@ def show_some_comments(qid):
     """
     s = create_session()
     re = []
-    comments = s.query(Comments).filter(Comments.qid == qid).limit(3).all()
+    comments = s.query(Comments).filter(Comments.qid == qid).limit(30).all()
     for i in comments:
         sender = s.query(Stus).filter(Stus.uid == i.sender).first().name
-        re.append([i.content, sender])
+        re.append([sender, i.content])
     s.close()
     return re  # 返回的是[内容，发送人]
 
 
-def show_more_comments():
-    """
-   # 全部评论
-    :return: 返回全部评论
-    """
-    s = create_session()
-    re = []
-    comments = s.query(Comments).all()
-    for i in comments:
-        sender = s.query(Stus).filter(Stus.uid == i.sender).filter(Comments.qid == qid).first().name
-        re.append([i.content, sender])
-    s.close()
-    return re  # 返回的是[内容，发送人]
+# def show_more_comments(qid):
+#     """
+#    # 全部评论
+#     :return: 返回全部评论
+#     """
+#     s = create_session()
+#     re = []
+#     comments = s.query(Comments).all()
+#     for i in comments:
+#         sender = s.query(Stus).filter(Stus.uid == i.sender).filter(Comments.qid == qid).first().name
+#         re.append([i.content, sender])
+#     s.close()
+#     return re  # 返回的是[内容，发送人]
 
 
 def search_for_sen(word):
@@ -1148,14 +1149,16 @@ if __name__ == '__main__':
     #                          "Chapter_8"], 1,
     #                 "RRRR")
 
+    Base.metadata.create_all(engine)  # 一键在数据库生成所有的类
+    change_quote("new", "fmy")
     # Base.metadata.drop_all(engine)
-    # Base.metadata.create_all(engine)  # 一键在数据库生成所有的类
     # create_new_user('fmy','',True)
     # create_new_group('group', 'fmy')
     # load_files("D:\\Users\\23673\\Desktop\\summer_python\\upload_file1.xlsx", "lyj")
     # print(draft("选择题，答案是A"))
-    for i in scope_questions("选择题，答案是A", ["Chapter_1"], 0, "lyj"):
-        print(get_question(i))
+    print(scope_questions("选择题，答案是A", ["Chapter_1"], 0, "lyj"))
+    # for i in scope_questions("选择题，答案是A", ["Chapter_1"], 0, "lyj"):
+    #     print(get_question(i))
     # print(draft("莱特"))
     # change_quote("yeah", "manager")
     # s = create_session()
@@ -1179,7 +1182,7 @@ if __name__ == '__main__':
     #                   'Chapter_1', 1, '北京', '西安', '上海', '天津', '', True, 'manager')
     # print(get_question(1))
     # print(get_question(3))
-    # print(scope_questions("四次", ["Chapter_1", "Chapter_2"], 1, "manager"))
+    # print(scope_questions("莱特", ["Chapter_1", "Chapter_2"], 1, "fmy"))
     # print(do_question(1, "manager", "0001", ""))
     ################################
     # initial_data()

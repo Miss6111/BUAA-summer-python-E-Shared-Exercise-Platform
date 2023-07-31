@@ -5,10 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1455466a-4ed5-4a03-b453-4e49028404ca" name="变更" comment="fmy debug wrong log">
-      <change afterPath="$PROJECT_DIR$/icon/Cancel.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/icon/star.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/picture/pencil.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources.qrc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Stu.py" beforeDir="false" afterPath="$PROJECT_DIR$/Stu.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exercise2.py" beforeDir="false" afterPath="$PROJECT_DIR$/exercise2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exercise2.ui" beforeDir="false" afterPath="$PROJECT_DIR$/exercise2.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/org1.py" beforeDir="false" afterPath="$PROJECT_DIR$/org1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/org1.ui" beforeDir="false" afterPath="$PROJECT_DIR$/org1.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pass" beforeDir="false" afterPath="$PROJECT_DIR$/pass" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources_rc.py" beforeDir="false" afterPath="$PROJECT_DIR$/resources_rc.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -30,6 +34,8 @@
     <setting file="file://$PROJECT_DIR$/main.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/org1.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/org1.ui" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/resources.qrc" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/resources_rc.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/temp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/upload_file.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/wrong_window.py" root0="FORCE_HIGHLIGHTING" />
@@ -58,7 +64,7 @@
       <recent name="D:\Users\23673\Desktop\summer_python\BUAA-summer-python-E-Shared-Exercise-Platform" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.main">
+  <component name="RunManager" selected="Python.Stu">
     <configuration name="Stu" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="BUAA-summer-python-E-Shared-Exercise-Platform" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -170,8 +176,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.main" />
         <item itemvalue="Python.Stu" />
+        <item itemvalue="Python.main" />
         <item itemvalue="Python.login_window" />
         <item itemvalue="Python.wrong_window" />
         <item itemvalue="Python.list_window" />
