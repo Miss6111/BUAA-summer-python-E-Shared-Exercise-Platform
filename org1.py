@@ -581,7 +581,7 @@ class Ui_MainWindow(object):
         self.problems = QtWidgets.QWidget()
         self.problems.setObjectName("problems")
         self.stackedWidget_2 = QtWidgets.QStackedWidget(self.problems)
-        self.stackedWidget_2.setGeometry(QtCore.QRect(40, 30, 1211, 671))
+        self.stackedWidget_2.setGeometry(QtCore.QRect(40, 20, 1211, 681))
         self.stackedWidget_2.setObjectName("stackedWidget_2")
         self.page = QtWidgets.QWidget()
         self.page.setObjectName("page")
@@ -798,7 +798,7 @@ class Ui_MainWindow(object):
         self.scrollArea5.setWidget(self.scrollAreaWidgetContents_11)
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
         self.comment = QtWidgets.QPushButton(self.page)
-        self.comment.setGeometry(QtCore.QRect(680, 0, 93, 28))
+        self.comment.setGeometry(QtCore.QRect(680, 10, 93, 28))
         self.comment.setObjectName("comment")
         self.load = QtWidgets.QPushButton(self.page)
         self.load.setGeometry(QtCore.QRect(680, 360, 93, 28))
@@ -1217,7 +1217,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         self.stackedWidget.setCurrentIndex(5)
-        self.stackedWidget_2.setCurrentIndex(1)
+        self.stackedWidget_2.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
