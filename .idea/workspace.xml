@@ -5,13 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1455466a-4ed5-4a03-b453-4e49028404ca" name="变更" comment="fmy debug wrong log">
-      <change beforePath="$PROJECT_DIR$/.idea/BUAA-summer-python-E-Shared-Exercise-Platform.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/BUAA-summer-python-E-Shared-Exercise-Platform.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Graph.py" beforeDir="false" afterPath="$PROJECT_DIR$/Graph.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Stu.py" beforeDir="false" afterPath="$PROJECT_DIR$/Stu.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wrong_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/wrong_window.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/icon/Cancel.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/icon/star.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/picture/pencil.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources.qrc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources_rc.py" beforeDir="false" afterPath="$PROJECT_DIR$/resources_rc.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,17 +42,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "D:/Users/23673/Desktop/summer_python/BUAA-summer-python-E-Shared-Exercise-Platform",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Users/23673/Desktop/summer_python/BUAA-summer-python-E-Shared-Exercise-Platform&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Users\23673\Desktop\summer_python\BUAA-summer-python-E-Shared-Exercise-Platform" />
