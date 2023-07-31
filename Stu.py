@@ -1083,7 +1083,7 @@ def draft(ques_name):  # 关键词，章节，题型
     s.close()
     return lis
 
-
+# 用户创建了哪些问题组
 def search_qgroups(user):
     s = create_session()
     uid = s.query(Stus).filter(Stus.name == user).first().uid
@@ -1095,7 +1095,7 @@ def search_qgroups(user):
     s.commit()
     return names
 
-
+#
 def set_qgroup_public(name):
     s = create_session()
     group = s.query(QGroups).filter(QGroups.name == name).first()

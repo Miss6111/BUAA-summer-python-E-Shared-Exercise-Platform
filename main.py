@@ -136,7 +136,7 @@ class admin_action():
     def upload(self):
         window = upload_file.MainWindow()
         path = window.getPath()
-        Stu.load_file(path, user)
+        Stu.load_files(path, user)
 
 
 # 按间距中的绿色按钮以运行脚本。
