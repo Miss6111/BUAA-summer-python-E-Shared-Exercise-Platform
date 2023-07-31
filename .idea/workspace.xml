@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="1455466a-4ed5-4a03-b453-4e49028404ca" name="变更" comment="">
+    <list default="true" id="1455466a-4ed5-4a03-b453-4e49028404ca" name="变更" comment="fmy debug wrong log">
+      <change beforePath="$PROJECT_DIR$/.idea/BUAA-summer-python-E-Shared-Exercise-Platform.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/BUAA-summer-python-E-Shared-Exercise-Platform.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Stu.py" beforeDir="false" afterPath="$PROJECT_DIR$/Stu.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/org1.ui" beforeDir="false" afterPath="$PROJECT_DIR$/org1.ui" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,10 +30,21 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Users/23673/Desktop/summer_python/BUAA-summer-python-E-Shared-Exercise-Platform&quot;
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Users/23673/Desktop/summer_python/BUAA-summer-python-E-Shared-Exercise-Platform&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="Python.Stu">
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\桌面2\学习！！！\python\python_english\BUAA-summer-python-E-Shared-Exercise-Platform" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.main">
     <configuration name="Graph" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="BUAA-summer-python-E-Shared-Exercise-Platform" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -41,6 +57,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Graph.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -62,6 +79,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Stu.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -83,6 +101,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/login_window.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -104,6 +123,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -115,8 +135,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.Stu" />
         <item itemvalue="Python.main" />
+        <item itemvalue="Python.Stu" />
         <item itemvalue="Python.Graph" />
         <item itemvalue="Python.login_window" />
       </list>
@@ -130,8 +150,26 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1690510063671</updated>
+      <workItem from="1690720870000" duration="298000" />
+      <workItem from="1690725063934" duration="442000" />
+      <workItem from="1690725561162" duration="11000" />
+      <workItem from="1690726797676" duration="494000" />
+      <workItem from="1690727458686" duration="8000" />
+      <workItem from="1690727762657" duration="286000" />
+      <workItem from="1690767704180" duration="699000" />
     </task>
+    <task id="LOCAL-00001" summary="fmy debug wrong log">
+      <created>1690768382877</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1690768382877</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -143,6 +181,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="fmy debug wrong log" />
+    <option name="LAST_COMMIT_MESSAGE" value="fmy debug wrong log" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -186,5 +228,8 @@
         </breakpoint>
       </default-breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/BUAA_summer_python_E_Shared_Exercise_Platform$main.coverage" NAME="main 覆盖结果" MODIFIED="1690728044048" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
