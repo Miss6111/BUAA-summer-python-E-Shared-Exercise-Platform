@@ -11,7 +11,7 @@ from datetime import datetime
 from sqlalchemy import DateTime
 
 Base = sqlalchemy.orm.declarative_base()
-DB_connect = 'mysql+mysqldb://root:222333dyh@localhost/Test'
+DB_connect = 'mysql+mysqldb://root:86901260@localhost/mydb_1'
 engine = create_engine(DB_connect, echo=False)
 
 
@@ -183,7 +183,7 @@ def create_new_user(name, password, manager):  # 按下注册确定按键的瞬�
         return False
     else:
         new = Stus(name=name, password=password, issuper=manager, Bi="你还没有写任何简介", quote="", groups=[],
-                   qgroups=[])
+                   qgroups=[], starquestions=[])
         s.add(new)
         s.commit()
         s.close()
@@ -473,8 +473,6 @@ def load_one_question(title, answer, chapter, my_type, answer1, answer2, answer3
                   answerC=answer3,
                   answerD=answer4, gap=gap, public=public, uid=s.query(Stus).filter(Stus.name == creater).first().uid,
                   total=0, right=0, chapter=chapter, name=title[:10])
-    print(gap)
-    print(len(gap))
     s.add(q)
     s.commit()
     c.ques.append(q)
@@ -489,14 +487,16 @@ def initial_data():
     :param name:
     :param path:
     """
-    # s = create_session()
-    # new = Stus(uid=21371321, name="fmy")  # 此人为管理员，作为初始题目的上传者
-    # s.add(new)
-    # for i in range(1, 9):
-    #     s.add(Chapters(name='Chapter_' + str(i), ques=[]))
-    # s.commit()
-    # s.close()
-    f = openpyxl.load_workbook("C:\\Users\\dyh\\Desktop\\qu.xlsx")  # 改成本地的地址
+    s = create_session()
+    new = Stus(uid=21371321, name="fmy", starquestions=[])  # 此人为管理员，作为初始题目的上传者
+    s.add(new)
+    s.commit()
+    change_quote("yeah", "fmy")
+    for i in range(1, 9):
+        s.add(Chapters(name='Chapter_' + str(i), ques=[]))
+    s.commit()
+    s.close()
+    f = openpyxl.load_workbook("D:\\Users\\23673\\Desktop\\summer_python\\try.xlsx")  # 改成本地的地址
     names = f.sheetnames  # 所有sheet
     for sheet_name in names:  # 每一页
         sheet = f[sheet_name]
@@ -535,7 +535,7 @@ def initial_data():
                                       creater='fmy')
             else:  # 填空
                 load_one_question(title, '', chapters[int(i / 150) + 1], 1, A, B, C, D, gap, public=True,
-                                  creater='manager')
+                                  creater='fmy')
 
 
 def load_files(path, name):  # 需要规定文件格式？？再想
@@ -808,14 +808,14 @@ def send_comments(qid, content, user_name):
 
 
 # 点击加号显示所有的评论-->下画框
-def show_some_comments():
+def show_some_comments(qid):
     """
 
     :return: 返回三条评论
     """
     s = create_session()
     re = []
-    comments = s.query(Comments).limit(3).all()
+    comments = s.query(Comments).filter(Comments.qid == qid).limit(3).all()
     for i in comments:
         sender = s.query(Stus).filter(Stus.uid == i.sender).first().name
         re.append([i.content, sender])
@@ -823,14 +823,14 @@ def show_some_comments():
     return re  # 返回的是[内容，发送人]
 
 
-def show_more_comments():
+def show_more_comments(qid):
     """
    # 全部评论
     :return: 返回全部评论
     """
     s = create_session()
     re = []
-    comments = s.query(Comments).all()
+    comments = s.query(Comments).filter(Comments.qid == qid).all()
     for i in comments:
         sender = s.query(Stus).filter(Stus.uid == i.sender).first().name
         re.append([i.content, sender])
@@ -883,14 +883,14 @@ def do_question(qid, user_name, answer, gap):  # 题目id;是否正确
     s = create_session()
     uid = s.query(Stus).filter(Stus.name == user_name).first().uid
     # 判单正确与否
-    mytype = s.query(Questions).filter(Questions.uid == uid).first().type
-    myanswer = s.query(Questions).filter(Questions.uid == uid).first().answer
-    mygap = s.query(Questions).filter(Questions.uid == uid).first().gap
-    ques = s.query(Questions).filter(Questions.uid == uid).first()
+    mytype = s.query(Questions).filter(Questions.qid == qid).first().type
+    myanswer = s.query(Questions).filter(Questions.qid == qid).first().answer
+    mygap = s.query(Questions).filter(Questions.qid == qid).first().gap
+    ques = s.query(Questions).filter(Questions.qid == qid).first()
     ques.total = ques.total + 1
     right = (mytype == 0 or mytype == 2) and answer == myanswer or mytype == 1 and gap == mygap
-    print([mytype, myanswer, mygap])
-    print([right, answer, gap])
+    print(["check:", qid, mytype, myanswer, mygap])
+    print(["myanswer:", qid, right, answer, gap])
     if right == 1:
         ques.right = ques.right + 1
     records = s.query(Records).filter(Records.uid == uid, Records.qid == qid).all()
@@ -1019,6 +1019,7 @@ def get_question(qid):
     else:
         lis = [ques.title, ques.type,
                ques.answer, ques.answerA, ques.answerB, ques.answerC, ques.answerD]
+    print(lis)
     s.commit()
     s.close()
     return lis
@@ -1035,7 +1036,7 @@ def get_accurate_rate(user_name):  # 查record，每章做题数，每章正确�
     s = create_session()
     uid = s.query(Stus).filter(Stus.name == user_name).first().uid
     ans = []
-    for chapter in ['Chapter_1','Chapter_2','Chapter_3','Chapter_4','Chapter_5','Chapter_6','Chapter_7']:
+    for chapter in ['Chapter_1', 'Chapter_2', 'Chapter_3', 'Chapter_4', 'Chapter_5', 'Chapter_6', 'Chapter_7']:
         records = s.query(Records).filter(Records.uid == uid).all()
         total, right = 0, 0
         for i in records:
@@ -1046,9 +1047,9 @@ def get_accurate_rate(user_name):  # 查record，每章做题数，每章正确�
                 if i.right == 1:
                     right += 1
         if not total == 0:
-            ans.append([total,right/total])
+            ans.append([total, right / total])
         else:
-            ans.append([0,0])
+            ans.append([0, 0])
 
     s.commit()
     s.close()
@@ -1149,11 +1150,12 @@ if __name__ == '__main__':
     #                 "RRRR")
 
     # Base.metadata.drop_all(engine)
-    # Base.metadata.create_all(engine)  # 一键在数据库生成所有的类
+    Base.metadata.create_all(engine)  # 一键在数据库生成所有的类
+    # Base.metadata.drop_all(engine)#一键清除S
     # create_new_user('fmy','',True)
-    create_new_group('group', 'fmy')
+    # create_new_group('group', 'fmy')
     # print(draft("莱特"))
-    # change_quote("yeah", "manager")
+    # change_quote("yeah", "fmy")
     # s = create_session()
     # questions = s.query(Questions).filter(Questions.uid == 21371321).all()
     # for i in questions:
