@@ -246,6 +246,10 @@ class WrongWindow(QWidget):
         result = ResultDialog(answer, myrate, allrate)
         result.exec_()
         self.next()
+    def star(self):
+        Stu.star_questioin(self.username,self.ques[self.cur])
+        reply = QMessageBox.about(self, '收藏问题', '收藏成功')
+
 
     def button_init(self):
         self.Ui.s_chap.clicked.connect(self.select_chapter)
@@ -261,6 +265,7 @@ class WrongWindow(QWidget):
         self.Ui.pushButton_4.clicked.connect(self.select_do_question_d)
         self.Ui.confirm_mul.clicked.connect(self.mul_do_question)
         self.Ui.confirm_blank.clicked.connect(self.blank_do_question)
+        self.Ui.shoucang.clicked.connect(self.star)
 
 
 if __name__ == '__main__':
