@@ -1,5 +1,7 @@
 import PyQt5
 import numpy as np
+from PyQt5.QtChart import QChart, QScatterSeries, QValueAxis, QChartView
+
 import Stu
 from pyqtgraph.Qt import QtGui, QtCore
 import pyqtgraph as pg
