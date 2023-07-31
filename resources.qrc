@@ -1,0 +1,15 @@
+<RCC>
+  <qresource prefix="images">
+    <file>picture/书.png</file>
+    <file>picture/pencil.png</file>
+    <file>icon/Ok.png</file>
+    <file>icon/Cancel.png</file>
+    <file>icon/welcom.png</file>
+    <file>picture/welcom.jpg</file>
+  </qresource>
+  <qresource prefix="icons">
+    <file>icon/star.png</file>
+    <file>icon/search.png</file>
+    <file>icon/close.png</file>
+  </qresource>
+</RCC>
