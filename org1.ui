@@ -121,7 +121,7 @@ background-color: rgb(255, 170, 0);</string>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>4</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="my_ad">
      <widget class="QWidget" name="wad" native="true">
@@ -1196,46 +1196,6 @@ font: 12pt &quot;Agency FB&quot;;
           <string>PushButton</string>
          </property>
         </widget>
-        <widget class="QLabel" name="label_26">
-         <property name="geometry">
-          <rect>
-           <x>400</x>
-           <y>10</y>
-           <width>91</width>
-           <height>41</height>
-          </rect>
-         </property>
-         <property name="font">
-          <font>
-           <family>Agency FB</family>
-           <pointsize>18</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>范围</string>
-         </property>
-        </widget>
-        <widget class="QComboBox" name="lineEdit_type_4">
-         <property name="geometry">
-          <rect>
-           <x>620</x>
-           <y>10</y>
-           <width>191</width>
-           <height>51</height>
-          </rect>
-         </property>
-         <property name="font">
-          <font>
-           <family>Agency FB</family>
-           <pointsize>14</pointsize>
-          </font>
-         </property>
-         <item>
-          <property name="text">
-           <string>全部问题</string>
-          </property>
-         </item>
-        </widget>
        </widget>
        <widget class="QPushButton" name="pushButton_10">
         <property name="geometry">
@@ -1411,6 +1371,46 @@ font: 12pt &quot;Agency FB&quot;;
          </property>
         </item>
        </widget>
+       <widget class="QComboBox" name="lineEdit_type_4">
+        <property name="geometry">
+         <rect>
+          <x>350</x>
+          <y>20</y>
+          <width>191</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Agency FB</family>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
+        <item>
+         <property name="text">
+          <string>全部问题</string>
+         </property>
+        </item>
+       </widget>
+       <widget class="QLabel" name="label_26">
+        <property name="geometry">
+         <rect>
+          <x>130</x>
+          <y>10</y>
+          <width>91</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Agency FB</family>
+          <pointsize>18</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>范围</string>
+        </property>
+       </widget>
        <zorder>widget_ques</zorder>
        <zorder>searchGroup</zorder>
        <zorder>pushButton_11</zorder>
@@ -1424,6 +1424,8 @@ font: 12pt &quot;Agency FB&quot;;
        <zorder>pushButton_12</zorder>
        <zorder>lineEdit_type_2</zorder>
        <zorder>lineEdit_chapter_2</zorder>
+       <zorder>lineEdit_type_4</zorder>
+       <zorder>label_26</zorder>
       </widget>
      </widget>
     </widget>
