@@ -114,14 +114,14 @@ background-color: rgb(255, 170, 0);</string>
    <widget class="QStackedWidget" name="stackedWidget">
     <property name="geometry">
      <rect>
-      <x>60</x>
+      <x>50</x>
       <y>90</y>
       <width>1321</width>
       <height>561</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>5</number>
+     <number>4</number>
     </property>
     <widget class="QWidget" name="my_ad">
      <widget class="QWidget" name="wad" native="true">
@@ -1431,7 +1431,7 @@ font: 12pt &quot;Agency FB&quot;;
      <widget class="QWidget" name="wnorm" native="true">
       <property name="geometry">
        <rect>
-        <x>40</x>
+        <x>30</x>
         <y>20</y>
         <width>861</width>
         <height>461</height>
@@ -1444,8 +1444,8 @@ background-color: rgb(255, 203, 151);</string>
       <widget class="QLabel" name="hello1">
        <property name="geometry">
         <rect>
-         <x>130</x>
-         <y>20</y>
+         <x>50</x>
+         <y>10</y>
          <width>81</width>
          <height>41</height>
         </rect>
@@ -1464,8 +1464,8 @@ background-color: rgb(255, 203, 151);</string>
       <widget class="QLabel" name="tp1">
        <property name="geometry">
         <rect>
-         <x>130</x>
-         <y>60</y>
+         <x>50</x>
+         <y>50</y>
          <width>161</width>
          <height>61</height>
         </rect>
@@ -1563,7 +1563,7 @@ background-color: rgb(255, 203, 151);</string>
        <property name="geometry">
         <rect>
          <x>290</x>
-         <y>60</y>
+         <y>50</y>
          <width>161</width>
          <height>61</height>
         </rect>
@@ -1589,7 +1589,7 @@ background-color: rgb(255, 203, 151);</string>
         </rect>
        </property>
        <property name="text">
-        <string>个人谏言：</string>
+        <string>个人简介：</string>
        </property>
       </widget>
       <widget class="QLabel" name="label_motto">
@@ -1644,7 +1644,7 @@ background-color: rgb(255, 203, 151);</string>
         <string notr="true">background-color:rgb(255, 170, 0)</string>
        </property>
        <property name="text">
-        <string>改谏言</string>
+        <string>改个人简介</string>
        </property>
       </widget>
      </widget>

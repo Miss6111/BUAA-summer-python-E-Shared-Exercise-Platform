@@ -488,9 +488,8 @@ def initial_data():
     :param name:
     :param path:
     """
+    create_new_user("manager", "666666", 1)
     s = create_session()
-    new = Stus(uid=21371321, name="fmy")  # 此人为管理员，作为初始题目的上传者
-    s.add(new)
     for i in range(1, 9):
         s.add(Chapters(name='Chapter_' + str(i), ques=[]))
     s.commit()
@@ -526,15 +525,15 @@ def initial_data():
             if i % 2 == 0 or len(answer_) > 2:  # 选择
                 if len(answer_) > 2:
                     load_one_question(title, ''.join(answer), chapters[int(i / 150) + 1], 2, A, B, C, D, '',
-                                      public=True, creater='fmy')
+                                      public=True, creater='manager')
                 # title, answer, chapter, my_type, answer1, answer2, answer3, answer4, gap, public, creater
                 else:
                     load_one_question(title, ''.join(answer), chapters[int(i / 150) + 1], 0, A, B, C, D, '',
                                       public=True,
-                                      creater='fmy')
+                                      creater='manager')
             else:  # 填空
                 load_one_question(title, '', chapters[int(i / 150) + 1], 1, A, B, C, D, gap, public=True,
-                                  creater='fmy')
+                                  creater='manager')
 
 
 def load_files(path, name):  # 需要规定文件格式？？再想
@@ -564,41 +563,7 @@ def load_files(path, name):  # 需要规定文件格式？？再想
 
 
 # 根据关键词搜索问题
-def scope_questions(ques_name, chapters_name, mytype, user_name):  # 关键词，章节，题型
-    """
-
-    :param ques_name:
-    :param chapters_name:
-    :param mytype:
-    :param user_name:
-    :return:
-    """
-    s = create_session()
-    # 搜索范围包括questions中的public或上传者为本人的，和qgroup中的
-    uid = s.query(Stus).filter(Stus.name == user_name).first().uid
-    stu = s.query(Stus).filter(Stus.name == user_name).first()
-    qgroupids = [i.gid for i in stu.qgroups]
-    q = s.query(Questions).filter(Questions.chapter.in_(chapters_name)).filter(Questions.type == mytype).filter(
-        Questions.title.like('%' + ques_name + '%')).all()
-    ques = []
-    for i in q:
-        flag = False
-        for j in i.qgroups:
-            if j.gid in qgroupids:
-                flag = True
-                break
-        if i.uid == uid or i.public == True or flag == True:
-            ques.append(i.qid)
-    # 目前仅支持关键词为title子串
-    s.commit()
-    s.close()
-    print(ques)
-    return ques  # 返回值为满足要求的qid
-
-
-# ************************************************************************************************************** #
-# 根据关键词搜索问题 ["Chapter_1","Chapter_2"]
-def scope_questions_title(ques_name, chapters_name, mytype, user_name):  # 关键词，章节，题型
+def scope_questions(ques_name, chapters_name, mytype, user_name, qgroups):  # 关键词，章节，题型
     """
 
     :param ques_name:
@@ -612,7 +577,48 @@ def scope_questions_title(ques_name, chapters_name, mytype, user_name):  # 关�
     # 搜索范围包括questions中的public或上传者为本人的，和qgroup中的
     uid = s.query(Stus).filter(Stus.name == user_name).first().uid
     stu = s.query(Stus).filter(Stus.name == user_name).first()
-    qgroupids = [i.gid for i in stu.qgroups]
+    if len(qgroups) == 0:
+        qgroupids = [i.gid for i in stu.qgroups]
+    else:
+        qgroupids = [i.gid for i in qgroups]
+    q = s.query(Questions).filter(Questions.chapter.in_(chapters_name)).filter(
+        or_(Questions.type == mytype, Questions.type == 2 - mytype)).filter(
+        Questions.title.like('%' + ques_name + '%')).all()
+    ques = []
+    for i in q:
+        flag = False
+        for j in i.qgroups:
+            if j.gid in qgroupids:
+                flag = True
+                break
+        if i.uid == uid or i.public == True or flag == True:
+            ques.append(i.qid)
+    # 目前仅支持关键词为title子串
+    s.commit()
+    s.close()
+    return ques  # 返回值为满足要求的qid
+
+
+# ************************************************************************************************************** #
+# 根据关键词搜索问题 ["Chapter_1","Chapter_2"]
+def scope_questions_title(ques_name, chapters_name, mytype, user_name, qgroups):  # 关键词，章节，题型
+    """
+
+    :param ques_name:
+    :param chapters_name:
+    :param mytype:
+    :param user_name:
+    :return:
+    """
+    print([ques_name, chapters_name, mytype, user_name])
+    s = create_session()
+    # 搜索范围包括questions中的public或上传者为本人的，和qgroup中的
+    uid = s.query(Stus).filter(Stus.name == user_name).first().uid
+    stu = s.query(Stus).filter(Stus.name == user_name).first()
+    if len(qgroups) == 0:
+        qgroupids = [i.gid for i in stu.qgroups]
+    else:
+        qgroupids = [i.gid for i in qgroups]
     q = s.query(Questions).filter(Questions.chapter.in_(chapters_name)).filter(
         or_(Questions.type == mytype, Questions.type == 2 - mytype)).filter(
         Questions.title.like('%' + ques_name + '%')).all()
@@ -758,8 +764,9 @@ def add_ques_into_group(name, questions):  # 传入问题编号/后续可以考�
     """
     s = create_session()
     group = s.query(QGroups).filter(QGroups.name == name).first()
+    print(name)
     for i in questions:  # 将选中问题加入问题组中
-        temp = s.query(Questions).filter(Questions.qid == i).first()
+        temp = s.query(Questions).filter(Questions.title == i).first()
         temp.qgroups.append(group)
     s.commit()
     s.close()
@@ -1089,8 +1096,19 @@ def search_qgroups(user):
     uid = s.query(Stus).filter(Stus.name == user).first().uid
     groups = s.query(QGroups).filter(QGroups.uid == uid).all()
     names = []
+    public = s.query(QGroups).filter(QGroups.public == True).all()
+    pri = s.query(QGroups).filter(QGroups.public == False).all()
+    private = []
+    for i in pri:
+        private.append(i)
     for i in groups:
-        names.append(i.name)
+        if not i in private:
+            names.append(i.name)
+    for i in public:
+        if not i.name in names:
+            names.append(public)
+
+
     s.close()
     s.commit()
     return names
@@ -1123,14 +1141,15 @@ def search_ques(key):
     return name
 
 
-def ques_in_qgroup(name):
+def ques_in_qgroup(name):#传入的是组名
     s = create_session()
     g = s.query(QGroups).filter(QGroups.name == name).first()
     gid = g.gid
     qids_ = s.query(Ques_qgroup).filter(Ques_qgroup.gid == gid).all()
     qids = []
     for i in qids_:
-        qids.append([i.qid, i.title])
+        title = s.query(Questions).filter(Questions.qid == i.qid).first().title
+        qids.append([i.qid, title])
     s.close()
     return qids
 
@@ -1150,16 +1169,16 @@ if __name__ == '__main__':
     #                 "RRRR")
 
     Base.metadata.create_all(engine)  # 一键在数据库生成所有的类
-    change_quote("new", "fmy")
+    # change_quote("new", "fmy")
     # Base.metadata.drop_all(engine)
     # create_new_user('fmy','',True)
     # create_new_group('group', 'fmy')
     # load_files("D:\\Users\\23673\\Desktop\\summer_python\\upload_file1.xlsx", "lyj")
     # print(draft("选择题，答案是A"))
-    print(scope_questions("选择题，答案是A", ["Chapter_1"], 0, "lyj"))
+    # print(scope_questions("选择题，答案是A", ["Chapter_1"], 0, "lyj"))
     # for i in scope_questions("选择题，答案是A", ["Chapter_1"], 0, "lyj"):
     #     print(get_question(i))
-    # print(draft("莱特"))
+    print(draft("1.3＜Ma≤5.0"))
     # change_quote("yeah", "manager")
     # s = create_session()
     # questions = s.query(Questions).filter(Questions.uid == 21371321).all()
