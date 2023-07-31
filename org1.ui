@@ -1654,9 +1654,9 @@ background-color: rgb(255, 203, 151);</string>
       <property name="geometry">
        <rect>
         <x>40</x>
-        <y>30</y>
+        <y>20</y>
         <width>1211</width>
-        <height>671</height>
+        <height>681</height>
        </rect>
       </property>
       <property name="currentIndex">
@@ -2331,7 +2331,7 @@ background-color: rgb(255, 170, 127);</string>
         <property name="geometry">
          <rect>
           <x>680</x>
-          <y>0</y>
+          <y>10</y>
           <width>93</width>
           <height>28</height>
          </rect>
@@ -2996,19 +2996,6 @@ background-color: rgb(255, 170, 127);</string>
          </widget>
         </widget>
        </widget>
-       <widget class="QPushButton" name="comment_2">
-        <property name="geometry">
-         <rect>
-          <x>700</x>
-          <y>0</y>
-          <width>93</width>
-          <height>28</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>评论区</string>
-        </property>
-       </widget>
        <widget class="QTextEdit" name="textEdit_comment_2">
         <property name="geometry">
          <rect>
@@ -3017,19 +3004,6 @@ background-color: rgb(255, 170, 127);</string>
           <width>181</width>
           <height>64</height>
          </rect>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="load_2">
-        <property name="geometry">
-         <rect>
-          <x>700</x>
-          <y>360</y>
-          <width>93</width>
-          <height>28</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>上传评论</string>
         </property>
        </widget>
        <widget class="QPushButton" name="comment_next_2">
@@ -3059,6 +3033,32 @@ background-color: rgb(255, 170, 127);</string>
         </property>
         <property name="text">
          <string>查看问题</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="comment_2">
+        <property name="geometry">
+         <rect>
+          <x>700</x>
+          <y>10</y>
+          <width>93</width>
+          <height>28</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>收藏</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="load_2">
+        <property name="geometry">
+         <rect>
+          <x>700</x>
+          <y>360</y>
+          <width>93</width>
+          <height>28</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>上传问题</string>
         </property>
        </widget>
       </widget>
