@@ -138,7 +138,7 @@ class MainWindow(QDialog):
         axis_y = QValueAxis()
         axis_y.setTitleText('掌握能力')
         axis_y.setLabelFormat("%d")
-        axis_y.setRange(0, 100)  # 设置 Y 轴范围
+        axis_y.setRange(0, 1)  # 设置 Y 轴范围
         axis_y.setTickCount(11)  # 设置 Y 轴刻度数量
         chart.addAxis(axis_y, Qt.AlignLeft)
         line_series.attachAxis(axis_y)

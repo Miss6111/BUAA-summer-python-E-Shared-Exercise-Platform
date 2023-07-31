@@ -156,6 +156,7 @@ class WrongWindow(QWidget):
 
     def fresh(self):
         self.Ui.exercise.setText('')
+        self.Ui.lineEdit.setText('')
 
     def next(self):
         print('next')
@@ -179,14 +180,11 @@ class WrongWindow(QWidget):
         answer = lis[0] == 1
         myrate = lis[3]
         allrate = lis[4]
+        print(1)
         result = ResultDialog(answer,myrate,allrate)
+        print(2)
         result.exec_()
-        # text = ''
-        # if answer:
-        #     text = '正确'
-        # else:
-        #     text = '错误'
-        # reply = QMessageBox.about(self, '', text)
+        print(3)
         self.next()
 
     def select_do_question_b(self):
@@ -258,6 +256,7 @@ class WrongWindow(QWidget):
         self.mode_list.confirm_button.clicked.connect(self.mode_select_confirm)
         self.Ui.s_confirm.clicked.connect(self.confirm_enum)
         self.Ui.nexte.clicked.connect(self.next)
+        self.Ui.pree.clicked.connect(self.pre)
         self.Ui.start.clicked.connect(self.startexercise)
         self.Ui.pushButton.clicked.connect(self.select_do_question_a)
         self.Ui.pushButton_2.clicked.connect(self.select_do_question_b)

@@ -183,7 +183,7 @@ def create_new_user(name, password, manager):  # 按下注册确定按键的瞬�
         return False
     else:
         new = Stus(name=name, password=password, issuper=manager, Bi="你还没有写任何简介", quote="", groups=[],
-                   qgroups=[], starquestions=[])
+                   qgroups=[])
         s.add(new)
         s.commit()
         s.close()
@@ -311,6 +311,7 @@ def create_new_group(g_name, name):  # 创建一个空的新的小组(小组名)
         s.add(new)
         s.commit()
         s.close()
+        return True
 
 
 # 将一组人加进group，注意问题权限
@@ -487,16 +488,14 @@ def initial_data():
     :param name:
     :param path:
     """
-    s = create_session()
-    new = Stus(uid=21371321, name="fmy", starquestions=[])  # 此人为管理员，作为初始题目的上传者
-    s.add(new)
-    s.commit()
-    change_quote("yeah", "fmy")
-    for i in range(1, 9):
-        s.add(Chapters(name='Chapter_' + str(i), ques=[]))
-    s.commit()
-    s.close()
-    f = openpyxl.load_workbook("D:\\Users\\23673\\Desktop\\summer_python\\try.xlsx")  # 改成本地的地址
+    # s = create_session()
+    # new = Stus(uid=21371321, name="fmy")  # 此人为管理员，作为初始题目的上传者
+    # s.add(new)
+    # for i in range(1, 9):
+    #     s.add(Chapters(name='Chapter_' + str(i), ques=[]))
+    # s.commit()
+    # s.close()
+    f = openpyxl.load_workbook("C:\\Users\\dyh\\Desktop\\qu.xlsx")  # 改成本地的地址
     names = f.sheetnames  # 所有sheet
     for sheet_name in names:  # 每一页
         sheet = f[sheet_name]
@@ -535,7 +534,7 @@ def initial_data():
                                       creater='fmy')
             else:  # 填空
                 load_one_question(title, '', chapters[int(i / 150) + 1], 1, A, B, C, D, gap, public=True,
-                                  creater='fmy')
+                                  creater='manager')
 
 
 def load_files(path, name):  # 需要规定文件格式？？再想
@@ -558,9 +557,10 @@ def load_files(path, name):  # 需要规定文件格式？？再想
             answer2 = sheet.cell(i + 1, 6).value
             answer3 = sheet.cell(i + 1, 7).value
             answer4 = sheet.cell(i + 1, 8).value
-            # 默认是公开的
-            load_one_question(title, answer, chapter, mytype, answer1, answer2, answer3, answer4, public=True,
-                              creater=name)
+            # 默认非公开
+            load_one_question(title=title, answer=answer, chapter=chapter, my_type=mytype,
+                              answer1=answer1, answer2=answer2, answer3=answer3, answer4=answer4, public=False,
+                              creater=name, gap=answer)
 
 
 # 根据关键词搜索问题
@@ -588,7 +588,7 @@ def scope_questions(ques_name, chapters_name, mytype, user_name):  # 关键词�
                 flag = True
                 break
         if i.uid == uid or i.public == True or flag == True:
-            ques.append(i)
+            ques.append(i.qid)
     # 目前仅支持关键词为title子串
     s.commit()
     s.close()
@@ -823,16 +823,16 @@ def show_some_comments(qid):
     return re  # 返回的是[内容，发送人]
 
 
-def show_more_comments(qid):
+def show_more_comments():
     """
    # 全部评论
     :return: 返回全部评论
     """
     s = create_session()
     re = []
-    comments = s.query(Comments).filter(Comments.qid == qid).all()
+    comments = s.query(Comments).all()
     for i in comments:
-        sender = s.query(Stus).filter(Stus.uid == i.sender).first().name
+        sender = s.query(Stus).filter(Stus.uid == i.sender).filter(Comments.qid == qid).first().name
         re.append([i.content, sender])
     s.close()
     return re  # 返回的是[内容，发送人]
@@ -889,8 +889,8 @@ def do_question(qid, user_name, answer, gap):  # 题目id;是否正确
     ques = s.query(Questions).filter(Questions.qid == qid).first()
     ques.total = ques.total + 1
     right = (mytype == 0 or mytype == 2) and answer == myanswer or mytype == 1 and gap == mygap
-    print(["check:", qid, mytype, myanswer, mygap])
-    print(["myanswer:", qid, right, answer, gap])
+    print([mytype, myanswer, mygap])
+    print([right, answer, gap])
     if right == 1:
         ques.right = ques.right + 1
     records = s.query(Records).filter(Records.uid == uid, Records.qid == qid).all()
@@ -921,7 +921,7 @@ def do_question(qid, user_name, answer, gap):  # 题目id;是否正确
         nevers = s.query(Records).filter(Records.uid == uid, Records.qid == qid).all()
         for i in nevers:
             i.never = 0
-    lis = [right, myanswer, mygap, true / total, ques.right / ques.total]
+    lis = [right, myanswer, mygap, int(100 * true / total), int(100 * ques.right / ques.total)]
     print([ques.right, ques.total])
     s.commit()
     s.close()
@@ -1019,7 +1019,6 @@ def get_question(qid):
     else:
         lis = [ques.title, ques.type,
                ques.answer, ques.answerA, ques.answerB, ques.answerC, ques.answerD]
-    print(lis)
     s.commit()
     s.close()
     return lis
@@ -1042,14 +1041,14 @@ def get_accurate_rate(user_name):  # 查record，每章做题数，每章正确�
         for i in records:
             id = i.qid
             cha = s.query(Questions).filter(Questions.qid == id).first().chapter
-            if chapter.name == cha:
+            if chapter == cha:
                 total += 1
                 if i.right == 1:
                     right += 1
         if not total == 0:
             ans.append([total, right / total])
         else:
-            ans.append([0, 0])
+            ans.append([0, 0.0])
 
     s.commit()
     s.close()
@@ -1150,12 +1149,15 @@ if __name__ == '__main__':
     #                 "RRRR")
 
     # Base.metadata.drop_all(engine)
-    Base.metadata.create_all(engine)  # 一键在数据库生成所有的类
-    # Base.metadata.drop_all(engine)#一键清除S
+    # Base.metadata.create_all(engine)  # 一键在数据库生成所有的类
     # create_new_user('fmy','',True)
     # create_new_group('group', 'fmy')
+    # load_files("D:\\Users\\23673\\Desktop\\summer_python\\upload_file1.xlsx", "lyj")
+    # print(draft("选择题，答案是A"))
+    for i in scope_questions("选择题，答案是A", ["Chapter_1"], 0, "lyj"):
+        print(get_question(i))
     # print(draft("莱特"))
-    # change_quote("yeah", "fmy")
+    # change_quote("yeah", "manager")
     # s = create_session()
     # questions = s.query(Questions).filter(Questions.uid == 21371321).all()
     # for i in questions:
@@ -1180,7 +1182,8 @@ if __name__ == '__main__':
     # print(scope_questions("四次", ["Chapter_1", "Chapter_2"], 1, "manager"))
     # print(do_question(1, "manager", "0001", ""))
     ################################
-    initial_data()
+    # initial_data()
+    # create_new_user("manager", "666666", 1)
     # print(do_question(1, "manager", "0010", ""))
     # print(do_question(2, "manager", "", "1903年12月17日；美国"))
     # print(do_question(1, "manager", "0001", ""))

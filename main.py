@@ -157,9 +157,6 @@ if __name__ == '__main__':
 
     orgUi = org1.Ui_MainWindow()
     orgUi.setupUi(win)
-
-    orgUi.scrollArea.hide()
-    orgUi.scrollArea_3.hide()
     orgUi.load.hide()
     orgUi.load_2.hide()
     orgUi.comment.show()
@@ -168,10 +165,14 @@ if __name__ == '__main__':
     orgUi.textEdit_comment_2.hide()
     orgUi.scrollArea2.hide()
     orgUi.scrollArea3.hide()
+    orgUi.scrollArea4.hide()
     orgUi.scrollArea5.hide()
     orgUi.scrollArea2_3.hide()
     orgUi.scrollArea3_3.hide()
+    orgUi.scrollArea4_3.hide()
     orgUi.scrollArea5_3.hide()
+    orgUi.scrollArea.hide()
+    orgUi.scrollArea_3.hide()
     orgUi.stackedWidget.setCurrentIndex(1)
 
     page = 1
@@ -191,7 +192,7 @@ if __name__ == '__main__':
 
 
     def change_widget_1():  # 上传问题
-
+        orgUi.stackedWidget.setCurrentIndex(2)
         orgUi.answer_load_A.hide()
         orgUi.A_load.hide()
         orgUi.answer_load_B.hide()
@@ -227,11 +228,28 @@ if __name__ == '__main__':
 
     def change_widget_3():  # 查看问题
         orgUi.stackedWidget.setCurrentIndex(5)
+
+        orgUi.load.hide()
+        orgUi.load_2.hide()
+        orgUi.comment.show()
+        orgUi.comment_2.show()
+        orgUi.textEdit_comment.hide()
+        orgUi.textEdit_comment_2.hide()
+        orgUi.scrollArea2.hide()
+        orgUi.scrollArea3.hide()
+        orgUi.scrollArea4.hide()
+        orgUi.scrollArea5.hide()
+        orgUi.scrollArea2_3.hide()
+        orgUi.scrollArea3_3.hide()
+        orgUi.scrollArea4_3.hide()
+        orgUi.scrollArea5_3.hide()
+        orgUi.scrollArea.hide()
+        orgUi.scrollArea_3.hide()
         lis = Stu.get_question(1)
         t = str(1)
         print(t)
         orgUi.label_2.setText(t)
-        change_widget_q(lis[0], lis[2], lis[1],1)
+        change_widget_q(lis[0], lis[2], lis[1],1,0)
 
 
     def change_widget_4():  # 错误日志
@@ -396,12 +414,18 @@ if __name__ == '__main__':
             orgUi.page.hide()
             orgUi.page_3.hide()
             orgUi.textBrowser_3.setText(text)
+            orgUi.notice_2.show()
+            orgUi.comment_2.show()
+            orgUi.comment_next_2.show()
             ans = orgUi.answer1.text()
             orgUi.submit.clicked.connect(lambda: change_widget_submit(qid, user, ans, lis[2]))
         else:
             orgUi.page.show()
             orgUi.page_2.hide()
             orgUi.page_3.hide()
+            orgUi.notice.show()
+            orgUi.comment.show()
+            orgUi.comment_next.show()
             orgUi.A.setText("A " + lis[3])
             orgUi.B.setText("B " + lis[4])
             orgUi.C.setText("C " + lis[5])
@@ -425,7 +449,7 @@ if __name__ == '__main__':
             if orgUi.D.text()[0:1] == "!":
                 myans[3] = '1'
 
-            ans = ''.join(myans)
+            ans = myans[0] + myans[1] + myans[2] + myans[3]
             orgUi.submit1.clicked.connect(lambda: change_widget_submit1(qid, user, ans, lis[2]))
 
 
@@ -558,7 +582,7 @@ if __name__ == '__main__':
             orgUi.notice_2.setText("1")
 
     def change_widget_comment():
-        s = orgUi.notice.setText("1")
+        orgUi.notice.setText("1")
         orgUi.scrollArea.show()
         orgUi.scrollArea2.hide()
         orgUi.scrollArea3.hide()
@@ -567,9 +591,15 @@ if __name__ == '__main__':
         orgUi.load.show()
         orgUi.comment_next.show()
         orgUi.textEdit_comment.show()
+        qid = int(orgUi.label_2.text())
+        lis = Stu.show_some_comments(qid)
+        length = len(lis)
+        for i in range(0, length):
+            x = i + 1
+            exec("orgUi.comment" + str(x) + ".setText(lis[" + str(i) + "])")
 
     def change_widget_comment_2():
-        s = orgUi.notice_2.setText("1")
+        orgUi.notice_2.setText("1")
         orgUi.scrollArea_3.show()
         orgUi.scrollArea2_3.hide()
         orgUi.scrollArea3_3.hide()
@@ -578,49 +608,74 @@ if __name__ == '__main__':
         orgUi.load_2.show()
         orgUi.comment_next_2.show()
         orgUi.textEdit_comment_2.show()
+        qid = int(orgUi.label_2.text())
+        lis = Stu.show_some_comments(qid)
+        length = len(lis)
+        for i in range(0, length):
+            x = i + 1
+            exec("orgUi.comment" + str(x) + "_7.setText(lis[" + str(i) + "])")
 
     def change_widget_load():
-        comment = orgUi.textEdit_comment.toPlainText()
-        x = orgUi.comment1.toPlainText()
+        content = orgUi.textEdit_comment.toPlainText()
 
+        qid = int(orgUi.label_2.text())
         user = "fmy"
         if os.path.exists('temp'):
             with open('temp', "rt") as file:
                 user = file.readline()
-
-        text = ''.join([user,':',comment])
-
-        for i in range(1,31):
-            exec("x" + "=" + "orgUi.comment" + str(i) + ".toPlainText()")
-            print(x)
-            if x == "":
-                exec('orgUi.comment' + str(i) + ".setText(text)")
-                break
-            else:
-                x = ""
-                continue
+        Stu.send_comments(qid, content, user)
+        lis = Stu.show_some_comments(qid)
+        #text = ''.join([user,':',ccontent])
+        length = len(lis)
+        for i in range(0,length):
+            x = i+1
+            exec("orgUi.comment" + str(x) + "_7.setText(lis[" + str(i) + "])")
+#            orgUi.comment1.setText(lis[0])
+#            exec("x" + "=" + "orgUi.comment" + str(i) + ".toPlainText()")
+#            print(x)
+#            if x == "":
+#                exec('orgUi.comment' + str(i) + ".setText(text)")
+#                break
+#            else:
+#                x = ""
+#                continue
             #orgUi.comment1.setText(text)
 
     def change_widget_load_2():
-        comment = orgUi.textEdit_comment_2.toPlainText()
-        x = orgUi.comment1_7.toPlainText()
+        content = orgUi.textEdit_comment_2.toPlainText()
 
-        user = 'fmy'
+        qid = int(orgUi.label_2.text())
+        user = "fmy"
         if os.path.exists('temp'):
             with open('temp', "rt") as file:
                 user = file.readline()
+        Stu.send_comments(qid, content, user)
+        lis = Stu.show_some_comments(qid)
+        # text = ''.join([user,':',content])
+        length = len(lis)
+        for i in range(0, length):
+            x = i + 1
+            exec("orgUi.comment" + str(x) + "_7.setText(lis[" + str(i) + "])")
+#            orgUi.comment1_7.setText(lis[0])
+#        comment = orgUi.textEdit_comment_2.toPlainText()
+#        x = orgUi.comment1_7.toPlainText()
 
-        text = ''.join([user,':',comment])
+#        user = 'fmy'
+#        if os.path.exists('temp'):
+#            with open('temp', "rt") as file:
+#                user = file.readline()
 
-        for i in range(1,31):
-            exec("x" + "=" + "orgUi.comment" + str(i) + "_7" + ".toPlainText()")
-            print(x)
-            if x == "":
-                exec('orgUi.comment' + str(i) + "_7" + ".setText(text)")
-                break
-            else:
-                x = ""
-                continue
+#        text = ''.join([user,':',comment])
+
+#        for i in range(1,31):
+#            exec("x" + "=" + "orgUi.comment" + str(i) + "_7" + ".toPlainText()")
+#            print(x)
+#            if x == "":
+#                exec('orgUi.comment' + str(i) + "_7" + ".setText(text)")
+#                break
+#            else:
+#                x = ""
+#                continue
             #orgUi.comment1.setText(text)
 
     def change_widget_star():
