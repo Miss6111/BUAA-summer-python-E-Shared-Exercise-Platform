@@ -178,12 +178,12 @@ if __name__ == '__main__':
 
     user = 'manager'
     password = ""
-    # if os.path.exists('temp'):
-    #     with open('temp', "rt") as file:
-    #         user = file.readline()
-    # if os.path.exists('pass'):
-    #     with open('pass', "rt") as file:
-    #         password = file.readline()
+    if os.path.exists('temp'):
+        with open('temp', "rt") as file:
+            user = file.readline()
+    if os.path.exists('pass'):
+        with open('pass', "rt") as file:
+            password = file.readline()
 
     orgUi.label_motto.setText(Stu.getMotto(user))
     orgUi.password_change.clicked.connect(norm_action.change_password)
@@ -240,8 +240,8 @@ if __name__ == '__main__':
 
 
     def change_widget_5():  # 我的
-        # flag = Stu.check_super()  # admin todo backend
-        flag = False  # admin
+        flag = Stu.check_super()  # admin todo backend
+        # flag = False  # admin
         if flag:
             tp = '管理员'
             orgUi.stackedWidget.setCurrentIndex(0)
@@ -263,10 +263,10 @@ if __name__ == '__main__':
 
     def change_widget_7():  # 上传
 
-        user = 'manager'
-        if os.path.exists('temp'):
-            with open('temp', "rt") as file:
-                user = file.readline()
+        # user = 'manager'
+        # if os.path.exists('temp'):
+        #     with open('temp', "rt") as file:
+        #         user = file.readline()
         title = orgUi.textEdit_title.toPlainText()
         if orgUi.type_choose.currentText() == "填空":
             type_l = 1
@@ -308,10 +308,10 @@ if __name__ == '__main__':
 
 
     def change_widget_12():  # 搜索按键ques_name,chapters_name,mytype,user
-        user = 'manager'
-        if os.path.exists('temp'):
-            with open('temp', "rt") as file:
-                user = file.readline()
+        # user = 'manager'
+        # if os.path.exists('temp'):
+        #     with open('temp', "rt") as file:
+        #         user = file.readline()
         ques_name = orgUi.lineEdit_key.text()
         chapters_name = orgUi.lineEdit_chapter_2.currentText()
         mytype = orgUi.lineEdit_type_2.currentText()
@@ -583,10 +583,10 @@ if __name__ == '__main__':
         comment = orgUi.textEdit_comment.toPlainText()
         x = orgUi.comment1.toPlainText()
 
-        user = 'manager'
-        if os.path.exists('temp'):
-            with open('temp', "rt") as file:
-                user = file.readline()
+        # user = 'manager'
+        # if os.path.exists('temp'):
+        #     with open('temp', "rt") as file:
+        #         user = file.readline()
 
         text = ''.join([user,':',comment])
 
@@ -605,10 +605,10 @@ if __name__ == '__main__':
         comment = orgUi.textEdit_comment_2.toPlainText()
         x = orgUi.comment1_7.toPlainText()
 
-        user = 'manager'
-        if os.path.exists('temp'):
-            with open('temp', "rt") as file:
-                user = file.readline()
+        # user = 'manager'
+        # if os.path.exists('temp'):
+        #     with open('temp', "rt") as file:
+        #         user = file.readline()
 
         text = ''.join([user,':',comment])
 
@@ -624,19 +624,19 @@ if __name__ == '__main__':
             #orgUi.comment1.setText(text)
 
     def change_widget_star():
-        user = 'manager'
-        if os.path.exists('temp'):
-            with open('temp', "rt") as file:
-                user = file.readline()
+        # user = 'manager'
+        # if os.path.exists('temp'):
+        #     with open('temp', "rt") as file:
+        #         user = file.readline()
         qid = orgUi.label_2.text()
         Stu.star_questioin(user, qid)
 
 
     def change_widget_9(i):#只显示收藏题
-        user = 'manager'
-        if os.path.exists('temp'):
-            with open('temp', "rt") as file:
-                user = file.readline()
+        # user = 'manager'
+        # if os.path.exists('temp'):
+        #     with open('temp', "rt") as file:
+        #         user = file.readline()
         qid = Stu.get_starquestion(user)
         lis = Stu.get_question(qid[i])
         change_widget_q(lis[0], lis[2], lis[1], qid[i], 1)
@@ -678,20 +678,20 @@ if __name__ == '__main__':
         change_widget_9(i)
 
     def change_widget_star2():
-        user = 'manager'
-        if os.path.exists('temp'):
-            with open('temp', "rt") as file:
-                user = file.readline()
+        # user = 'manager'
+        # if os.path.exists('temp'):
+        #     with open('temp', "rt") as file:
+        #         user = file.readline()
         qid = orgUi.label_2.text()
         Stu.star_questioin(user, qid)
 
 
 
     def change_widget_btn(text):  # 按下按钮
-        user = 'manager'
-        if os.path.exists('temp'):
-            with open('temp', "rt") as file:
-                user = file.readline()
+        # user = 'manager'
+        # if os.path.exists('temp'):
+        #     with open('temp', "rt") as file:
+        #         user = file.readline()
         Stu.user_add_into_group(text, user)
 
 
