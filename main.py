@@ -176,14 +176,14 @@ if __name__ == '__main__':
 
     page = 1
 
-    user = 'manager'
+    user = 'fmy'
     password = ""
-    if os.path.exists('temp'):
-        with open('temp', "rt") as file:
-            user = file.readline()
-    if os.path.exists('pass'):
-        with open('pass', "rt") as file:
-            password = file.readline()
+    # if os.path.exists('temp'):
+    #     with open('temp', "rt") as file:
+    #         user = file.readline()
+    # if os.path.exists('pass'):
+    #     with open('pass', "rt") as file:
+    #         password = file.readline()
 
     orgUi.label_motto.setText(Stu.getMotto(user))
     orgUi.password_change.clicked.connect(norm_action.change_password)
@@ -240,8 +240,8 @@ if __name__ == '__main__':
 
 
     def change_widget_5():  # 我的
-        flag = Stu.check_super()  # admin todo backend
-        # flag = False  # admin
+        # flag = Stu.check_super()  # admin todo backend
+        flag = False  # admin
         if flag:
             tp = '管理员'
             orgUi.stackedWidget.setCurrentIndex(0)
@@ -263,10 +263,10 @@ if __name__ == '__main__':
 
     def change_widget_7():  # 上传
 
-        # user = 'manager'
-        # if os.path.exists('temp'):
-        #     with open('temp', "rt") as file:
-        #         user = file.readline()
+        user = 'fmy'
+        if os.path.exists('temp'):
+            with open('temp', "rt") as file:
+                user = file.readline()
         title = orgUi.textEdit_title.toPlainText()
         if orgUi.type_choose.currentText() == "填空":
             type_l = 1
@@ -308,14 +308,14 @@ if __name__ == '__main__':
 
 
     def change_widget_12():  # 搜索按键ques_name,chapters_name,mytype,user
-        # user = 'manager'
-        # if os.path.exists('temp'):
-        #     with open('temp', "rt") as file:
-        #         user = file.readline()
+        user = 'fmy'
+        if os.path.exists('temp'):
+            with open('temp', "rt") as file:
+                user = file.readline()
         ques_name = orgUi.lineEdit_key.text()
         chapters_name = orgUi.lineEdit_chapter_2.currentText()
         mytype = orgUi.lineEdit_type_2.currentText()
-        range = orgUi.lineEdit_type_4.currentTexy()
+        range = orgUi.lineEdit_type_4.currentText()
         x = 0
         if mytype == '填空':
             x = 1
@@ -363,7 +363,7 @@ if __name__ == '__main__':
     def change_widget_q(text, answer, mytype, qid,flag):
         ans = ''
         lis = Stu.get_question(qid)
-        user = 'manager'
+        user = 'fmy'
         if os.path.exists('temp'):
             with open('temp', "rt") as file:
                 user = file.readline()
@@ -385,7 +385,7 @@ if __name__ == '__main__':
         b1 = 0
         c1 = 0
         d1 = 0
-        print(answer)
+        print(lis[2])
         myans = ['0','0','0','0']
         myans[0] = '0'
         myans[1] = '0'
@@ -397,44 +397,44 @@ if __name__ == '__main__':
             orgUi.page_3.hide()
             orgUi.textBrowser_3.setText(text)
             ans = orgUi.answer1.text()
-            orgUi.submit.clicked.connect(lambda: change_widget_submit(qid, user, ans, answer))
+            orgUi.submit.clicked.connect(lambda: change_widget_submit(qid, user, ans, lis[2]))
         else:
             orgUi.page.show()
             orgUi.page_2.hide()
             orgUi.page_3.hide()
-            orgUi.A.setText(lis[3])
-            orgUi.B.setText(lis[4])
-            orgUi.C.setText(lis[5])
-            orgUi.D.setText(lis[6])
+            orgUi.A.setText("A " + lis[3])
+            orgUi.B.setText("B " + lis[4])
+            orgUi.C.setText("C " + lis[5])
+            orgUi.D.setText("D " + lis[6])
             orgUi.textBrowser_2.setText(text)
-            orgUi.A.clicked.connect(lambda: change_widget_a(text, answer, mytype, qid))
-            if orgUi.A.text() == "A!":
+            orgUi.A.clicked.connect(lambda: change_widget_a(lis[3]))
+            if orgUi.A.text()[0:1] == "!":
                 myans[0] = '1'
                 print(a, end="a")
 
-            orgUi.B.clicked.connect(lambda: change_widget_b(text, answer, mytype, qid))
-            if orgUi.B.text() == "B!":
+            orgUi.B.clicked.connect(lambda: change_widget_b(lis[4]))
+            if orgUi.B.text()[0:1] == "!":
                 myans[1] = '1'
                 print(b, end="b")
 
-            orgUi.C.clicked.connect(lambda: change_widget_c(text, answer, mytype, qid))
-            if orgUi.C.text() == "C!":
+            orgUi.C.clicked.connect(lambda: change_widget_c(lis[5]))
+            if orgUi.C.text()[0:1] == "!":
                 myans[2] = '1'
 
-            orgUi.D.clicked.connect(lambda: change_widget_d(text, answer, mytype, qid))
-            if orgUi.D.text() == "D!":
-                myans[3] ='1'
+            orgUi.D.clicked.connect(lambda: change_widget_d(lis[6]))
+            if orgUi.D.text()[0:1] == "!":
+                myans[3] = '1'
 
             ans = ''.join(myans)
-            orgUi.submit1.clicked.connect(lambda: change_widget_submit1(qid, user, ans, answer))
+            orgUi.submit1.clicked.connect(lambda: change_widget_submit1(qid, user, ans, lis[2]))
 
 
     def change_widget_submit1(qid, user, ans, answer):
         liss = Stu.get_question(qid)
-        orgUi.A.setText(liss[3])
-        orgUi.B.setText(liss[4])
-        orgUi.C.setText(liss[5])
-        orgUi.D.setText(liss[6])
+        orgUi.A.setText("A "+liss[3])
+        orgUi.B.setText("B "+liss[4])
+        orgUi.C.setText("C "+liss[5])
+        orgUi.D.setText("D "+liss[6])
         print("enter")
         lis = Stu.do_question(qid, user, ans, ans)
         right = lis[0]
@@ -457,13 +457,13 @@ if __name__ == '__main__':
             else:
                 orgUi.D.setStyleSheet("background-color: rgb(255, 43, 15);")
         else:
-            if answers[0] == '1':
+            if ans[0:1] == '1':
                 orgUi.A.setStyleSheet("background-color: rgb(69, 188, 55);")
-            if answers[1] == '1':
+            if ans[1:2] == '1':
                 orgUi.B.setStyleSheet("background-color: rgb(69, 188, 55);")
-            if answers[2] == '1':
+            if ans[2:3] == '1':
                 orgUi.C.setStyleSheet("background-color: rgb(69, 188, 55);")
-            if answers[3] == '1':
+            if ans[3:] == '1':
                 orgUi.D.setStyleSheet("background-color: rgb(69, 188, 55);")
 
     def change_widget_submit(qid, user, ans, answer):  # 按下按钮
@@ -515,20 +515,20 @@ if __name__ == '__main__':
         change_widget_q(lis[0], lis[2], lis[1], qid,1)
 
 
-    def change_widget_a():
-        orgUi.A.setText("A!")
+    def change_widget_a(text):
+        orgUi.A.setText("!"+text)
         orgUi.A.setStyleSheet("background-color: rgb(255, 203, 151);")
 
-    def change_widget_b():
-        orgUi.B.setText("B!")
+    def change_widget_b(text):
+        orgUi.B.setText("!"+text)
         orgUi.B.setStyleSheet("background-color: rgb(255, 203, 151);")
 
-    def change_widget_c():
-        orgUi.C.setText("C!")
+    def change_widget_c(text):
+        orgUi.C.setText("!"+text)
         orgUi.C.setStyleSheet("background-color: rgb(255, 203, 151);")
 
-    def change_widget_d():
-        orgUi.D.setText("D!")
+    def change_widget_d(text):
+        orgUi.D.setText("!"+text)
         orgUi.D.setStyleSheet("background-color: rgb(255, 203, 151);")
 
 
@@ -583,10 +583,10 @@ if __name__ == '__main__':
         comment = orgUi.textEdit_comment.toPlainText()
         x = orgUi.comment1.toPlainText()
 
-        # user = 'manager'
-        # if os.path.exists('temp'):
-        #     with open('temp', "rt") as file:
-        #         user = file.readline()
+        user = "fmy"
+        if os.path.exists('temp'):
+            with open('temp', "rt") as file:
+                user = file.readline()
 
         text = ''.join([user,':',comment])
 
@@ -605,10 +605,10 @@ if __name__ == '__main__':
         comment = orgUi.textEdit_comment_2.toPlainText()
         x = orgUi.comment1_7.toPlainText()
 
-        # user = 'manager'
-        # if os.path.exists('temp'):
-        #     with open('temp', "rt") as file:
-        #         user = file.readline()
+        user = 'fmy'
+        if os.path.exists('temp'):
+            with open('temp', "rt") as file:
+                user = file.readline()
 
         text = ''.join([user,':',comment])
 
@@ -624,24 +624,25 @@ if __name__ == '__main__':
             #orgUi.comment1.setText(text)
 
     def change_widget_star():
-        # user = 'manager'
-        # if os.path.exists('temp'):
-        #     with open('temp', "rt") as file:
-        #         user = file.readline()
+        user = 'fmy'
+        if os.path.exists('temp'):
+            with open('temp', "rt") as file:
+                user = file.readline()
         qid = orgUi.label_2.text()
         Stu.star_questioin(user, qid)
 
 
     def change_widget_9(i):#只显示收藏题
-        # user = 'manager'
-        # if os.path.exists('temp'):
-        #     with open('temp', "rt") as file:
-        #         user = file.readline()
+        user = 'fmy'
+        if os.path.exists('temp'):
+            with open('temp', "rt") as file:
+                user = file.readline()
         qid = Stu.get_starquestion(user)
-        lis = Stu.get_question(qid[i])
-        change_widget_q(lis[0], lis[2], lis[1], qid[i], 1)
-        orgUi.pushButton_30.clicked.connect(lambda:change_widget_next_star(qid, i))
-        orgUi.pushButton_36.clicked.connect(lambda:change_widget_front_star(qid, i))
+        if qid != None:
+            lis = Stu.get_question(qid[i])
+            change_widget_q(lis[0], lis[2], lis[1], qid[i], 1)
+            orgUi.pushButton_30.clicked.connect(lambda:change_widget_next_star(qid, i))
+            orgUi.pushButton_36.clicked.connect(lambda:change_widget_front_star(qid, i))
 
     def change_widget_next_star(qid,i):
         i = i+1
@@ -678,20 +679,20 @@ if __name__ == '__main__':
         change_widget_9(i)
 
     def change_widget_star2():
-        # user = 'manager'
-        # if os.path.exists('temp'):
-        #     with open('temp', "rt") as file:
-        #         user = file.readline()
+        user = 'fmy'
+        if os.path.exists('temp'):
+            with open('temp', "rt") as file:
+                user = file.readline()
         qid = orgUi.label_2.text()
         Stu.star_questioin(user, qid)
 
 
 
     def change_widget_btn(text):  # 按下按钮
-        # user = 'manager'
-        # if os.path.exists('temp'):
-        #     with open('temp', "rt") as file:
-        #         user = file.readline()
+        user = 'fmy'
+        if os.path.exists('temp'):
+            with open('temp', "rt") as file:
+                user = file.readline()
         Stu.user_add_into_group(text, user)
 
 
@@ -734,7 +735,7 @@ if __name__ == '__main__':
     orgUi.pushButton_5.clicked.connect(change_widget_5)
     orgUi.pushButton_6.clicked.connect(change_widget_6)
     orgUi.pushButton_7.clicked.connect(change_widget_7)
-    orgUi.pushButton_star.clicked.connect(change_widget_9(0))
+    orgUi.pushButton_star.clicked.connect(lambda :change_widget_9(0))
     orgUi.pushButton_10.clicked.connect(change_widget_10)
     orgUi.pushButton_12.clicked.connect(change_widget_12)
     orgUi.pushButton_29.clicked.connect(change_widget_front)
