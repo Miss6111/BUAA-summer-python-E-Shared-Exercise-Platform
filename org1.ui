@@ -6,12 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-<<<<<<< HEAD
-    <width>1044</width>
-=======
-    <width>1318</width>
->>>>>>> 8f1e1412565f3474417d4abfdd6fbde2593c4452
-    <height>617</height>
+    <width>1468</width>
+    <height>960</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -118,25 +114,14 @@ background-color: rgb(255, 170, 0);</string>
    <widget class="QStackedWidget" name="stackedWidget">
     <property name="geometry">
      <rect>
-<<<<<<< HEAD
       <x>60</x>
-      <y>80</y>
-      <width>981</width>
-      <height>781</height>
-     </rect>
-    </property>
-    <property name="currentIndex">
-     <number>12</number>
-=======
-      <x>70</x>
-      <y>70</y>
-      <width>1161</width>
-      <height>791</height>
+      <y>90</y>
+      <width>1321</width>
+      <height>561</height>
      </rect>
     </property>
     <property name="currentIndex">
      <number>5</number>
->>>>>>> 8f1e1412565f3474417d4abfdd6fbde2593c4452
     </property>
     <widget class="QWidget" name="my_ad">
      <widget class="QWidget" name="wad" native="true">
@@ -1034,13 +1019,8 @@ border-top-right-radius:30px;
      <widget class="QPushButton" name="pushButton_8">
       <property name="geometry">
        <rect>
-<<<<<<< HEAD
         <x>850</x>
         <y>110</y>
-=======
-        <x>800</x>
-        <y>30</y>
->>>>>>> 8f1e1412565f3474417d4abfdd6fbde2593c4452
         <width>75</width>
         <height>41</height>
        </rect>
@@ -1049,11 +1029,7 @@ border-top-right-radius:30px;
        <string notr="true">background-color: rgb(255, 203, 151);</string>
       </property>
       <property name="text">
-<<<<<<< HEAD
        <string>上传文件</string>
-=======
-       <string>上传问题</string>
->>>>>>> 8f1e1412565f3474417d4abfdd6fbde2593c4452
       </property>
      </widget>
     </widget>
@@ -1178,7 +1154,7 @@ font: 12pt &quot;Agency FB&quot;;
           </rect>
          </property>
          <property name="text">
-          <string/>
+          <string>PushButton</string>
          </property>
         </widget>
         <widget class="QPushButton" name="question1">
@@ -1191,7 +1167,7 @@ font: 12pt &quot;Agency FB&quot;;
           </rect>
          </property>
          <property name="text">
-          <string/>
+          <string>PushButton</string>
          </property>
         </widget>
         <widget class="QPushButton" name="question2">
@@ -1204,7 +1180,7 @@ font: 12pt &quot;Agency FB&quot;;
           </rect>
          </property>
          <property name="text">
-          <string/>
+          <string>PushButton</string>
          </property>
         </widget>
         <widget class="QPushButton" name="question3">
@@ -1217,7 +1193,7 @@ font: 12pt &quot;Agency FB&quot;;
           </rect>
          </property>
          <property name="text">
-          <string/>
+          <string>PushButton</string>
          </property>
         </widget>
         <widget class="QLabel" name="label_26">
@@ -1674,30 +1650,17 @@ background-color: rgb(255, 203, 151);</string>
      </widget>
     </widget>
     <widget class="QWidget" name="problems">
-     <widget class="QLabel" name="label_2">
-      <property name="geometry">
-       <rect>
-        <x>130</x>
-        <y>150</y>
-        <width>591</width>
-        <height>211</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>查看问题</string>
-      </property>
-     </widget>
      <widget class="QStackedWidget" name="stackedWidget_2">
       <property name="geometry">
        <rect>
         <x>40</x>
-        <y>60</y>
-        <width>1011</width>
-        <height>381</height>
+        <y>30</y>
+        <width>1211</width>
+        <height>671</height>
        </rect>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="page">
        <widget class="QPushButton" name="star">
@@ -1820,6 +1783,574 @@ p, li { white-space: pre-wrap; }
         </property>
         <property name="text">
          <string>提交</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="notice">
+        <property name="geometry">
+         <rect>
+          <x>950</x>
+          <y>10</y>
+          <width>31</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>1</string>
+        </property>
+       </widget>
+       <widget class="QTextEdit" name="textEdit_comment">
+        <property name="geometry">
+         <rect>
+          <x>770</x>
+          <y>360</y>
+          <width>181</width>
+          <height>64</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="comment_next">
+        <property name="geometry">
+         <rect>
+          <x>880</x>
+          <y>10</y>
+          <width>71</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>下一页</string>
+        </property>
+       </widget>
+       <widget class="QScrollArea" name="scrollArea">
+        <property name="geometry">
+         <rect>
+          <x>680</x>
+          <y>40</y>
+          <width>271</width>
+          <height>321</height>
+         </rect>
+        </property>
+        <property name="widgetResizable">
+         <bool>true</bool>
+        </property>
+        <widget class="QWidget" name="scrollAreaWidgetContents">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>269</width>
+           <height>319</height>
+          </rect>
+         </property>
+         <widget class="QTextBrowser" name="comment1">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>10</y>
+            <width>251</width>
+            <height>51</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border-color: rgb(255, 170, 127);</string>
+          </property>
+         </widget>
+         <widget class="QTextBrowser" name="comment2">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>60</y>
+            <width>251</width>
+            <height>51</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border-color: rgb(255, 170, 127);</string>
+          </property>
+         </widget>
+         <widget class="QTextBrowser" name="comment3">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>110</y>
+            <width>251</width>
+            <height>51</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border-color: rgb(255, 170, 127);</string>
+          </property>
+         </widget>
+         <widget class="QTextBrowser" name="comment4">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>160</y>
+            <width>251</width>
+            <height>51</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border-color: rgb(255, 170, 127);</string>
+          </property>
+         </widget>
+         <widget class="QTextBrowser" name="comment5">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>210</y>
+            <width>251</width>
+            <height>51</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border-color: rgb(255, 170, 127);</string>
+          </property>
+         </widget>
+         <widget class="QTextBrowser" name="comment6">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>260</y>
+            <width>251</width>
+            <height>61</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border-color: rgb(255, 170, 127);
+background-color: rgb(255, 170, 127);</string>
+          </property>
+         </widget>
+         <widget class="QScrollArea" name="scrollArea2">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>271</width>
+            <height>321</height>
+           </rect>
+          </property>
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="scrollAreaWidgetContents_2">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>269</width>
+             <height>319</height>
+            </rect>
+           </property>
+           <widget class="QTextBrowser" name="comment7">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>10</y>
+              <width>251</width>
+              <height>51</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-color: rgb(255, 170, 127);</string>
+            </property>
+           </widget>
+           <widget class="QTextBrowser" name="comment8">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>60</y>
+              <width>251</width>
+              <height>51</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-color: rgb(255, 170, 127);</string>
+            </property>
+           </widget>
+           <widget class="QTextBrowser" name="comment9">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>110</y>
+              <width>251</width>
+              <height>51</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-color: rgb(255, 170, 127);</string>
+            </property>
+           </widget>
+           <widget class="QTextBrowser" name="comment10">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>160</y>
+              <width>251</width>
+              <height>51</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-color: rgb(255, 170, 127);</string>
+            </property>
+           </widget>
+           <widget class="QTextBrowser" name="comment11">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>210</y>
+              <width>251</width>
+              <height>51</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-color: rgb(255, 170, 127);</string>
+            </property>
+           </widget>
+           <widget class="QTextBrowser" name="comment12">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>260</y>
+              <width>251</width>
+              <height>61</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(85, 255, 255);</string>
+            </property>
+           </widget>
+          </widget>
+         </widget>
+         <widget class="QScrollArea" name="scrollArea3">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>271</width>
+            <height>321</height>
+           </rect>
+          </property>
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="scrollAreaWidgetContents_9">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>269</width>
+             <height>319</height>
+            </rect>
+           </property>
+           <widget class="QTextBrowser" name="comment13">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>10</y>
+              <width>251</width>
+              <height>51</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-color: rgb(255, 170, 127);</string>
+            </property>
+           </widget>
+           <widget class="QTextBrowser" name="comment14">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>60</y>
+              <width>251</width>
+              <height>51</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-color: rgb(255, 170, 127);</string>
+            </property>
+           </widget>
+           <widget class="QTextBrowser" name="comment15">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>110</y>
+              <width>251</width>
+              <height>51</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-color: rgb(255, 170, 127);</string>
+            </property>
+           </widget>
+           <widget class="QTextBrowser" name="comment16">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>160</y>
+              <width>251</width>
+              <height>51</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-color: rgb(255, 170, 127);</string>
+            </property>
+           </widget>
+           <widget class="QTextBrowser" name="comment17">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>210</y>
+              <width>251</width>
+              <height>51</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-color: rgb(255, 170, 127);</string>
+            </property>
+           </widget>
+           <widget class="QTextBrowser" name="comment18">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>260</y>
+              <width>251</width>
+              <height>61</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(255, 170, 255);</string>
+            </property>
+           </widget>
+          </widget>
+         </widget>
+         <widget class="QScrollArea" name="scrollArea4">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>271</width>
+            <height>321</height>
+           </rect>
+          </property>
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="scrollAreaWidgetContents_10">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>269</width>
+             <height>319</height>
+            </rect>
+           </property>
+           <widget class="QTextBrowser" name="comment19">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>10</y>
+              <width>251</width>
+              <height>51</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-color: rgb(255, 170, 127);</string>
+            </property>
+           </widget>
+           <widget class="QTextBrowser" name="comment20">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>60</y>
+              <width>251</width>
+              <height>51</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-color: rgb(255, 170, 127);</string>
+            </property>
+           </widget>
+           <widget class="QTextBrowser" name="comment21">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>110</y>
+              <width>251</width>
+              <height>51</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-color: rgb(255, 170, 127);</string>
+            </property>
+           </widget>
+           <widget class="QTextBrowser" name="comment22">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>160</y>
+              <width>251</width>
+              <height>51</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-color: rgb(255, 170, 127);</string>
+            </property>
+           </widget>
+           <widget class="QTextBrowser" name="comment23">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>210</y>
+              <width>251</width>
+              <height>51</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-color: rgb(255, 170, 127);</string>
+            </property>
+           </widget>
+           <widget class="QTextBrowser" name="comment24">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>260</y>
+              <width>251</width>
+              <height>61</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(85, 255, 127);</string>
+            </property>
+           </widget>
+          </widget>
+         </widget>
+         <widget class="QScrollArea" name="scrollArea5">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>271</width>
+            <height>321</height>
+           </rect>
+          </property>
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="scrollAreaWidgetContents_11">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>269</width>
+             <height>319</height>
+            </rect>
+           </property>
+           <widget class="QTextBrowser" name="comment25">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>10</y>
+              <width>251</width>
+              <height>51</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-color: rgb(255, 170, 127);</string>
+            </property>
+           </widget>
+           <widget class="QTextBrowser" name="comment26">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>60</y>
+              <width>251</width>
+              <height>51</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-color: rgb(255, 170, 127);</string>
+            </property>
+           </widget>
+           <widget class="QTextBrowser" name="comment27">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>110</y>
+              <width>251</width>
+              <height>51</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-color: rgb(255, 170, 127);</string>
+            </property>
+           </widget>
+           <widget class="QTextBrowser" name="comment28">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>160</y>
+              <width>251</width>
+              <height>51</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-color: rgb(255, 170, 127);</string>
+            </property>
+           </widget>
+           <widget class="QTextBrowser" name="comment29">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>210</y>
+              <width>251</width>
+              <height>51</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-color: rgb(255, 170, 127);</string>
+            </property>
+           </widget>
+           <widget class="QTextBrowser" name="comment30">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>260</y>
+              <width>251</width>
+              <height>61</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(85, 255, 127);</string>
+            </property>
+           </widget>
+          </widget>
+         </widget>
+        </widget>
+       </widget>
+       <widget class="QPushButton" name="comment">
+        <property name="geometry">
+         <rect>
+          <x>680</x>
+          <y>0</y>
+          <width>93</width>
+          <height>28</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>评论区</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="load">
+        <property name="geometry">
+         <rect>
+          <x>680</x>
+          <y>360</y>
+          <width>93</width>
+          <height>28</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>上传评论</string>
         </property>
        </widget>
       </widget>
@@ -1946,6 +2477,590 @@ p, li { white-space: pre-wrap; }
          <string>提交</string>
         </property>
        </widget>
+       <widget class="QLabel" name="notice_2">
+        <property name="geometry">
+         <rect>
+          <x>950</x>
+          <y>10</y>
+          <width>31</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>1</string>
+        </property>
+       </widget>
+       <widget class="QScrollArea" name="scrollArea_3">
+        <property name="geometry">
+         <rect>
+          <x>700</x>
+          <y>40</y>
+          <width>271</width>
+          <height>321</height>
+         </rect>
+        </property>
+        <property name="widgetResizable">
+         <bool>true</bool>
+        </property>
+        <widget class="QWidget" name="scrollAreaWidgetContents_17">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>269</width>
+           <height>319</height>
+          </rect>
+         </property>
+         <widget class="QTextBrowser" name="comment1_7">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>10</y>
+            <width>251</width>
+            <height>51</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border-color: rgb(255, 170, 127);</string>
+          </property>
+         </widget>
+         <widget class="QTextBrowser" name="comment2_7">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>60</y>
+            <width>251</width>
+            <height>51</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border-color: rgb(255, 170, 127);</string>
+          </property>
+         </widget>
+         <widget class="QTextBrowser" name="comment3_7">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>110</y>
+            <width>251</width>
+            <height>51</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border-color: rgb(255, 170, 127);</string>
+          </property>
+         </widget>
+         <widget class="QTextBrowser" name="comment4_7">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>160</y>
+            <width>251</width>
+            <height>51</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border-color: rgb(255, 170, 127);</string>
+          </property>
+         </widget>
+         <widget class="QTextBrowser" name="comment5_7">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>210</y>
+            <width>251</width>
+            <height>51</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border-color: rgb(255, 170, 127);</string>
+          </property>
+         </widget>
+         <widget class="QTextBrowser" name="comment6_7">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>260</y>
+            <width>251</width>
+            <height>61</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border-color: rgb(255, 170, 127);
+background-color: rgb(255, 170, 127);</string>
+          </property>
+         </widget>
+         <widget class="QScrollArea" name="scrollArea2_3">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>271</width>
+            <height>321</height>
+           </rect>
+          </property>
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="scrollAreaWidgetContents_18">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>269</width>
+             <height>319</height>
+            </rect>
+           </property>
+           <widget class="QTextBrowser" name="comment7_7">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>10</y>
+              <width>251</width>
+              <height>51</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-color: rgb(255, 170, 127);</string>
+            </property>
+           </widget>
+           <widget class="QTextBrowser" name="comment8_7">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>60</y>
+              <width>251</width>
+              <height>51</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-color: rgb(255, 170, 127);</string>
+            </property>
+           </widget>
+           <widget class="QTextBrowser" name="comment9_7">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>110</y>
+              <width>251</width>
+              <height>51</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-color: rgb(255, 170, 127);</string>
+            </property>
+           </widget>
+           <widget class="QTextBrowser" name="comment10_7">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>160</y>
+              <width>251</width>
+              <height>51</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-color: rgb(255, 170, 127);</string>
+            </property>
+           </widget>
+           <widget class="QTextBrowser" name="comment11_7">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>210</y>
+              <width>251</width>
+              <height>51</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-color: rgb(255, 170, 127);</string>
+            </property>
+           </widget>
+           <widget class="QTextBrowser" name="comment12_7">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>260</y>
+              <width>251</width>
+              <height>61</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(85, 255, 255);</string>
+            </property>
+           </widget>
+          </widget>
+         </widget>
+         <widget class="QScrollArea" name="scrollArea3_3">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>271</width>
+            <height>321</height>
+           </rect>
+          </property>
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="scrollAreaWidgetContents_19">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>269</width>
+             <height>319</height>
+            </rect>
+           </property>
+           <widget class="QTextBrowser" name="comment13_7">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>10</y>
+              <width>251</width>
+              <height>51</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-color: rgb(255, 170, 127);</string>
+            </property>
+           </widget>
+           <widget class="QTextBrowser" name="comment14_7">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>60</y>
+              <width>251</width>
+              <height>51</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-color: rgb(255, 170, 127);</string>
+            </property>
+           </widget>
+           <widget class="QTextBrowser" name="comment15_7">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>110</y>
+              <width>251</width>
+              <height>51</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-color: rgb(255, 170, 127);</string>
+            </property>
+           </widget>
+           <widget class="QTextBrowser" name="comment16_7">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>160</y>
+              <width>251</width>
+              <height>51</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-color: rgb(255, 170, 127);</string>
+            </property>
+           </widget>
+           <widget class="QTextBrowser" name="comment17_7">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>210</y>
+              <width>251</width>
+              <height>51</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-color: rgb(255, 170, 127);</string>
+            </property>
+           </widget>
+           <widget class="QTextBrowser" name="comment18_7">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>260</y>
+              <width>251</width>
+              <height>61</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(255, 170, 255);</string>
+            </property>
+           </widget>
+          </widget>
+         </widget>
+         <widget class="QScrollArea" name="scrollArea4_3">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>271</width>
+            <height>321</height>
+           </rect>
+          </property>
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="scrollAreaWidgetContents_20">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>269</width>
+             <height>319</height>
+            </rect>
+           </property>
+           <widget class="QTextBrowser" name="comment19_7">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>10</y>
+              <width>251</width>
+              <height>51</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-color: rgb(255, 170, 127);</string>
+            </property>
+           </widget>
+           <widget class="QTextBrowser" name="comment20_7">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>60</y>
+              <width>251</width>
+              <height>51</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-color: rgb(255, 170, 127);</string>
+            </property>
+           </widget>
+           <widget class="QTextBrowser" name="comment21_7">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>110</y>
+              <width>251</width>
+              <height>51</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-color: rgb(255, 170, 127);</string>
+            </property>
+           </widget>
+           <widget class="QTextBrowser" name="comment22_7">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>160</y>
+              <width>251</width>
+              <height>51</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-color: rgb(255, 170, 127);</string>
+            </property>
+           </widget>
+           <widget class="QTextBrowser" name="comment23_7">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>210</y>
+              <width>251</width>
+              <height>51</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-color: rgb(255, 170, 127);</string>
+            </property>
+           </widget>
+           <widget class="QTextBrowser" name="comment24_7">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>260</y>
+              <width>251</width>
+              <height>61</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(85, 255, 127);</string>
+            </property>
+           </widget>
+          </widget>
+         </widget>
+         <widget class="QScrollArea" name="scrollArea5_3">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>271</width>
+            <height>321</height>
+           </rect>
+          </property>
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="scrollAreaWidgetContents_21">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>269</width>
+             <height>319</height>
+            </rect>
+           </property>
+           <widget class="QTextBrowser" name="comment25_7">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>10</y>
+              <width>251</width>
+              <height>51</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-color: rgb(255, 170, 127);</string>
+            </property>
+           </widget>
+           <widget class="QTextBrowser" name="comment26_7">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>60</y>
+              <width>251</width>
+              <height>51</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-color: rgb(255, 170, 127);</string>
+            </property>
+           </widget>
+           <widget class="QTextBrowser" name="comment27_7">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>110</y>
+              <width>251</width>
+              <height>51</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-color: rgb(255, 170, 127);</string>
+            </property>
+           </widget>
+           <widget class="QTextBrowser" name="comment28_7">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>160</y>
+              <width>251</width>
+              <height>51</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-color: rgb(255, 170, 127);</string>
+            </property>
+           </widget>
+           <widget class="QTextBrowser" name="comment29_7">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>210</y>
+              <width>251</width>
+              <height>51</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-color: rgb(255, 170, 127);</string>
+            </property>
+           </widget>
+           <widget class="QTextBrowser" name="comment30_7">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>260</y>
+              <width>251</width>
+              <height>61</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(85, 255, 127);</string>
+            </property>
+           </widget>
+          </widget>
+         </widget>
+        </widget>
+       </widget>
+       <widget class="QPushButton" name="comment_2">
+        <property name="geometry">
+         <rect>
+          <x>700</x>
+          <y>0</y>
+          <width>93</width>
+          <height>28</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>评论区</string>
+        </property>
+       </widget>
+       <widget class="QTextEdit" name="textEdit_comment_2">
+        <property name="geometry">
+         <rect>
+          <x>790</x>
+          <y>360</y>
+          <width>181</width>
+          <height>64</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="load_2">
+        <property name="geometry">
+         <rect>
+          <x>700</x>
+          <y>360</y>
+          <width>93</width>
+          <height>28</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>上传评论</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="comment_next_2">
+        <property name="geometry">
+         <rect>
+          <x>880</x>
+          <y>10</y>
+          <width>71</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>下一页</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_2">
+        <property name="geometry">
+         <rect>
+          <x>70</x>
+          <y>340</y>
+          <width>201</width>
+          <height>71</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 20pt &quot;Agency FB&quot;;</string>
+        </property>
+        <property name="text">
+         <string>查看问题</string>
+        </property>
+       </widget>
       </widget>
       <widget class="QWidget" name="page_3">
        <widget class="QPushButton" name="pushButton_38">
@@ -2059,20 +3174,17 @@ p, li { white-space: pre-wrap; }
        </widget>
       </widget>
      </widget>
-     <widget class="QPushButton" name="pushButton_9">
+     <widget class="QPushButton" name="pushButton_star">
       <property name="geometry">
        <rect>
-        <x>10</x>
+        <x>60</x>
         <y>0</y>
         <width>75</width>
-        <height>31</height>
+        <height>23</height>
        </rect>
       </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(255, 203, 151);</string>
-      </property>
       <property name="text">
-       <string>查看收藏</string>
+       <string> 收藏集</string>
       </property>
      </widget>
     </widget>
